@@ -7,22 +7,19 @@
 <style>
   :root {
     --tcs-blue: #003366;
-    --tcs-light: #e8f0fe;
-    --tcs-border: #b0bec5;
     --ans-green: #2e7d32;
     --not-ans-red: #c62828;
     --review-purple: #6a1b9a;
     --not-visited: #e0e0e0;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; }
-  body { background: #f5f5f5; color: #212121; min-height: 100vh; display: flex; flex-direction: column; }
+  body { background: #f4f6f9; color: #212121; min-height: 100vh; display: flex; flex-direction: column; }
 
-  /* Candidate Top Header */
   .main-header { background: #002b49; color: #fff; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #ffb300; }
-  .logo h1 { font-size: 1.35rem; font-weight: bold; letter-spacing: 0.5px; }
+  .logo h1 { font-size: 1.35rem; font-weight: bold; }
   .logo span { font-size: 0.8rem; color: #b0bec5; }
   .nav-bar { display: flex; gap: 8px; }
-  .nav-link { background: rgba(255,255,255,0.12); color: #fff; border: 1px solid rgba(255,255,255,0.3); padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 0.88rem; font-weight: 600; text-decoration: none; }
+  .nav-link { background: rgba(255,255,255,0.12); color: #fff; border: 1px solid rgba(255,255,255,0.3); padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 0.88rem; font-weight: 600; }
   .nav-link:hover, .nav-link.active { background: #ffb300; color: #000; border-color: #ffb300; }
 
   .content-wrapper { max-width: 1100px; width: 100%; margin: 25px auto; padding: 0 15px; flex: 1; }
@@ -36,15 +33,14 @@
   .btn-submit { background: #002b49; color: #fff; border: none; padding: 10px 24px; font-size: 0.95rem; font-weight: bold; border-radius: 3px; cursor: pointer; margin-top: 15px; }
   .btn-submit:hover { background: #004d80; }
 
-  /* Dynamic Notices */
   .status-notice { padding: 14px 18px; border-radius: 4px; margin-bottom: 20px; font-size: 0.92rem; font-weight: 500; line-height: 1.4; }
   .status-active { background: #e8f5e9; border-left: 5px solid #2e7d32; color: #1b5e20; }
   .status-today { background: #fff8e1; border-left: 5px solid #fbc02d; color: #f57f17; }
   .status-future { background: #e3f2fd; border-left: 5px solid #1976d2; color: #0d47a1; }
 
-  /* REAL TCS iON EXAM CONSOLE INTERFACE */
+  /* REAL TCS iON EXAM CONSOLE */
   #examConsole { display: none; position: fixed; inset: 0; background: #fff; z-index: 9999; flex-direction: column; }
-  .ion-top-bar { background: #285e8e; color: #fff; height: 45px; display: flex; justify-content: space-between; align-items: center; padding: 0 16px; font-size: 0.9rem; border-bottom: 1px solid #1b4468; }
+  .ion-top-bar { background: #285e8e; color: #fff; height: 45px; display: flex; justify-content: space-between; align-items: center; padding: 0 16px; font-size: 0.9rem; }
   .ion-sub-header { background: #e6e6e6; border-bottom: 1px solid #ccc; height: 35px; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; font-size: 0.85rem; }
 
   .ion-body { display: flex; flex: 1; height: calc(100vh - 125px); }
@@ -61,19 +57,18 @@
 
   .ion-footer { height: 50px; background: #e6e6e6; border-top: 1px solid #ccc; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; }
   .ion-btn { padding: 8px 16px; font-size: 0.85rem; font-weight: bold; border-radius: 3px; cursor: pointer; border: 1px solid transparent; }
-  .btn-save { background: #449d44; color: #fff; border-color: #398439; }
-  .btn-review { background: #ec971f; color: #fff; border-color: #d58512; }
-  .btn-clear { background: #fff; color: #333; border-color: #ccc; }
-  .btn-submit-exam { background: #337ab7; color: #fff; border-color: #2e6da4; }
+  .btn-save { background: #449d44; color: #fff; }
+  .btn-review { background: #ec971f; color: #fff; }
+  .btn-clear { background: #fff; color: #333; border: 1px solid #ccc; }
+  .btn-submit-exam { background: #337ab7; color: #fff; }
 
-  /* Right TCS Palette */
   .ion-right { width: 310px; background: #e5f6fd; display: flex; flex-direction: column; border-left: 1px solid #ccc; }
   .candidate-profile-box { padding: 12px; display: flex; gap: 12px; align-items: center; border-bottom: 1px solid #ccc; background: #d9edf7; }
-  .profile-photo { width: 45px; height: 55px; background: #fff; border: 1px solid #999; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; text-align: center; }
+  .profile-photo { width: 45px; height: 55px; background: #fff; border: 1px solid #999; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; }
 
   .palette-symbols { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 8px; font-size: 0.72rem; border-bottom: 1px solid #ccc; background: #fff; }
   .sym-row { display: flex; align-items: center; gap: 6px; }
-  .shape-badge { width: 20px; height: 20px; font-size: 0.7rem; font-weight: bold; color: #fff; display: flex; align-items: center; justify-content: center; border-radius: 3px; }
+  .shape-badge { width: 18px; height: 18px; font-size: 0.7rem; font-weight: bold; color: #fff; display: flex; align-items: center; justify-content: center; }
   .sh-ans { background: var(--ans-green); clip-path: polygon(0 25%, 50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%); }
   .sh-not-ans { background: var(--not-ans-red); border-radius: 50% 50% 0 0; }
   .sh-not-visited { background: #e0e0e0; color: #333; border: 1px solid #999; }
@@ -85,10 +80,16 @@
   .p-cell.not-ans { background: var(--not-ans-red); color: #fff; border-color: var(--not-ans-red); }
   .p-cell.rev { background: var(--review-purple); color: #fff; border-radius: 50%; }
 
-  /* Admit Card Table Layout */
   .admit-card-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.88rem; }
   .admit-card-table td, .admit-card-table th { border: 1px solid #000; padding: 7px 10px; }
   .photo-frame { width: 130px; height: 160px; border: 1px solid #000; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; text-align: center; margin: 0 auto; background: #fafafa; }
+
+  @media print {
+    body * { visibility: hidden; }
+    #admitCardOutput, #admitCardOutput * { visibility: visible; }
+    #admitCardOutput { position: absolute; left: 0; top: 0; width: 100%; }
+    .no-print { display: none !important; }
+  }
 </style>
 </head>
 <body>
@@ -96,7 +97,7 @@
 <header class="main-header">
   <div class="logo">
     <h1>Banking With Meenu</h1>
-    <span>Official IBPS RRB Recruitment & Mock Examination Portal</span>
+    <span>Official IBPS RRB Examination Portal</span>
   </div>
   <nav class="nav-bar">
     <button class="nav-link active" onclick="navigate('apply', event)">Apply Online</button>
@@ -108,7 +109,7 @@
 
 <main class="content-wrapper">
 
-  <!-- 1. APPLY ONLINE FORM -->
+  <!-- 1. APPLY ONLINE -->
   <section id="page-apply" class="page-view">
     <div class="box-card">
       <div class="box-title">IBPS RRB Mock Test 2026 - Online Application Form</div>
@@ -132,40 +133,40 @@
           </div>
           <div class="form-field">
             <label>Mobile Number / मोबाइल *</label>
-            <input type="tel" id="reg_mobile" pattern="[0-9]{10}" placeholder="10 Digit Number" required>
+            <input type="tel" id="reg_mobile" pattern="[0-9]{10}" placeholder="10 Digit Mobile Number" required>
           </div>
           <div class="form-field">
             <label>Email Address / ईमेल *</label>
             <input type="email" id="reg_email" placeholder="name@example.com" required>
           </div>
         </div>
-        <button type="submit" class="btn-submit">Submit Application Form</button>
+        <button type="submit" class="btn-submit">Submit Application</button>
       </form>
     </div>
 
-    <!-- Registration Confirmation Slip (ONLY 6-Digit Reg Number) -->
+    <!-- Registration Slip (Strictly ONLY Registration Number) -->
     <div id="regSlipCard" class="box-card" style="display:none; border:2px solid #2e7d32;">
       <h3 style="color:#2e7d32; margin-bottom:12px;">✓ Application Registered Successfully!</h3>
       <table class="admit-card-table" style="margin-top:0;">
         <tr><th colspan="2" style="background:#f1f8e9; text-align:center;">REGISTRATION CONFIRMATION SLIP - 2026</th></tr>
         <tr>
           <td colspan="2" style="background:#fffde7; padding:12px;">
-            Your Application has been recorded.<br>
-            <strong>Registration Number:</strong> <span id="slip_reg" style="font-size:1.3rem; color:#2e7d32; font-weight:bold; letter-spacing:1px;"></span>
+            Your Application has been registered.<br>
+            <strong>Registration Number:</strong> <span id="slip_reg" style="font-size:1.35rem; color:#2e7d32; font-weight:bold; letter-spacing:1px;"></span>
           </td>
         </tr>
-        <tr><td><strong>Candidate Name:</strong> <span id="slip_name"></span></td><td><strong>Target Test:</strong> <span id="slip_test"></span></td></tr>
+        <tr><td><strong>Candidate Name:</strong> <span id="slip_name"></span></td><td><strong>Target Exam:</strong> <span id="slip_test"></span></td></tr>
         <tr><td><strong>Father's Name:</strong> <span id="slip_father"></span></td><td><strong>Date of Birth:</strong> <span id="slip_dob"></span></td></tr>
       </table>
       <div class="status-notice status-today" style="margin-top:12px; margin-bottom:0;">
-        <strong>Important Notice:</strong> Please note down your <strong>6-Digit Registration Number</strong>. Your Roll Number and Password will be allocated on your Admit Card.
+        <strong>Important:</strong> Please note down your <strong>6-Digit Registration Number</strong>. Your Roll Number and Password will be allocated on your Admit Card.
       </div>
     </div>
   </section>
 
   <!-- 2. ADMIT CARD -->
   <section id="page-admit" class="page-view" style="display:none;">
-    <div class="box-card">
+    <div class="box-card no-print">
       <div class="box-title">Preliminary Examination Call Letter / Admit Card</div>
       <div id="admitNoticeArea" class="status-notice"></div>
 
@@ -177,7 +178,7 @@
     <div id="admitCardOutput" style="display:none;"></div>
   </section>
 
-  <!-- 3. TEST PORTAL LOGIN -->
+  <!-- 3. TEST PORTAL -->
   <section id="page-test" class="page-view" style="display:none;">
     <div class="box-card" style="max-width:480px; margin:30px auto; text-align:center;">
       <div class="box-title" style="text-align:center;">IBPS Online Examination Login</div>
@@ -199,7 +200,7 @@
           <option value="en">English</option>
         </select>
       </div>
-      <button class="btn-submit" style="width:100%;" onclick="startCandidateTest()">Sign In &amp; Start Test</button>
+      <button class="btn-submit" style="width:100%;" onclick="startCandidateTest()">Sign In &amp; Start Real Exam</button>
     </div>
   </section>
 
@@ -219,7 +220,7 @@
 
 </main>
 
-<!-- TCS iON FULL EXAM WINDOW -->
+<!-- TCS iON REAL EXAM CONSOLE -->
 <div id="examConsole">
   <div class="ion-top-bar">
     <div style="font-weight:bold;"><span id="tcsExamTitle">IBPS RRB Examination</span></div>
@@ -278,17 +279,17 @@
   </div>
 </div>
 
+<!-- DATA LAYER & QUESTION BANK SCRIPT -->
+<script src="questions_data.js"></script>
 <script>
-// SHARED DATA LAYER WITH ADMIN DASHBOARD (via LocalStorage & BroadcastChannel)
 const channel = new BroadcastChannel('bwm_exam_bus');
-
 function getDB(k, fallback) { return JSON.parse(localStorage.getItem('bwm_' + k)) || fallback; }
 function setDB(k, val) { localStorage.setItem('bwm_' + k, JSON.stringify(val)); channel.postMessage({ type: 'SYNC' }); }
 
 let exams = getDB('exams', {
-  "default_rrb_clerk": {
-    id: "default_rrb_clerk",
-    name: "IBPS RRB Clerk (Office Assistant) Full Mock Test",
+  "rrb_clerk_01": {
+    id: "rrb_clerk_01",
+    name: "IBPS RRB Clerk / PO High-Level Prelims Full Mock 01 (80 Qs)",
     duration: 45,
     posMarks: 1.0,
     negMarks: 0.25,
@@ -304,32 +305,13 @@ let exams = getDB('exams', {
 let candidates = getDB('candidates', {});
 let questionsDb = getDB('questions', {});
 
-// Auto populate default 80 mock questions if empty
-if(!questionsDb["default_rrb_clerk"] || questionsDb["default_rrb_clerk"].length === 0) {
-  let defaultQ = [];
-  for(let i=1; i<=40; i++) {
-    defaultQ.push({
-      id: i, sec: "Reasoning Ability",
-      text_en: `<strong>Q.${i}:</strong> 7 persons sit in a row facing North. Evaluate seating arrangement conditions as per IBPS standard.`,
-      text_hi: `<strong>प्र.${i}:</strong> 7 व्यक्ति उत्तर दिशा की ओर एक पंक्ति में बैठे हैं। दी गई शर्तों का विश्लेषण करें।`,
-      options: ["Option A", "Option B", "Option C", "Option D", "Option E"],
-      correct: 1
-    });
-  }
-  for(let i=41; i<=80; i++) {
-    defaultQ.push({
-      id: i, sec: "Quantitative Aptitude",
-      text_en: `<strong>Q.${i}:</strong> What value should come in place of question mark (?): ${15*i} + √576 - 12 = ?`,
-      text_hi: `<strong>प्र.${i}:</strong> प्रश्नचिह्न (?) के स्थान पर क्या मान आएगा: ${15*i} + √576 - 12 = ?`,
-      options: ["Option A", "Option B", "Option C", "Option D", "Option E"],
-      correct: 2
-    });
-  }
-  questionsDb["default_rrb_clerk"] = defaultQ;
+// Ensure full 80 distinct questions are always loaded
+if(!questionsDb["rrb_clerk_01"] || questionsDb["rrb_clerk_01"].length < 80) {
+  questionsDb["rrb_clerk_01"] = full80HighLevelQuestions;
   setDB('questions', questionsDb);
 }
 
-channel.onmessage = (msg) => {
+channel.onmessage = () => {
   exams = getDB('exams', exams);
   candidates = getDB('candidates', candidates);
   questionsDb = getDB('questions', questionsDb);
@@ -367,7 +349,6 @@ function updateDynamicNotices() {
   const firstId = Object.keys(exams)[0];
   const ex = exams[firstId] || {};
 
-  // Dynamic Admit Card Notice
   const aBox = document.getElementById('admitNoticeArea');
   if(ex.admitReleased) {
     aBox.className = "status-notice status-active";
@@ -380,7 +361,6 @@ function updateDynamicNotices() {
     aBox.innerHTML = `<strong>Status Update:</strong><br>Online Call Letters for the Preliminary Examination are scheduled to be released on <strong>${ex.admitScheduledDate || 'TBA'}</strong>.`;
   }
 
-  // Dynamic Result Notice
   const rBox = document.getElementById('resultNoticeArea');
   if(ex.resultDeclared) {
     rBox.className = "status-notice status-active";
@@ -394,7 +374,6 @@ function updateDynamicNotices() {
   }
 }
 
-/* 1. APPLY ONLINE */
 function onCandidateRegister(e) {
   e.preventDefault();
   const testId = document.getElementById('reg_test_id').value;
@@ -428,7 +407,6 @@ function onCandidateRegister(e) {
   e.target.reset();
 }
 
-/* 2. ADMIT CARD */
 function fetchAdmitCard() {
   const reg = document.getElementById('admit_in_reg').value.trim();
   const c = candidates[reg];
@@ -461,7 +439,7 @@ function fetchAdmitCard() {
         <tr><th>Exam Date &amp; Shift</th><td><strong>${ex.examShift || 'TBA'}</strong></td></tr>
         <tr><th>Exam Center / Venue</th><td>${ex.examVenue || 'Online Assessment Center'}</td></tr>
       </table>
-      <div style="text-align:center; margin-top:15px;">
+      <div style="text-align:center; margin-top:15px;" class="no-print">
         <button class="btn-submit" onclick="window.print()">Print Call Letter</button>
       </div>
     </div>
@@ -491,10 +469,10 @@ function startCandidateTest() {
   if(pass !== cand.dob.replace(/-/g, '')) return alert("Incorrect Password! Enter your Date of Birth in YYYYMMDD format.");
 
   activeCand = cand;
-  activeQuestions = questionsDb[cand.testId] || questionsDb["default_rrb_clerk"] || [];
+  activeQuestions = questionsDb[cand.testId] || questionsDb["rrb_clerk_01"] || full80HighLevelQuestions;
   if(activeQuestions.length === 0) return alert("No questions uploaded yet for this test!");
 
-  // Mark student as LIVE in Admin Dashboard
+  // Mark student as LIVE for Admin Dashboard Real-Time Monitoring
   activeCand.isLive = true;
   setDB('candidates', candidates);
 
@@ -546,7 +524,6 @@ function renderTcsQuestion() {
   const lang = document.getElementById('tcsLangSwitch').value;
   document.getElementById('tcsQHeading').innerText = `Question No. ${q.id} (${q.sec})`;
 
-  // Highlight Section Pill
   document.querySelectorAll('.sec-pill').forEach(p => {
     p.classList.toggle('active', p.innerText === q.sec);
   });
@@ -616,9 +593,7 @@ function submitTestNow() {
   clearInterval(timerHandle);
   document.getElementById('examConsole').style.display = 'none';
 
-  // Mark student as NO LONGER live in Admin Dashboard
   activeCand.isLive = false;
-
   const ex = exams[activeCand.testId] || { posMarks: 1.0, negMarks: 0.25 };
   let correct = 0, wrong = 0;
   activeQuestions.forEach((q, i) => {
@@ -634,11 +609,11 @@ function submitTestNow() {
   candidates[activeCand.regNo] = activeCand;
   setDB('candidates', candidates);
 
-  alert(`Test Submitted Successfully!\nTotal Questions: ${activeQuestions.length}\nAttempted: ${correct + wrong}\nScore: ${netScore.toFixed(2)}`);
+  alert(`Test Submitted Successfully!\nTotal Questions: ${activeQuestions.length}\nAttempted: ${correct + wrong}\nCorrect: ${correct}\nScore: ${netScore.toFixed(2)} / 80.00`);
   navigate('result');
 }
 
-/* 4. RESULT SCORECARD */
+/* 4. RESULT */
 function fetchScorecard() {
   const roll = document.getElementById('result_in_roll').value.trim();
   let cand = null;
@@ -655,13 +630,13 @@ function fetchScorecard() {
   }
 
   const score = cand.score !== null ? cand.score.toFixed(2) : 'Absent';
-  const qual = (cand.score !== null && cand.score >= 45) ? '<span style="color:#2e7d32; font-weight:bold;">SHORTLISTED</span>' : '<span style="color:#c62828; font-weight:bold;">NOT SHORTLISTED</span>';
+  const qual = (cand.score !== null && cand.score >= 50.0) ? '<span style="color:#2e7d32; font-weight:bold;">SHORTLISTED FOR MAINS</span>' : '<span style="color:#c62828; font-weight:bold;">NOT SHORTLISTED</span>';
 
   document.getElementById('scorecardOutput').innerHTML = `
     <div class="box-card" style="border:2px solid #002b49;">
       <h3 style="text-align:center; color:#002b49; margin-bottom:12px;">PRELIMINARY EXAMINATION SCORECARD - 2026</h3>
       <table class="admit-card-table">
-        <tr><td><strong>Candidate:</strong> ${cand.name}</td><td><strong>Roll Number:</strong> ${cand.rollNo}</td></tr>
+        <tr><td><strong>Candidate Name:</strong> ${cand.name}</td><td><strong>Roll Number:</strong> ${cand.rollNo}</td></tr>
         <tr><td><strong>Test Series:</strong> ${cand.testName}</td><td><strong>Status:</strong> ${qual}</td></tr>
         <tr><td colspan="2" style="font-size:1.15rem; background:#f5f5f5;"><strong>Marks Obtained:</strong> <span style="color:#002b49; font-weight:bold;">${score}</span> / 80.00</td></tr>
       </table>
@@ -670,7 +645,6 @@ function fetchScorecard() {
   document.getElementById('scorecardOutput').style.display = 'block';
 }
 
-// Initial Run
 populateExamSelect();
 updateDynamicNotices();
 </script>
