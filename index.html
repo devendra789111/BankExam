@@ -45,13 +45,8 @@
   .btn-enter-mega { background: #dc2626; color: #fff; }
   .btn-enter-mocks { background: var(--navy-blue); color: #fff; }
 
-  /* Exam Sub-Categories Filter Strip */
-  .exam-filter-strip { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-  .filter-pill { padding: 6px 16px; border-radius: 20px; border: 1px solid #cbd5e1; background: #fff; font-size: 0.85rem; font-weight: bold; cursor: pointer; }
-  .filter-pill.active { background: var(--navy-dark); color: #fff; border-color: var(--navy-dark); }
-
-  /* Mocks Cards */
-  .mocks-grid-view { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+  /* 10 Mocks Sub-Portal Cards */
+  .mocks-grid-view { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-top: 15px; }
   .mock-card { border: 1px solid #cbd5e1; border-radius: 6px; padding: 16px; background: #f8fafc; display: flex; flex-direction: column; justify-content: space-between; }
   .mock-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
   .mock-name { font-weight: bold; font-size: 1rem; color: var(--navy-dark); }
@@ -66,7 +61,7 @@
   .btn-analytics { background: #0284c7; color: #fff; }
   .btn-reattempt { background: #64748b; color: #fff; }
 
-  /* Mega Menu Buttons */
+  /* Mega Test Specific Actions */
   .mega-menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-top: 20px; }
   .mega-box-btn { padding: 18px; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; text-align: center; cursor: pointer; transition: 0.2s; font-weight: bold; }
   .mega-box-btn:hover { background: #f1f5f9; border-color: var(--navy-blue); }
@@ -128,7 +123,7 @@
   .p-cell.not-ans { background: var(--not-ans-red) !important; color: #fff !important; border-color: var(--not-ans-red) !important; }
   .p-cell.rev { background: var(--review-purple) !important; color: #fff !important; border-radius: 50% !important; }
 
-  /* In-Screen Modern Pause Overlay Modal */
+  /* Modern Pause Overlay Modal */
   #inScreenPauseModal { display: none; position: fixed; inset: 0; background: rgba(0, 43, 73, 0.75); backdrop-filter: blur(4px); z-index: 10000; align-items: center; justify-content: center; }
   .pause-modal-card { background: #fff; width: 90%; max-width: 420px; border-radius: 10px; padding: 30px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
 
@@ -145,68 +140,59 @@
 <header class="portal-header">
   <div class="brand-block">
     <h1>Banking With Meenu</h1>
-    <span>Official IBPS RRB Online Testing &amp; Assessment System</span>
+    <span>Official IBPS RRB Online Testing &amp; Assessment System / आधिकारिक ऑनलाइन परीक्षण प्रणाली</span>
   </div>
   <nav class="nav-strip">
-    <button class="nav-tab active" onclick="showScreen('home', event)">Home</button>
-    <button class="nav-tab" onclick="showScreen('mocks-hub', event)">Mock Tests (10 Mocks)</button>
-    <button class="nav-tab" onclick="showScreen('mega-hub', event)">Live Mega Test</button>
+    <button class="nav-tab active" onclick="showScreen('home', event)">Home / होम</button>
+    <button class="nav-tab" onclick="showScreen('mocks-hub', event)">Mock Tests (10 Mocks) / मॉक टेस्ट</button>
+    <button class="nav-tab" onclick="showScreen('mega-hub', event)">Live Mega Test / मेगा टेस्ट</button>
   </nav>
 </header>
 
 <main class="layout-container">
 
-  <!-- 1. HOME SCREEN: SEPARATE TILES -->
+  <!-- 1. HOME SCREEN -->
   <section id="screen-home" class="page-view">
     <div class="box-card" style="text-align:center; padding: 35px 20px;">
-      <h2 style="color:var(--navy-dark); font-size:1.5rem; margin-bottom:8px;">Welcome to Banking With Meenu Portal</h2>
+      <h2 style="color:var(--navy-dark); font-size:1.5rem; margin-bottom:8px;">Welcome to Banking With Meenu Portal / बैंकिंग विद मीनू पोर्टल में आपका स्वागत है</h2>
       <p style="color:#64748b; font-size:0.95rem; max-width:650px; margin:0 auto 30px auto;">
-        Choose an examination option below. Practice with Full-Length Mocks directly, or register for the All-India Live Mega Test.
+        Choose an examination option below. Practice with Full-Length Mocks directly, or register for the All-India Live Mega Test. / नीचे दिए गए विकल्पों में से चयन करें।
       </p>
 
       <div class="category-portal-grid">
         <!-- TILE 1: LIVE MEGA TEST -->
         <div class="cat-tile tile-mega" onclick="showScreen('mega-hub')">
           <div class="cat-icon-circle icon-mega">🏆</div>
-          <div class="cat-title" style="color:#b91c1c;">IBPS RRB Clerk Live Mega Test</div>
+          <div class="cat-title" style="color:#b91c1c;">IBPS RRB Clerk Live Mega Test / लाइव मेगा टेस्ट</div>
           <div class="cat-desc">
             All-India Centralized Test. Requires Form Application to generate 6-digit Registration Number, Call Letter, and Official A4 Scorecard.
           </div>
           <button class="btn-enter-cat btn-enter-mega">Open Mega Test Portal →</button>
         </div>
 
-        <!-- TILE 2: MOCKS TEST SERIES HUB (Supports Future Exams Filter) -->
+        <!-- TILE 2: 10 MOCKS TEST SERIES -->
         <div class="cat-tile" onclick="showScreen('mocks-hub')">
           <div class="cat-icon-circle icon-mocks">📚</div>
-          <div class="cat-title" style="color:var(--navy-dark);">Banking Mock Test Series Hub</div>
+          <div class="cat-title" style="color:var(--navy-dark);">IBPS RRB Clerk Full Mock Series / फुल मॉक सीरीज़</div>
           <div class="cat-desc">
-            Full-Length Practice Mocks for IBPS Clerk, SBI Clerk, RRB PO, IBPS PO and more. Direct access with Pause &amp; Resume, Re-attempt &amp; Full Analytical Solutions.
+            10 High-Level Full Tests (80 Qs each). Direct test without form or admit card. Supports Pause &amp; Resume from exact question, Re-attempt &amp; Full Solutions.
           </div>
-          <button class="btn-enter-cat btn-enter-mocks">View All Test Series →</button>
+          <button class="btn-enter-cat btn-enter-mocks">View All 10 Tests →</button>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 2. SUB-PORTAL: MOCKS HUB WITH EXAM FILTER BUTTONS -->
+  <!-- 2. SUB-PORTAL: 10 MOCKS HUB -->
   <section id="screen-mocks-hub" class="page-view" style="display:none;">
     <div class="box-card">
       <div class="box-heading">
-        <span>Banking Mock Test Series Hub</span>
-        <button class="btn-sm btn-reattempt" onclick="showScreen('home')">← Back to Home</button>
+        <span>IBPS RRB Clerk Full Mock Test Series (10 Tests) / फुल मॉक टेस्ट सीरीज़</span>
+        <button class="btn-sm btn-reattempt" onclick="showScreen('home')">← Back / पीछे जाएं</button>
       </div>
       <p style="font-size:0.88rem; color:#64748b; margin-bottom:15px;">
-        Select your target banking examination category below to practice high-level test papers.
+        Each mock contains 80 unique high-level questions (40 Reasoning + 40 Quant). Pause anytime and resume exactly from where you stopped with your answered question palette preserved.
       </p>
-
-      <!-- Filter Strip for Future Exams -->
-      <div class="exam-filter-strip">
-        <button class="filter-pill active" onclick="filterExamCategory('IBPS RRB Clerk', event)">IBPS RRB Clerk (10 Mocks)</button>
-        <button class="filter-pill" onclick="filterExamCategory('SBI Clerk', event)">SBI Clerk (10 Mocks)</button>
-        <button class="filter-pill" onclick="filterExamCategory('IBPS RRB PO', event)">IBPS RRB PO (10 Mocks)</button>
-        <button class="filter-pill" onclick="filterExamCategory('IBPS PO', event)">IBPS PO (10 Mocks)</button>
-      </div>
-
       <div class="mocks-grid-view" id="mockCardsContainer"></div>
     </div>
   </section>
@@ -215,48 +201,48 @@
   <section id="screen-mega-hub" class="page-view" style="display:none;">
     <div class="box-card">
       <div class="box-heading">
-        <span>IBPS RRB Clerk Live Mega Test - Candidate Portal</span>
-        <button class="btn-sm btn-reattempt" onclick="showScreen('home')">← Back to Home</button>
+        <span>IBPS RRB Clerk Live Mega Test - Candidate Portal / उम्मीदवार पोर्टल</span>
+        <button class="btn-sm btn-reattempt" onclick="showScreen('home')">← Back / पीछे जाएं</button>
       </div>
 
       <div style="background:#fff1f2; border:1px solid #fecdd3; border-radius:6px; padding:15px; margin-bottom:20px;">
-        <h3 style="color:#b91c1c; font-size:1.05rem; margin-bottom:5px;">Live Mega Test Guidelines:</h3>
+        <h3 style="color:#b91c1c; font-size:1.05rem; margin-bottom:5px;">Live Mega Test Guidelines / लाइव मेगा टेस्ट निर्देश:</h3>
         <p style="font-size:0.85rem; color:#475569; line-height:1.4;">
-          This is an official centralized simulation. Candidates must first register via <strong>'Apply Form'</strong>. Once released, download your <strong>Admit Card</strong> using your 6-Digit Registration Number and attempt the test using your Roll Number. Official A4 Scorecards with State &amp; Category Cut-offs will be generated upon result declaration.
+          Candidates must first register via 'Apply Form'. Download your Admit Card using your 6-Digit Registration Number and attempt the test using your Roll Number. Official A4 Scorecards with State &amp; Category Cut-offs will be generated upon result declaration.
         </p>
       </div>
 
       <div class="mega-menu-grid">
         <div class="mega-box-btn" onclick="showScreen('mega-apply')">
           <div style="font-size:1.8rem; margin-bottom:6px;">📝</div>
-          <div>1. Apply Online Form</div>
+          <div>1. Apply Online Form / ऑनलाइन फॉर्म भरें</div>
           <small style="color:#64748b; font-weight:normal;">Generate 6-Digit Reg. No.</small>
         </div>
         <div class="mega-box-btn" onclick="showScreen('mega-admit')">
           <div style="font-size:1.8rem; margin-bottom:6px;">🎫</div>
-          <div>2. Download Call Letter</div>
+          <div>2. Download Call Letter / एडमिट कार्ड डाउनलोड</div>
           <small style="color:#64748b; font-weight:normal;">A4 Printable Admit Card</small>
         </div>
         <div class="mega-box-btn" onclick="showScreen('mega-login')">
           <div style="font-size:1.8rem; margin-bottom:6px;">💻</div>
-          <div>3. Sign In &amp; Give Mega Test</div>
+          <div>3. Sign In &amp; Give Mega Test / परीक्षा शुरू करें</div>
           <small style="color:#64748b; font-weight:normal;">Login via Roll Number</small>
         </div>
         <div class="mega-box-btn" onclick="showScreen('mega-result')">
           <div style="font-size:1.8rem; margin-bottom:6px;">📊</div>
-          <div>4. Mega Test Scorecard</div>
+          <div>4. Mega Test Scorecard / परिणाम देखें</div>
           <small style="color:#64748b; font-weight:normal;">A4 Printable with Cut-offs</small>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 4. MEGA APPLY FORM (WITH STATE DROPDOWN) -->
+  <!-- 4. MEGA APPLY FORM (WITH COMPLETE BILINGUAL STATES LIST) -->
   <section id="screen-mega-apply" class="page-view" style="display:none;">
     <div class="box-card">
       <div class="box-heading">
-        <span>Mega Test Application Form - 2026</span>
-        <button class="btn-sm btn-reattempt" onclick="showScreen('mega-hub')">← Back to Mega Portal</button>
+        <span>Mega Test Application Form - 2026 / मेगा टेस्ट आवेदन फॉर्म</span>
+        <button class="btn-sm btn-reattempt" onclick="showScreen('mega-hub')">← Back / पीछे जाएं</button>
       </div>
 
       <form onsubmit="onMegaRegister(event)">
@@ -272,27 +258,53 @@
           <div class="form-group">
             <label>Applied State / राज्य चुनें *</label>
             <select id="m_state" required>
-              <option value="">-- Select Applied State --</option>
-              <option value="Rajasthan">Rajasthan</option>
-              <option value="Uttar Pradesh">Uttar Pradesh</option>
-              <option value="Madhya Pradesh">Madhya Pradesh</option>
-              <option value="Bihar">Bihar</option>
-              <option value="Haryana">Haryana</option>
-              <option value="Delhi NCR">Delhi NCR</option>
-              <option value="Punjab">Punjab</option>
-              <option value="Gujarat">Gujarat</option>
-              <option value="Maharashtra">Maharashtra</option>
-              <option value="Other State">Other State</option>
+              <option value="">-- Select Applied State / राज्य चुनें --</option>
+              <option value="Andhra Pradesh">Andhra Pradesh / आंध्र प्रदेश</option>
+              <option value="Arunachal Pradesh">Arunachal Pradesh / अरुणाचल प्रदेश</option>
+              <option value="Assam">Assam / असम</option>
+              <option value="Bihar">Bihar / बिहार</option>
+              <option value="Chhattisgarh">Chhattisgarh / छत्तीसगढ़</option>
+              <option value="Goa">Goa / गोवा</option>
+              <option value="Gujarat">Gujarat / गुजरात</option>
+              <option value="Haryana">Haryana / हरियाणा</option>
+              <option value="Himachal Pradesh">Himachal Pradesh / हिमाचल प्रदेश</option>
+              <option value="Jharkhand">Jharkhand / झारखंड</option>
+              <option value="Karnataka">Karnataka / कर्नाटक</option>
+              <option value="Kerala">Kerala / केरल</option>
+              <option value="Madhya Pradesh">Madhya Pradesh / मध्य प्रदेश</option>
+              <option value="Maharashtra">Maharashtra / महाराष्ट्र</option>
+              <option value="Manipur">Manipur / मणिपुर</option>
+              <option value="Meghalaya">Meghalaya / मेघालय</option>
+              <option value="Mizoram">Mizoram / मिजोरम</option>
+              <option value="Nagaland">Nagaland / नागालैंड</option>
+              <option value="Odisha">Odisha / ओडिशा</option>
+              <option value="Punjab">Punjab / पंजाब</option>
+              <option value="Rajasthan">Rajasthan / राजस्थान</option>
+              <option value="Sikkim">Sikkim / सिक्किम</option>
+              <option value="Tamil Nadu">Tamil Nadu / तमिलनाडु</option>
+              <option value="Telangana">Telangana / तेलंगाना</option>
+              <option value="Tripura">Tripura / त्रिपुरा</option>
+              <option value="Uttar Pradesh">Uttar Pradesh / उत्तर प्रदेश</option>
+              <option value="Uttarakhand">Uttarakhand / उत्तराखंड</option>
+              <option value="West Bengal">West Bengal / पश्चिम बंगाल</option>
+              <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands / अंडमान और निकोबार द्वीप समूह</option>
+              <option value="Chandigarh">Chandigarh / चंडीगढ़</option>
+              <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu / दादरा और नगर हवेली और दमन और दीव</option>
+              <option value="Delhi NCR">Delhi NCR / दिल्ली एनसीआर</option>
+              <option value="Jammu and Kashmir">Jammu and Kashmir / जम्मू और कश्मीर</option>
+              <option value="Ladakh">Ladakh / लद्दाख</option>
+              <option value="Lakshadweep">Lakshadweep / लक्षद्वीप</option>
+              <option value="Puducherry">Puducherry / पुदुचेरी</option>
             </select>
           </div>
           <div class="form-group">
             <label>Category / श्रेणी *</label>
             <select id="m_category" required>
-              <option value="UR / General">UR / General</option>
-              <option value="OBC">OBC</option>
-              <option value="EWS">EWS</option>
-              <option value="SC">SC</option>
-              <option value="ST">ST</option>
+              <option value="UR / General">UR / General (सामान्य)</option>
+              <option value="OBC">OBC (अन्य पिछड़ा वर्ग)</option>
+              <option value="EWS">EWS (आर्थिक रूप से कमजोर वर्ग)</option>
+              <option value="SC">SC (अनुसूचित जाति)</option>
+              <option value="ST">ST (अनुसूचित जनजाति)</option>
             </select>
           </div>
           <div class="form-group">
@@ -312,12 +324,12 @@
       </form>
 
       <div id="megaSlipOutput" style="display:none; margin-top:20px; border:2px solid #2e7d32; padding:18px; border-radius:6px; background:#f0fdf4;">
-        <h3 style="color:#166534; margin-bottom:10px;">✓ Registration Confirmed!</h3>
+        <h3 style="color:#166534; margin-bottom:10px;">✓ Registration Confirmed! / पंजीकरण सफल!</h3>
         <table class="a4-table" style="margin-bottom:10px;">
-          <tr><td width="40%"><strong>Registration Number:</strong></td><td><strong style="font-size:1.3rem; color:#15803d;" id="slipRegDisplay"></strong></td></tr>
-          <tr><td><strong>Candidate Name:</strong></td><td id="slipNameDisplay"></td></tr>
-          <tr><td><strong>Applied State:</strong></td><td id="slipStateDisplay"></td></tr>
-          <tr><td><strong>Category:</strong></td><td id="slipCatDisplay"></td></tr>
+          <tr><td width="40%"><strong>Registration Number (पंजीकरण संख्या):</strong></td><td><strong style="font-size:1.3rem; color:#15803d;" id="slipRegDisplay"></strong></td></tr>
+          <tr><td><strong>Candidate Name (उम्मीदवार का नाम):</strong></td><td id="slipNameDisplay"></td></tr>
+          <tr><td><strong>Applied State (लागू राज्य):</strong></td><td id="slipStateDisplay"></td></tr>
+          <tr><td><strong>Category (श्रेणी):</strong></td><td id="slipCatDisplay"></td></tr>
         </table>
         <p style="font-size:0.85rem; color:#475569;">* Please note down your 6-Digit Registration Number. Use it to download your Call Letter. Roll Number will be printed on the Admit Card.</p>
       </div>
@@ -329,7 +341,7 @@
     <div class="box-card no-print">
       <div class="box-heading">
         <span>Download Mega Test Call Letter / Admit Card</span>
-        <button class="btn-sm btn-reattempt" onclick="showScreen('mega-hub')">← Back to Mega Portal</button>
+        <button class="btn-sm btn-reattempt" onclick="showScreen('mega-hub')">← Back / पीछे जाएं</button>
       </div>
       <div id="admitNoticeBox" style="padding:12px; background:#e3f2fd; border-left:4px solid #1976d2; margin-bottom:15px; font-size:0.88rem;"></div>
 
@@ -348,11 +360,11 @@
       <p style="font-size:0.85rem; color:#64748b; margin-bottom:15px;">Enter your Roll Number and Password from your Call Letter</p>
 
       <div class="form-group" style="text-align:left; margin-bottom:12px;">
-        <label>Roll Number (User ID):</label>
+        <label>Roll Number (User ID) / रोल नंबर:</label>
         <input type="text" id="login_mega_roll" placeholder="8-Digit Roll Number">
       </div>
       <div class="form-group" style="text-align:left; margin-bottom:15px;">
-        <label>Password (DOB: YYYYMMDD):</label>
+        <label>Password (DOB: YYYYMMDD) / पासवर्ड:</label>
         <input type="password" id="login_mega_pass" placeholder="YYYYMMDD">
       </div>
       <div class="form-group" style="text-align:left; margin-bottom:20px;">
@@ -373,7 +385,7 @@
     <div class="box-card no-print">
       <div class="box-heading">
         <span>Preliminary Examination Official Scorecard</span>
-        <button class="btn-sm btn-reattempt" onclick="showScreen('mega-hub')">← Back to Mega Portal</button>
+        <button class="btn-sm btn-reattempt" onclick="showScreen('mega-hub')">← Back / पीछे जाएं</button>
       </div>
       <div id="resultNoticeBox" style="padding:12px; background:#e3f2fd; border-left:4px solid #1976d2; margin-bottom:15px; font-size:0.88rem;"></div>
 
@@ -396,33 +408,33 @@
       <!-- Performance Summary Strips -->
       <div class="stats-summary-strip">
         <div class="stat-pill" style="border-left:4px solid var(--navy-blue);">
-          <small>Total Score</small>
+          <small>Total Score / कुल स्कोर</small>
           <div class="num" style="color:var(--navy-blue);" id="statScore">0.00 / 80</div>
         </div>
         <div class="stat-pill" style="border-left:4px solid var(--ans-green);">
-          <small>Correct Answers</small>
+          <small>Correct Answers / सही</small>
           <div class="num" style="color:var(--ans-green);" id="statCorrect">0</div>
         </div>
         <div class="stat-pill" style="border-left:4px solid var(--not-ans-red);">
-          <small>Wrong Answers</small>
+          <small>Wrong Answers / गलत</small>
           <div class="num" style="color:var(--not-ans-red);" id="statWrong">0</div>
         </div>
         <div class="stat-pill" style="border-left:4px solid #64748b;">
-          <small>Accuracy</small>
+          <small>Accuracy / सटीकता</small>
           <div class="num" style="color:#64748b;" id="statAccuracy">0%</div>
         </div>
       </div>
 
       <!-- Sectional Breakdown & Cut-off Comparison -->
-      <h3 style="color:var(--navy-dark); margin: 20px 0 10px 0;">Section-wise Performance &amp; Cut-off Comparison:</h3>
+      <h3 style="color:var(--navy-dark); margin: 20px 0 10px 0;">Section-wise Performance &amp; Cut-off Comparison / विषयवार प्रदर्शन और कट-ऑफ:</h3>
       <table class="scorecard-table">
         <thead>
           <tr>
-            <th>Section Name</th>
-            <th>Max Marks</th>
-            <th>Your Score</th>
-            <th>Sectional Cut-off</th>
-            <th>Sectional Status</th>
+            <th>Section Name / खंड</th>
+            <th>Max Marks / अधिकतम अंक</th>
+            <th>Your Score / आपका प्राप्तांक</th>
+            <th>Sectional Cut-off / कट-ऑफ</th>
+            <th>Sectional Status / स्थिति</th>
           </tr>
         </thead>
         <tbody id="sectionalBreakdownTbody">
@@ -432,7 +444,7 @@
 
       <div id="mockQualificationStatusBox" style="padding:14px; border-radius:6px; margin-bottom:25px; text-align:center; font-size:1.05rem;"></div>
 
-      <h3 style="color:var(--navy-dark); margin: 20px 0 12px 0;">Detailed Question-by-Question Analysis &amp; Solutions:</h3>
+      <h3 style="color:var(--navy-dark); margin: 20px 0 12px 0;">Detailed Question-by-Question Analysis &amp; Solutions / विस्तृत हल:</h3>
       <div id="solutionsListContainer"></div>
     </div>
   </section>
@@ -499,11 +511,11 @@
 <div id="inScreenPauseModal">
   <div class="pause-modal-card">
     <div style="font-size:3rem; margin-bottom:10px;">⏸️</div>
-    <h3 style="color:var(--navy-dark); font-size:1.3rem; margin-bottom:8px;">Test Paused Successfully</h3>
+    <h3 style="color:var(--navy-dark); font-size:1.3rem; margin-bottom:8px;">Test Paused Successfully / परीक्षा रोकी गई</h3>
     <p style="font-size:0.88rem; color:#64748b; margin-bottom:20px;">
       Your timer, current question position, and answered question palette have been safely frozen.
     </p>
-    <button class="btn-action" style="width:100%; background:#d97706;" onclick="closeInScreenPauseModal()">▶ Resume Test Now</button>
+    <button class="btn-action" style="width:100%; background:#d97706;" onclick="closeInScreenPauseModal()">▶ Resume Test Now / परीक्षा जारी रखें</button>
   </div>
 </div>
 
@@ -610,7 +622,7 @@ for (let i = 1; i <= 10; i++) {
       remainingSec: 45 * 60, 
       lastQuestionIndex: 0, 
       answers: {}, 
-      sessionStatus: {}, 
+      sessionStatus: {}, // stores green/red/purple states
       score: null, 
       completedDate: null 
     };
@@ -681,8 +693,8 @@ function render10MocksCards() {
   }
 }
 
-/* TCS iON EXAM ENGINE */
-let activeMode = 'mock'; 
+/* TCS iON EXAM ENGINE (RESUMES EXACT QUESTION, TIME & GREEN PALETTE STATE) */
+let activeMode = 'mock'; // 'mock' or 'mega'
 let activeMockId = 1;
 let currentExamQuestions = [];
 let currentQuestionIndex = 0;
@@ -703,9 +715,9 @@ function launchMockSession(mockId, mode) {
     sessionStatus = {};
   } else if (mode === 'resume') {
     sessionTimerSec = mockTestsProgress[mockId].remainingSec;
-    currentQuestionIndex = mockTestsProgress[mockId].lastQuestionIndex || 0; 
+    currentQuestionIndex = mockTestsProgress[mockId].lastQuestionIndex || 0; // Resume exact question
     sessionAnswers = mockTestsProgress[mockId].answers || {};
-    sessionStatus = mockTestsProgress[mockId].sessionStatus || {}; 
+    sessionStatus = mockTestsProgress[mockId].sessionStatus || {}; // RESTORE GREEN ANSWERED STATES!
   }
 
   document.getElementById('btnPauseTest').style.display = 'inline-block';
@@ -734,11 +746,12 @@ function startMegaTestSession() {
   activeMockId = cand.regNo;
   currentExamQuestions = highLevel80Questions;
 
+  // Check if Mega Test was paused earlier
   if (cand.megaStatus === 'Paused') {
     sessionTimerSec = cand.remainingSec || (45 * 60);
-    currentQuestionIndex = cand.lastQuestionIndex || 0; 
+    currentQuestionIndex = cand.lastQuestionIndex || 0; // Resume exact question
     sessionAnswers = cand.answers || {};
-    sessionStatus = cand.sessionStatus || {}; 
+    sessionStatus = cand.sessionStatus || {}; // Restore green palette
   } else {
     sessionTimerSec = 45 * 60;
     currentQuestionIndex = 0;
@@ -746,7 +759,7 @@ function startMegaTestSession() {
     sessionStatus = {};
   }
 
-  document.getElementById('btnPauseTest').style.display = 'inline-block'; 
+  document.getElementById('btnPauseTest').style.display = 'inline-block'; // PAUSE ENABLED FOR MEGA TEST
   document.getElementById('tcsTitleBanner').innerText = "IBPS RRB Clerk Live Mega Test 2026";
   document.getElementById('tcsNameBar').innerText = cand.name;
   document.getElementById('tcsRollBar').innerText = cand.rollNo;
@@ -827,6 +840,7 @@ function renderPaletteCells() {
   grid.innerHTML = '';
   currentExamQuestions.forEach((q, idx) => {
     let cls = '';
+    // Priority: check stored sessionStatus or answered status
     if (sessionStatus[idx] === 'ans' || (sessionStatus[idx] !== 'rev' && sessionAnswers[idx] !== undefined)) {
       cls = 'ans';
     } else if (sessionStatus[idx] === 'rev') {
@@ -864,9 +878,14 @@ function clickClear() {
   renderActiveQuestion();
 }
 
-/* MODERN IN-SCREEN PAUSE OVERLAY */
+/* PAUSE TEST PRESERVING EXACT QUESTION, TIME & GREEN ANSWERED STATUS (WORKS IN BOTH MOCK & MEGA TEST) */
 function clickPauseTest() {
+  const qNum = currentQuestionIndex + 1;
+  
   clearInterval(sessionTimerInterval);
+  document.getElementById('examConsole').style.display = 'none';
+
+  // Synchronize current question state before saving
   sessionStatus[currentQuestionIndex] = sessionAnswers[currentQuestionIndex] !== undefined ? 'ans' : 'not-ans';
 
   if (activeMode === 'mock') {
@@ -877,6 +896,7 @@ function clickPauseTest() {
     mockTestsProgress[activeMockId].sessionStatus = sessionStatus;
     setStorage('mock_progress', mockTestsProgress);
   } else {
+    // MEGA TEST PAUSE HANDLER
     let c = candidateStore[activeMockId];
     c.megaStatus = 'Paused';
     c.remainingSec = sessionTimerSec;
@@ -888,8 +908,7 @@ function clickPauseTest() {
     setStorage('candidates', candidateStore);
   }
 
-  // Show modern in-screen pause modal instead of alert popup
-  document.getElementById('examConsole').style.display = 'none';
+  // Show modern in-screen pause modal
   document.getElementById('inScreenPauseModal').style.display = 'flex';
 }
 
@@ -943,19 +962,22 @@ function completeExamExecution() {
       completedDate: new Date().toLocaleDateString()
     };
     setStorage('mock_progress', mockTestsProgress);
+    alert(`Mock Test 0${activeMockId} Submitted!\nReasoning Score: ${reasScore.toFixed(2)}/40\nQuant Score: ${quantScore.toFixed(2)}/40\nTotal Marks: ${totalScore.toFixed(2)}/80\n\nOpening performance analytics & solutions...`);
     viewMockAnalytics(activeMockId);
   } else {
+    // Mega Test Submission
     let c = candidateStore[activeMockId];
     c.score_reasoning = reasScore;
     c.score_quant = quantScore;
     c.score_total = totalScore;
     candidateStore[activeMockId] = c;
     setStorage('candidates', candidateStore);
+    alert(`Mega Test Submitted Successfully!\nReasoning: ${reasScore.toFixed(2)}/40\nQuant: ${quantScore.toFixed(2)}/40\nTotal Score: ${totalScore.toFixed(2)}/80\n\nOpening official Result scorecard...`);
     showScreen('mega-result');
   }
 }
 
-/* VIEW MOCK FULL ANALYTICAL SOLUTIONS & REALISTIC SECTIONAL CUTOFFS */
+/* VIEW MOCK FULL ANALYTICAL SOLUTIONS, SECTIONAL SCORES & REALISTIC CUTOFFS */
 function viewMockAnalytics(mockId) {
   const m = mockTestsProgress[mockId];
   if (!m || !m.answers) return;
@@ -968,12 +990,14 @@ function viewMockAnalytics(mockId) {
   const acc = attempts > 0 ? ((m.correctCount / attempts) * 100).toFixed(1) : 0;
   document.getElementById('statAccuracy').innerText = `${acc}%`;
 
+  // Section-wise Scores Calculation
   const reasScore = m.score_reas !== undefined ? m.score_reas : 0.00;
   const quantScore = m.score_quant !== undefined ? m.score_quant : 0.00;
   const totalScore = m.score;
 
-  // Dynamic Random Cutoff Variation per Test
-  const randomShift = ((mockId * 7) % 5) * 0.25;
+  // Realistic Historical RRB Clerk Cut-offs with realistic slight random normalization variance
+  // Base State Cutoff ~ 69.5 to 73.0 | Sectional: Reasoning ~ 18.50, Quant ~ 16.50
+  const randomShift = ((mockId * 7) % 5) * 0.25; // reproducible realistic variance per test
   const secCutoffReasoning = 18.50;
   const secCutoffQuant = 16.50;
   const totalOverallCutoff = (70.25 + randomShift).toFixed(2);
@@ -983,6 +1007,7 @@ function viewMockAnalytics(mockId) {
   const isTotalPassed = totalScore >= totalOverallCutoff;
   const isOverallQualified = isReasPassed && isQuantPassed && isTotalPassed;
 
+  // Sectional Breakdown Table
   const secTbody = document.getElementById('sectionalBreakdownTbody');
   secTbody.innerHTML = `
     <tr>
@@ -1008,19 +1033,21 @@ function viewMockAnalytics(mockId) {
     </tr>
   `;
 
+  // Status Box
   const statusBox = document.getElementById('mockQualificationStatusBox');
   if (isOverallQualified) {
     statusBox.style.background = '#dcfce7';
     statusBox.style.border = '2px solid #86efac';
     statusBox.style.color = '#166534';
-    statusBox.innerHTML = `<strong>CONGRATULATIONS! YOU HAVE CLEARED ALL SECTIONAL &amp; OVERALL CUT-OFFS</strong><br><span style="font-size:0.85rem;">Simulated Benchmark Cut-off: ${totalOverallCutoff}</span>`;
+    statusBox.innerHTML = `<strong>CONGRATULATIONS! YOU HAVE CLEARED ALL SECTIONAL &amp; OVERALL CUT-OFFS</strong><br><span style="font-size:0.85rem;">Based on past exam trends (Simulated Cut-off: ${totalOverallCutoff})</span>`;
   } else {
     statusBox.style.background = '#fee2e2';
     statusBox.style.border = '2px solid #fca5a5';
     statusBox.style.color = '#991b1b';
-    statusBox.innerHTML = `<strong>YOU HAVE NOT BEEN SHORTLISTED (FAILED TO CLEAR CUT-OFF)</strong><br><span style="font-size:0.85rem;">Your Score: ${totalScore.toFixed(2)} | Benchmark Cut-off: ${totalOverallCutoff}</span>`;
+    statusBox.innerHTML = `<strong>YOU HAVE NOT BEEN SHORTLISTED (FAILED TO CLEAR CUT-OFF)</strong><br><span style="font-size:0.85rem;">Your Score: ${totalScore.toFixed(2)} | Expected Benchmark Cut-off: ${totalOverallCutoff}</span>`;
   }
 
+  // Question-by-question Review
   const listCont = document.getElementById('solutionsListContainer');
   listCont.innerHTML = '';
 
@@ -1098,6 +1125,7 @@ function onMegaRegister(e) {
   e.target.reset();
 }
 
+/* MEGA ADMIT CARD */
 function updateAdmitNotice() {
   document.getElementById('admitNoticeBox').innerHTML = `
     <strong>Call Letter Notice:</strong><br>Online Call Letters for Live Mega Test are currently available. Please enter your 6-Digit Registration Number to download.
@@ -1134,6 +1162,13 @@ function searchMegaAdmit() {
         <tr><th>Date &amp; Shift</th><td><strong>12th September 2026 (Shift 1: 08:30 AM)</strong></td></tr>
         <tr><th>Examination Venue</th><td>Meenu Pathak Online Assessment Center, Sector-4, City Campus</td></tr>
       </table>
+      <div style="font-size:0.75rem; line-height:1.4; border-top:1px dashed #000; padding-top:8px;">
+        <strong>Instructions for Candidate:</strong>
+        <ol style="padding-left:16px;">
+          <li>Bring this Call Letter along with original photo ID proof and a photocopy.</li>
+          <li>Login credentials must be kept confidential until entry into the exam hall.</li>
+        </ol>
+      </div>
       <div style="text-align:center; margin-top:20px;" class="no-print">
         <button class="btn-action" onclick="window.print()">Print Call Letter (A4 Size)</button>
       </div>
@@ -1142,6 +1177,7 @@ function searchMegaAdmit() {
   document.getElementById('admitCardViewPort').style.display = 'block';
 }
 
+/* MEGA SCORECARD WITH REALISTIC STATE & CATEGORY CUTOFFS */
 function updateResultNotice() {
   document.getElementById('resultNoticeBox').innerHTML = `
     <strong>Scorecard Notice:</strong><br>Live Mega Test Results have been declared. Enter your 8-Digit Roll Number to view and print your A4 scorecard.
