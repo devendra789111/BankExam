@@ -368,7 +368,7 @@
     <div id="scorecardViewPort" class="print-target" style="display:none; margin-top:15px;"></div>
   </section>
 
-  <!-- 8. MOCK ANALYTICS & DETAILED SOLUTIONS (WITH SECTIONAL SCORES & REALISTIC CUTOFFS) -->
+  <!-- 8. MOCK ANALYTICS & DETAILED SOLUTIONS -->
   <section id="screen-mock-analytics" class="page-view" style="display:none;">
     <div class="box-card">
       <div class="box-heading">
@@ -396,7 +396,7 @@
         </div>
       </div>
 
-      <!-- Real-Exam Sectional Breakdown & Cut-off Card -->
+      <!-- Sectional Breakdown & Cut-off Comparison -->
       <h3 style="color:var(--navy-dark); margin: 20px 0 10px 0;">Section-wise Performance &amp; Cut-off Comparison:</h3>
       <table class="scorecard-table">
         <thead>
@@ -696,12 +696,21 @@ function startMegaTestSession() {
   activeMode = 'mega';
   activeMockId = cand.regNo;
   currentExamQuestions = highLevel80Questions;
-  sessionTimerSec = 45 * 60;
-  currentQuestionIndex = 0;
-  sessionAnswers = {};
-  sessionStatus = {};
 
-  document.getElementById('btnPauseTest').style.display = 'none'; // Official Mega test cannot be paused
+  // Check if Mega Test was paused earlier
+  if (cand.megaStatus === 'Paused') {
+    sessionTimerSec = cand.remainingSec || (45 * 60);
+    currentQuestionIndex = cand.lastQuestionIndex || 0; // Resume exact question
+    sessionAnswers = cand.answers || {};
+    sessionStatus = cand.sessionStatus || {}; // Restore green palette
+  } else {
+    sessionTimerSec = 45 * 60;
+    currentQuestionIndex = 0;
+    sessionAnswers = {};
+    sessionStatus = {};
+  }
+
+  document.getElementById('btnPauseTest').style.display = 'inline-block'; // PAUSE ENABLED FOR MEGA TEST
   document.getElementById('tcsTitleBanner').innerText = "IBPS RRB Clerk Live Mega Test 2026";
   document.getElementById('tcsNameBar').innerText = cand.name;
   document.getElementById('tcsRollBar').innerText = cand.rollNo;
@@ -820,24 +829,41 @@ function clickClear() {
   renderActiveQuestion();
 }
 
-/* PAUSE TEST PRESERVING EXACT QUESTION, TIME & GREEN ANSWERED STATUS */
+/* PAUSE TEST PRESERVING EXACT QUESTION, TIME & GREEN ANSWERED STATUS (WORKS IN BOTH MOCK & MEGA TEST) */
 function clickPauseTest() {
-  if (confirm("Are you sure you want to PAUSE this test? It will be saved at Question " + (currentQuestionIndex + 1) + " with all your answered questions and time preserved.")) {
+  const qNum = currentQuestionIndex + 1;
+  if (confirm("Are you sure you want to PAUSE this test? It will be saved at Question " + qNum + " with all your answers, time, and palette states preserved.")) {
     clearInterval(sessionTimerInterval);
     document.getElementById('examConsole').style.display = 'none';
 
     // Synchronize current question state before saving
     sessionStatus[currentQuestionIndex] = sessionAnswers[currentQuestionIndex] !== undefined ? 'ans' : 'not-ans';
 
-    mockTestsProgress[activeMockId].status = 'Paused';
-    mockTestsProgress[activeMockId].remainingSec = sessionTimerSec;
-    mockTestsProgress[activeMockId].lastQuestionIndex = currentQuestionIndex; // Exact Question
-    mockTestsProgress[activeMockId].answers = sessionAnswers;
-    mockTestsProgress[activeMockId].sessionStatus = sessionStatus; // GREEN PALETTE STATE PRESERVED
-    setStorage('mock_progress', mockTestsProgress);
+    if (activeMode === 'mock') {
+      mockTestsProgress[activeMockId].status = 'Paused';
+      mockTestsProgress[activeMockId].remainingSec = sessionTimerSec;
+      mockTestsProgress[activeMockId].lastQuestionIndex = currentQuestionIndex;
+      mockTestsProgress[activeMockId].answers = sessionAnswers;
+      mockTestsProgress[activeMockId].sessionStatus = sessionStatus;
+      setStorage('mock_progress', mockTestsProgress);
 
-    alert(`Mock Test 0${activeMockId} paused at Question ${currentQuestionIndex + 1}. You can resume anytime.`);
-    showScreen('mocks-hub');
+      alert(`Mock Test 0${activeMockId} paused at Question ${qNum}. You can resume anytime.`);
+      showScreen('mocks-hub');
+    } else {
+      // MEGA TEST PAUSE HANDLER
+      let c = candidateStore[activeMockId];
+      c.megaStatus = 'Paused';
+      c.remainingSec = sessionTimerSec;
+      c.lastQuestionIndex = currentQuestionIndex;
+      c.answers = sessionAnswers;
+      c.sessionStatus = sessionStatus;
+      c.isLive = false;
+      candidateStore[activeMockId] = c;
+      setStorage('candidates', candidateStore);
+
+      alert(`Mega Test paused at Question ${qNum} (${Math.floor(sessionTimerSec/60)} minutes left). You can resume anytime from the Mega Test login.`);
+      showScreen('mega-hub');
+    }
   }
 }
 
@@ -1119,7 +1145,7 @@ function searchMegaScorecard() {
   const sQuant = cand.score_quant.toFixed(2);
   const sTotal = cand.score_total.toFixed(2);
 
-  // Realistic Historical State Benchmarks (e.g. Rajasthan/UP/Haryana ~ 70-75, MP/Bihar ~ 68-72)
+  // Realistic Historical State Benchmarks
   const stateBases = {
     "Rajasthan": 71.0,
     "Uttar Pradesh": 70.5,
@@ -1135,7 +1161,7 @@ function searchMegaScorecard() {
 
   const baseStateCutoff = stateBases[cand.state] || 70.0;
   
-  // Dynamic slight random variation (+/- 0.75) like real normalization
+  // Dynamic slight random variation (+/- 0.75)
   let seed = 0;
   for (let i = 0; i < cand.rollNo.length; i++) seed += cand.rollNo.charCodeAt(i);
   const variation = ((seed % 7) - 3) * 0.25;
