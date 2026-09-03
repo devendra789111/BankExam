@@ -1,235 +1,678 @@
-abel>Section:</label>
-            <select id="q_sec">
-              <option value="Reasoning Ability">Reasoning Ability</option>
-              <option value="Quantitative Aptitude">Quantitative Aptitude</option>
-              <option value="General Awareness">General Awareness</option>
-              <option value="English/Hindi Language">English/Hindi Language</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Correct Answer Index:</label>
-            <select id="q_correct">
-              <option value="0">Option (A)</option>
-              <option value="1">Option (B)</option>
-              <option value="2">Option (C)</option>
-              <option value="3">Option (D)</option>
-              <option value="4">Option (E)</option>
-            </select>
-          </div>
-          <div class="form-group"><input type="text" id="q_opt0" placeholder="Option A" required></div>
-          <div class="form-group"><input type="text" id="q_opt1" placeholder="Option B" required></div>
-          <div class="form-group"><input type="text" id="q_opt2" placeholder="Option C" required></div>
-          <div class="form-group"><input type="text" id="q_opt3" placeholder="Option D" required></div>
-          <div class="form-group"><input type="text" id="q_opt4" placeholder="Option E" required></div>
-        </div>
-        <button type="submit" class="btn">Add Question into Test</button>
-      </form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Banking With Meenu - Online Examination Portal</title>
+<style>
+  :root {
+    --tcs-blue: #003366;
+    --tcs-light: #e8f0fe;
+    --tcs-border: #b0bec5;
+    --ans-green: #2e7d32;
+    --not-ans-red: #c62828;
+    --review-purple: #6a1b9a;
+    --not-visited: #e0e0e0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; }
+  body { background: #f5f5f5; color: #212121; min-height: 100vh; display: flex; flex-direction: column; }
 
-      <div style="margin-top:20px;">
-        <h4>Current Uploaded Questions: <span id="currentQCount">0</span></h4>
-        <table id="questionsTable">
-          <thead><tr><th>#</th><th>Section</th><th>Question (English)</th><th>Action</th></tr></thead>
-          <tbody></tbody>
-        </table>
+  /* Candidate Top Header */
+  .main-header { background: #002b49; color: #fff; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #ffb300; }
+  .logo h1 { font-size: 1.35rem; font-weight: bold; letter-spacing: 0.5px; }
+  .logo span { font-size: 0.8rem; color: #b0bec5; }
+  .nav-bar { display: flex; gap: 8px; }
+  .nav-link { background: rgba(255,255,255,0.12); color: #fff; border: 1px solid rgba(255,255,255,0.3); padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 0.88rem; font-weight: 600; text-decoration: none; }
+  .nav-link:hover, .nav-link.active { background: #ffb300; color: #000; border-color: #ffb300; }
+
+  .content-wrapper { max-width: 1100px; width: 100%; margin: 25px auto; padding: 0 15px; flex: 1; }
+  .box-card { background: #fff; border: 1px solid #cfd8dc; border-radius: 4px; padding: 25px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); margin-bottom: 20px; }
+  .box-title { font-size: 1.2rem; font-weight: bold; color: #002b49; border-bottom: 2px solid #002b49; padding-bottom: 8px; margin-bottom: 20px; }
+
+  .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; }
+  .form-field { display: flex; flex-direction: column; gap: 5px; }
+  .form-field label { font-size: 0.85rem; font-weight: bold; color: #37474f; }
+  .form-field input, .form-field select { padding: 9px 12px; border: 1px solid #b0bec5; border-radius: 3px; font-size: 0.9rem; }
+  .btn-submit { background: #002b49; color: #fff; border: none; padding: 10px 24px; font-size: 0.95rem; font-weight: bold; border-radius: 3px; cursor: pointer; margin-top: 15px; }
+  .btn-submit:hover { background: #004d80; }
+
+  /* Dynamic Notices */
+  .status-notice { padding: 14px 18px; border-radius: 4px; margin-bottom: 20px; font-size: 0.92rem; font-weight: 500; line-height: 1.4; }
+  .status-active { background: #e8f5e9; border-left: 5px solid #2e7d32; color: #1b5e20; }
+  .status-today { background: #fff8e1; border-left: 5px solid #fbc02d; color: #f57f17; }
+  .status-future { background: #e3f2fd; border-left: 5px solid #1976d2; color: #0d47a1; }
+
+  /* REAL TCS iON EXAM CONSOLE INTERFACE */
+  #examConsole { display: none; position: fixed; inset: 0; background: #fff; z-index: 9999; flex-direction: column; }
+  .ion-top-bar { background: #285e8e; color: #fff; height: 45px; display: flex; justify-content: space-between; align-items: center; padding: 0 16px; font-size: 0.9rem; border-bottom: 1px solid #1b4468; }
+  .ion-sub-header { background: #e6e6e6; border-bottom: 1px solid #ccc; height: 35px; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; font-size: 0.85rem; }
+
+  .ion-body { display: flex; flex: 1; height: calc(100vh - 125px); }
+  .ion-left { flex: 1; display: flex; flex-direction: column; border-right: 1px solid #ccc; }
+  .ion-sections { background: #fff; border-bottom: 1px solid #ccc; padding: 6px 12px; display: flex; gap: 6px; }
+  .sec-pill { padding: 5px 12px; border: 1px solid #337ab7; background: #fff; color: #337ab7; font-size: 0.82rem; font-weight: bold; cursor: pointer; }
+  .sec-pill.active { background: #337ab7; color: #fff; }
+
+  .ion-q-meta { padding: 8px 16px; background: #f5f5f5; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
+  .ion-q-scroll { flex: 1; padding: 20px; overflow-y: auto; line-height: 1.5; font-size: 0.95rem; }
+  .ion-options { margin-top: 15px; display: flex; flex-direction: column; gap: 10px; }
+  .ion-opt-item { display: flex; gap: 10px; align-items: center; padding: 8px 12px; border: 1px solid #e0e0e0; border-radius: 4px; cursor: pointer; }
+  .ion-opt-item:hover { background: #f9f9f9; }
+
+  .ion-footer { height: 50px; background: #e6e6e6; border-top: 1px solid #ccc; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; }
+  .ion-btn { padding: 8px 16px; font-size: 0.85rem; font-weight: bold; border-radius: 3px; cursor: pointer; border: 1px solid transparent; }
+  .btn-save { background: #449d44; color: #fff; border-color: #398439; }
+  .btn-review { background: #ec971f; color: #fff; border-color: #d58512; }
+  .btn-clear { background: #fff; color: #333; border-color: #ccc; }
+  .btn-submit-exam { background: #337ab7; color: #fff; border-color: #2e6da4; }
+
+  /* Right TCS Palette */
+  .ion-right { width: 310px; background: #e5f6fd; display: flex; flex-direction: column; border-left: 1px solid #ccc; }
+  .candidate-profile-box { padding: 12px; display: flex; gap: 12px; align-items: center; border-bottom: 1px solid #ccc; background: #d9edf7; }
+  .profile-photo { width: 45px; height: 55px; background: #fff; border: 1px solid #999; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; text-align: center; }
+
+  .palette-symbols { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 8px; font-size: 0.72rem; border-bottom: 1px solid #ccc; background: #fff; }
+  .sym-row { display: flex; align-items: center; gap: 6px; }
+  .shape-badge { width: 20px; height: 20px; font-size: 0.7rem; font-weight: bold; color: #fff; display: flex; align-items: center; justify-content: center; border-radius: 3px; }
+  .sh-ans { background: var(--ans-green); clip-path: polygon(0 25%, 50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%); }
+  .sh-not-ans { background: var(--not-ans-red); border-radius: 50% 50% 0 0; }
+  .sh-not-visited { background: #e0e0e0; color: #333; border: 1px solid #999; }
+  .sh-review { background: var(--review-purple); border-radius: 50%; }
+
+  .palette-grid { padding: 10px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; overflow-y: auto; flex: 1; }
+  .p-cell { height: 35px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.82rem; cursor: pointer; border: 1px solid #b0bec5; background: #fff; border-radius: 3px; }
+  .p-cell.ans { background: var(--ans-green); color: #fff; border-color: var(--ans-green); }
+  .p-cell.not-ans { background: var(--not-ans-red); color: #fff; border-color: var(--not-ans-red); }
+  .p-cell.rev { background: var(--review-purple); color: #fff; border-radius: 50%; }
+
+  /* Admit Card Table Layout */
+  .admit-card-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.88rem; }
+  .admit-card-table td, .admit-card-table th { border: 1px solid #000; padding: 7px 10px; }
+  .photo-frame { width: 130px; height: 160px; border: 1px solid #000; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; text-align: center; margin: 0 auto; background: #fafafa; }
+</style>
+</head>
+<body>
+
+<header class="main-header">
+  <div class="logo">
+    <h1>Banking With Meenu</h1>
+    <span>Official IBPS RRB Recruitment & Mock Examination Portal</span>
+  </div>
+  <nav class="nav-bar">
+    <button class="nav-link active" onclick="navigate('apply', event)">Apply Online</button>
+    <button class="nav-link" onclick="navigate('admit', event)">Admit Card</button>
+    <button class="nav-link" onclick="navigate('test', event)">Test Portal</button>
+    <button class="nav-link" onclick="navigate('result', event)">Result</button>
+  </nav>
+</header>
+
+<main class="content-wrapper">
+
+  <!-- 1. APPLY ONLINE FORM -->
+  <section id="page-apply" class="page-view">
+    <div class="box-card">
+      <div class="box-title">IBPS RRB Mock Test 2026 - Online Application Form</div>
+      <form onsubmit="onCandidateRegister(event)">
+        <div class="form-grid">
+          <div class="form-field">
+            <label>Select Test Series / Mock Exam *</label>
+            <select id="reg_test_id" required></select>
+          </div>
+          <div class="form-field">
+            <label>Full Name / पूरा नाम *</label>
+            <input type="text" id="reg_name" placeholder="Enter Full Name" required>
+          </div>
+          <div class="form-field">
+            <label>Father's Name / पिता का नाम *</label>
+            <input type="text" id="reg_father" placeholder="Enter Father's Name" required>
+          </div>
+          <div class="form-field">
+            <label>Date of Birth / जन्म तिथि *</label>
+            <input type="date" id="reg_dob" required>
+          </div>
+          <div class="form-field">
+            <label>Mobile Number / मोबाइल *</label>
+            <input type="tel" id="reg_mobile" pattern="[0-9]{10}" placeholder="10 Digit Number" required>
+          </div>
+          <div class="form-field">
+            <label>Email Address / ईमेल *</label>
+            <input type="email" id="reg_email" placeholder="name@example.com" required>
+          </div>
+        </div>
+        <button type="submit" class="btn-submit">Submit Application Form</button>
+      </form>
+    </div>
+
+    <!-- Registration Confirmation Slip (ONLY 6-Digit Reg Number) -->
+    <div id="regSlipCard" class="box-card" style="display:none; border:2px solid #2e7d32;">
+      <h3 style="color:#2e7d32; margin-bottom:12px;">✓ Application Registered Successfully!</h3>
+      <table class="admit-card-table" style="margin-top:0;">
+        <tr><th colspan="2" style="background:#f1f8e9; text-align:center;">REGISTRATION CONFIRMATION SLIP - 2026</th></tr>
+        <tr>
+          <td colspan="2" style="background:#fffde7; padding:12px;">
+            Your Application has been recorded.<br>
+            <strong>Registration Number:</strong> <span id="slip_reg" style="font-size:1.3rem; color:#2e7d32; font-weight:bold; letter-spacing:1px;"></span>
+          </td>
+        </tr>
+        <tr><td><strong>Candidate Name:</strong> <span id="slip_name"></span></td><td><strong>Target Test:</strong> <span id="slip_test"></span></td></tr>
+        <tr><td><strong>Father's Name:</strong> <span id="slip_father"></span></td><td><strong>Date of Birth:</strong> <span id="slip_dob"></span></td></tr>
+      </table>
+      <div class="status-notice status-today" style="margin-top:12px; margin-bottom:0;">
+        <strong>Important Notice:</strong> Please note down your <strong>6-Digit Registration Number</strong>. Your Roll Number and Password will be allocated on your Admit Card.
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. ADMIT CARD -->
+  <section id="page-admit" class="page-view" style="display:none;">
+    <div class="box-card">
+      <div class="box-title">Preliminary Examination Call Letter / Admit Card</div>
+      <div id="admitNoticeArea" class="status-notice"></div>
+
+      <div style="display:flex; gap:10px; max-width:500px;">
+        <input type="text" id="admit_in_reg" placeholder="Enter 6-Digit Registration Number" style="flex:1; padding:9px; border:1px solid #b0bec5; border-radius:3px;">
+        <button class="btn-submit" style="margin:0;" onclick="fetchAdmitCard()">Get Admit Card</button>
+      </div>
+    </div>
+    <div id="admitCardOutput" style="display:none;"></div>
+  </section>
+
+  <!-- 3. TEST PORTAL LOGIN -->
+  <section id="page-test" class="page-view" style="display:none;">
+    <div class="box-card" style="max-width:480px; margin:30px auto; text-align:center;">
+      <div class="box-title" style="text-align:center;">IBPS Online Examination Login</div>
+      <p style="font-size:0.85rem; color:#546e7a; margin-bottom:15px;">Login using credentials printed on your Call Letter</p>
+
+      <div class="form-field" style="text-align:left; margin-bottom:12px;">
+        <label>Roll Number (User ID):</label>
+        <input type="text" id="login_roll" placeholder="Enter 8-Digit Roll Number">
+      </div>
+      <div class="form-field" style="text-align:left; margin-bottom:15px;">
+        <label>Password (DOB: YYYYMMDD):</label>
+        <input type="password" id="login_pass" placeholder="e.g. 20000512">
+      </div>
+      <div class="form-field" style="text-align:left; margin-bottom:20px;">
+        <label>Default Test Language / माध्यम:</label>
+        <select id="login_lang">
+          <option value="both">Bilingual (हिन्दी &amp; English)</option>
+          <option value="hi">हिन्दी (Hindi)</option>
+          <option value="en">English</option>
+        </select>
+      </div>
+      <button class="btn-submit" style="width:100%;" onclick="startCandidateTest()">Sign In &amp; Start Test</button>
+    </div>
+  </section>
+
+  <!-- 4. RESULT -->
+  <section id="page-result" class="page-view" style="display:none;">
+    <div class="box-card" style="max-width:600px; margin:20px auto;">
+      <div class="box-title">Preliminary Examination Result &amp; Scorecard</div>
+      <div id="resultNoticeArea" class="status-notice"></div>
+
+      <div style="display:flex; gap:10px;">
+        <input type="text" id="result_in_roll" placeholder="Enter 8-Digit Roll Number" style="flex:1; padding:9px; border:1px solid #b0bec5; border-radius:3px;">
+        <button class="btn-submit" style="margin:0;" onclick="fetchScorecard()">View Result</button>
+      </div>
+      <div id="scorecardOutput" style="display:none; margin-top:20px;"></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- TCS iON FULL EXAM WINDOW -->
+<div id="examConsole">
+  <div class="ion-top-bar">
+    <div style="font-weight:bold;"><span id="tcsExamTitle">IBPS RRB Examination</span></div>
+    <div>System Name: <strong style="color:#ffb300;">C001</strong> &nbsp;|&nbsp; Meenu Pathak Online Center</div>
+  </div>
+  <div class="ion-sub-header">
+    <div>Candidate Name: <strong id="tcsCandName">Candidate</strong> &nbsp;(Roll: <span id="tcsCandRoll"></span>)</div>
+    <div style="font-weight:bold; color:#c62828;">Time Remaining: <span id="tcsTimer">45:00</span></div>
+  </div>
+
+  <div class="ion-body">
+    <div class="ion-left">
+      <div class="ion-sections" id="tcsSectionBar"></div>
+      <div class="ion-q-meta">
+        <strong id="tcsQHeading">Question No. 1</strong>
+        <div>
+          View in:
+          <select id="tcsLangSwitch" onchange="renderTcsQuestion()">
+            <option value="both">Bilingual</option>
+            <option value="hi">हिन्दी</option>
+            <option value="en">English</option>
+          </select>
+        </div>
+      </div>
+      <div class="ion-q-scroll" id="tcsQBody"></div>
+      <div class="ion-footer">
+        <div>
+          <button class="ion-btn btn-review" onclick="tcsReview()">Mark for Review &amp; Next</button>
+          <button class="ion-btn btn-clear" onclick="tcsClear()">Clear Response</button>
+        </div>
+        <button class="ion-btn btn-save" onclick="tcsSaveNext()">Save &amp; Next</button>
+      </div>
+    </div>
+
+    <div class="ion-right">
+      <div class="candidate-profile-box">
+        <div class="profile-photo">Photo</div>
+        <div>
+          <strong id="tcsSideName" style="font-size:0.85rem;">Candidate Name</strong><br>
+          <small id="tcsSideRoll">Roll No</small>
+        </div>
+      </div>
+
+      <div class="palette-symbols">
+        <div class="sym-row"><span class="shape-badge sh-ans">✔</span> Answered</div>
+        <div class="sym-row"><span class="shape-badge sh-not-ans">✖</span> Not Answered</div>
+        <div class="sym-row"><span class="shape-badge sh-not-visited">0</span> Not Visited</div>
+        <div class="sym-row"><span class="shape-badge sh-review">?</span> Review</div>
+      </div>
+
+      <div class="palette-grid" id="tcsPaletteGrid"></div>
+      <div style="padding:10px; background:#fff; border-top:1px solid #ccc; text-align:center;">
+        <button class="ion-btn btn-submit-exam" style="width:100%;" onclick="confirmTcsSubmit()">Submit Examination</button>
       </div>
     </div>
   </div>
-
-  <!-- TAB 3: ADMIT CARD & RESULT CONTROLS -->
-  <div id="tab-manage-exams" class="tab-panel" style="display:none;">
-    <div class="panel-card">
-      <div class="panel-title">Admit Card & Result Control Room</div>
-      <div id="examControlCardsContainer"></div>
-    </div>
-  </div>
-
-  <!-- TAB 4: REGISTERED CANDIDATES -->
-  <div id="tab-candidates" class="tab-panel" style="display:none;">
-    <div class="panel-card">
-      <div class="panel-title">Registered Candidates Directory</div>
-      <table>
-        <thead>
-          <tr>
-            <th>Reg No. (6-Digit)</th>
-            <th>Roll No.</th>
-            <th>Candidate Name</th>
-            <th>Selected Test Series</th>
-            <th>Score</th>
-            <th>Current Status</th>
-          </tr>
-        </thead>
-        <tbody id="candidatesTableBody"></tbody>
-      </table>
-    </div>
-  </div>
-
 </div>
 
 <script>
-// FIREBASE CONFIGURATION (Replace with your Firebase database URL)
-const firebaseConfig = {
-  databaseURL: "https://banking-with-meenu-default-rtdb.firebaseio.com"
-};
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
+// SHARED DATA LAYER WITH ADMIN DASHBOARD (via LocalStorage & BroadcastChannel)
+const channel = new BroadcastChannel('bwm_exam_bus');
 
-function showTab(tabId) {
-  document.querySelectorAll('.tab-panel').forEach(p => p.style.display = 'none');
-  document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-  const el = document.getElementById('tab-' + tabId);
-  if(el) el.style.display = 'block';
-  event.target.classList.add('active');
-}
+function getDB(k, fallback) { return JSON.parse(localStorage.getItem('bwm_' + k)) || fallback; }
+function setDB(k, val) { localStorage.setItem('bwm_' + k, JSON.stringify(val)); channel.postMessage({ type: 'SYNC' }); }
 
-// REALTIME MONITORING OF LIVE STUDENTS AND REGISTERED CANDIDATES
-db.ref('live_sessions').on('value', snap => {
-  const data = snap.val() || {};
-  let activeCount = 0;
-  const now = Date.now();
-  for (let key in data) {
-    if (now - data[key].last_ping < 15000) activeCount++; // ping within 15 seconds
-  }
-  document.getElementById('liveStudentsCount').innerText = activeCount;
-});
-
-db.ref('candidates').on('value', snap => {
-  const data = snap.val() || {};
-  const tbody = document.getElementById('candidatesTableBody');
-  tbody.innerHTML = '';
-  let count = 0;
-  for(let id in data) {
-    count++;
-    const c = data[id];
-    tbody.innerHTML += `
-      <tr>
-        <td><strong>${c.regNo}</strong></td>
-        <td>${c.rollNo || 'Pending Admit Card'}</td>
-        <td>${c.name}</td>
-        <td>${c.testName || 'IBPS RRB Clerk'}</td>
-        <td>${c.score !== undefined ? c.score.toFixed(2) : 'Not Attempted'}</td>
-        <td>${c.isExamActive ? '<span style="color:red;font-weight:bold;">● Live Exam Taking</span>' : 'Idle'}</td>
-      </tr>
-    `;
-  }
-  document.getElementById('totalRegisteredCount').innerText = count;
-});
-
-// TEST SERIES MANAGEMENT
-db.ref('exams').on('value', snap => {
-  const exams = snap.val() || {};
-  const select = document.getElementById('q_target_exam');
-  const controlContainer = document.getElementById('examControlCardsContainer');
-  select.innerHTML = '';
-  controlContainer.innerHTML = '';
-  let examCount = 0;
-
-  for(let id in exams) {
-    examCount++;
-    const ex = exams[id];
-    select.innerHTML += `<option value="${id}">${ex.name}</option>`;
-
-    controlContainer.innerHTML += `
-      <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; padding:15px; margin-bottom:15px;">
-        <h3 style="color:var(--primary);">${ex.name}</h3>
-        <p style="font-size:0.85rem; color:#64748b; margin-bottom:10px;">Duration: ${ex.duration} mins | Marking: +${ex.posMarks}, -${ex.negMarks} | Schedule: ${ex.examShift}</p>
-        
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-top:10px;">
-          <div>
-            <label style="font-size:0.85rem; font-weight:bold;">Admit Card Release Status:</label><br>
-            <input type="checkbox" ${ex.admitReleased ? 'checked' : ''} onchange="toggleAdmit('${id}', this.checked)">
-            <strong>${ex.admitReleased ? 'Active (Live)' : 'Disabled'}</strong>
-            <div style="margin-top:5px;">
-              <input type="text" value="${ex.admitDate || ''}" placeholder="e.g. 10 September 2026 at 11:00 AM" id="admitDate_${id}" style="padding:6px; width:70%;">
-              <button class="btn" style="padding:5px 10px; margin:0;" onclick="saveAdmitDate('${id}')">Save</button>
-            </div>
-          </div>
-          <div>
-            <label style="font-size:0.85rem; font-weight:bold;">Result Declaration Status:</label><br>
-            <input type="checkbox" ${ex.resultDeclared ? 'checked' : ''} onchange="toggleResult('${id}', this.checked)">
-            <strong>${ex.resultDeclared ? 'Declared (Live)' : 'Under Evaluation'}</strong>
-            <div style="margin-top:5px;">
-              <input type="text" value="${ex.resultDate || ''}" placeholder="e.g. 15 September 2026 at 05:00 PM" id="resultDate_${id}" style="padding:6px; width:70%;">
-              <button class="btn" style="padding:5px 10px; margin:0;" onclick="saveResultDate('${id}')">Save</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
-  }
-  document.getElementById('totalExamsCount').innerText = examCount;
-  loadExamQuestions();
-});
-
-function handleCreateExam(e) {
-  e.preventDefault();
-  const examId = 'exam_' + Date.now();
-  db.ref('exams/' + examId).set({
-    name: document.getElementById('exam_name').value.trim(),
-    duration: parseInt(document.getElementById('exam_duration').value),
-    posMarks: parseFloat(document.getElementById('exam_pos_marks').value),
-    negMarks: parseFloat(document.getElementById('exam_neg_marks').value),
-    examShift: document.getElementById('exam_shift').value.trim(),
-    examVenue: document.getElementById('exam_venue').value.trim(),
+let exams = getDB('exams', {
+  "default_rrb_clerk": {
+    id: "default_rrb_clerk",
+    name: "IBPS RRB Clerk (Office Assistant) Full Mock Test",
+    duration: 45,
+    posMarks: 1.0,
+    negMarks: 0.25,
+    examShift: "12th September 2026 (Shift 1: 08:30 AM)",
+    examVenue: "Meenu Pathak Assessment Center, Sector-4, City Campus",
     admitReleased: false,
     resultDeclared: false,
-    admitDate: "10 September 2026 at 11:00 AM",
-    resultDate: "15 September 2026 at 05:00 PM"
-  }).then(() => {
-    alert("New Test Series Launched Successfully!");
-    e.target.reset();
-  });
+    admitScheduledDate: "10 September 2026 at 11:00 AM",
+    resultScheduledDate: "15 September 2026 at 05:00 PM"
+  }
+});
+
+let candidates = getDB('candidates', {});
+let questionsDb = getDB('questions', {});
+
+// Auto populate default 80 mock questions if empty
+if(!questionsDb["default_rrb_clerk"] || questionsDb["default_rrb_clerk"].length === 0) {
+  let defaultQ = [];
+  for(let i=1; i<=40; i++) {
+    defaultQ.push({
+      id: i, sec: "Reasoning Ability",
+      text_en: `<strong>Q.${i}:</strong> 7 persons sit in a row facing North. Evaluate seating arrangement conditions as per IBPS standard.`,
+      text_hi: `<strong>प्र.${i}:</strong> 7 व्यक्ति उत्तर दिशा की ओर एक पंक्ति में बैठे हैं। दी गई शर्तों का विश्लेषण करें।`,
+      options: ["Option A", "Option B", "Option C", "Option D", "Option E"],
+      correct: 1
+    });
+  }
+  for(let i=41; i<=80; i++) {
+    defaultQ.push({
+      id: i, sec: "Quantitative Aptitude",
+      text_en: `<strong>Q.${i}:</strong> What value should come in place of question mark (?): ${15*i} + √576 - 12 = ?`,
+      text_hi: `<strong>प्र.${i}:</strong> प्रश्नचिह्न (?) के स्थान पर क्या मान आएगा: ${15*i} + √576 - 12 = ?`,
+      options: ["Option A", "Option B", "Option C", "Option D", "Option E"],
+      correct: 2
+    });
+  }
+  questionsDb["default_rrb_clerk"] = defaultQ;
+  setDB('questions', questionsDb);
 }
 
-function handleQuestionUpload(e) {
+channel.onmessage = (msg) => {
+  exams = getDB('exams', exams);
+  candidates = getDB('candidates', candidates);
+  questionsDb = getDB('questions', questionsDb);
+  populateExamSelect();
+  updateDynamicNotices();
+};
+
+function navigate(view, ev) {
+  document.querySelectorAll('.page-view').forEach(p => p.style.display = 'none');
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  document.getElementById('page-' + view).style.display = 'block';
+  if(ev) ev.target.classList.add('active');
+  updateDynamicNotices();
+}
+
+function populateExamSelect() {
+  const sel = document.getElementById('reg_test_id');
+  sel.innerHTML = '';
+  for(let id in exams) {
+    sel.innerHTML += `<option value="${id}">${exams[id].name}</option>`;
+  }
+}
+
+function isTodayDate(str) {
+  if(!str) return false;
+  const now = new Date();
+  const d = now.getDate();
+  const months = ["january","february","march","april","may","june","july","august","september","october","november","december"];
+  const m = months[now.getMonth()];
+  const s = str.toLowerCase();
+  return s.includes("today") || (s.includes(m) && s.includes(d.toString()));
+}
+
+function updateDynamicNotices() {
+  const firstId = Object.keys(exams)[0];
+  const ex = exams[firstId] || {};
+
+  // Dynamic Admit Card Notice
+  const aBox = document.getElementById('admitNoticeArea');
+  if(ex.admitReleased) {
+    aBox.className = "status-notice status-active";
+    aBox.innerHTML = "<strong>Status: Active</strong><br>Online Call Letters for Preliminary Examination 2026 are now available. Please enter your 6-Digit Registration Number below to download.";
+  } else if(isTodayDate(ex.admitScheduledDate)) {
+    aBox.className = "status-notice status-today";
+    aBox.innerHTML = `<strong>Status Update:</strong><br>Online Call Letters for the Preliminary Examination will be released today shortly (${ex.admitScheduledDate}). Keep your Registration Number ready.`;
+  } else {
+    aBox.className = "status-notice status-future";
+    aBox.innerHTML = `<strong>Status Update:</strong><br>Online Call Letters for the Preliminary Examination are scheduled to be released on <strong>${ex.admitScheduledDate || 'TBA'}</strong>.`;
+  }
+
+  // Dynamic Result Notice
+  const rBox = document.getElementById('resultNoticeArea');
+  if(ex.resultDeclared) {
+    rBox.className = "status-notice status-active";
+    rBox.innerHTML = "<strong>Status: Declared</strong><br>Preliminary Examination Results &amp; Qualifying Scorecards have been officially declared. Enter your Roll Number below to view your scorecard.";
+  } else if(isTodayDate(ex.resultScheduledDate)) {
+    rBox.className = "status-notice status-today";
+    rBox.innerHTML = `<strong>Status Update:</strong><br>Preliminary Examination 2026 Result will be declared today shortly (${ex.resultScheduledDate}). Keep your Roll Number ready.`;
+  } else {
+    rBox.className = "status-notice status-future";
+    rBox.innerHTML = `<strong>Status Update:</strong><br>Preliminary Examination Results are scheduled to be declared on <strong>${ex.resultScheduledDate || 'TBA'}</strong>.`;
+  }
+}
+
+/* 1. APPLY ONLINE */
+function onCandidateRegister(e) {
   e.preventDefault();
-  const examId = document.getElementById('q_target_exam').value;
-  if(!examId) return alert("Select or create an exam first!");
+  const testId = document.getElementById('reg_test_id').value;
+  const regNo = Math.floor(100000 + Math.random() * 900000).toString();
+  const rollNo = "260" + Math.floor(10000 + Math.random() * 90000).toString();
 
-  const qId = 'q_' + Date.now();
-  db.ref(`exam_questions/${examId}/${qId}`).set({
-    text_en: document.getElementById('q_en').value.trim(),
-    text_hi: document.getElementById('q_hi').value.trim(),
-    sec: document.getElementById('q_sec').value,
-    correct: parseInt(document.getElementById('q_correct').value),
-    options: [
-      document.getElementById('q_opt0').value.trim(),
-      document.getElementById('q_opt1').value.trim(),
-      document.getElementById('q_opt2').value.trim(),
-      document.getElementById('q_opt3').value.trim(),
-      document.getElementById('q_opt4').value.trim()
-    ]
-  }).then(() => {
-    alert("Question uploaded successfully!");
-    document.getElementById('q_en').value = '';
-    document.getElementById('q_hi').value = '';
-    loadExamQuestions();
+  const cand = {
+    regNo: regNo,
+    rollNo: rollNo,
+    testId: testId,
+    testName: exams[testId].name,
+    name: document.getElementById('reg_name').value.trim(),
+    father: document.getElementById('reg_father').value.trim(),
+    dob: document.getElementById('reg_dob').value,
+    mobile: document.getElementById('reg_mobile').value.trim(),
+    email: document.getElementById('reg_email').value.trim(),
+    score: null,
+    isLive: false,
+    answers: {}
+  };
+
+  candidates[regNo] = cand;
+  setDB('candidates', candidates);
+
+  document.getElementById('slip_reg').innerText = regNo;
+  document.getElementById('slip_name').innerText = cand.name;
+  document.getElementById('slip_test').innerText = cand.testName;
+  document.getElementById('slip_father').innerText = cand.father;
+  document.getElementById('slip_dob').innerText = cand.dob;
+  document.getElementById('regSlipCard').style.display = 'block';
+  e.target.reset();
+}
+
+/* 2. ADMIT CARD */
+function fetchAdmitCard() {
+  const reg = document.getElementById('admit_in_reg').value.trim();
+  const c = candidates[reg];
+  if(!c) return alert("Invalid Registration Number! No candidate found.");
+
+  const ex = exams[c.testId] || {};
+  if(!ex.admitReleased) {
+    if(isTodayDate(ex.admitScheduledDate)) alert(`Call Letters will be released today shortly (${ex.admitScheduledDate}).`);
+    else alert(`Call Letters are scheduled to be released on ${ex.admitScheduledDate || 'TBA'}.`);
+    return;
+  }
+
+  const passDOB = c.dob.replace(/-/g, '');
+  document.getElementById('admitCardOutput').innerHTML = `
+    <div class="box-card" style="border:2px solid #000;">
+      <h3 style="text-align:center; color:#002b49;">BANKING WITH MEENU RECRUITMENT CELL</h3>
+      <h4 style="text-align:center; margin-bottom:15px;">ONLINE PRELIMINARY EXAMINATION CALL LETTER</h4>
+      <table class="admit-card-table">
+        <tr>
+          <td width="65%">
+            <p><strong>Roll Number (User ID):</strong> <span style="font-size:1.15rem; color:#0284c7; font-weight:bold;">${c.rollNo}</span></p>
+            <p><strong>Password (DOB):</strong> ${passDOB}</p>
+            <p><strong>Registration Number:</strong> ${c.regNo}</p>
+            <p><strong>Candidate Name:</strong> ${c.name}</p>
+            <p><strong>Father's Name:</strong> ${c.father}</p>
+            <p><strong>Target Test:</strong> ${c.testName}</p>
+          </td>
+          <td width="35%"><div class="photo-frame">Affix Recent Passport Photo Here</div></td>
+        </tr>
+        <tr><th>Exam Date &amp; Shift</th><td><strong>${ex.examShift || 'TBA'}</strong></td></tr>
+        <tr><th>Exam Center / Venue</th><td>${ex.examVenue || 'Online Assessment Center'}</td></tr>
+      </table>
+      <div style="text-align:center; margin-top:15px;">
+        <button class="btn-submit" onclick="window.print()">Print Call Letter</button>
+      </div>
+    </div>
+  `;
+  document.getElementById('admitCardOutput').style.display = 'block';
+}
+
+/* 3. TCS iON EXAM ENGINE */
+let activeCand = null;
+let activeQuestions = [];
+let curIdx = 0;
+let userAnswers = {};
+let qStatus = {};
+let timerSec = 45 * 60;
+let timerHandle = null;
+
+function startCandidateTest() {
+  const roll = document.getElementById('login_roll').value.trim();
+  const pass = document.getElementById('login_pass').value.trim();
+  const lang = document.getElementById('login_lang').value;
+
+  let cand = null;
+  for(let r in candidates) {
+    if(candidates[r].rollNo === roll) { cand = candidates[r]; break; }
+  }
+  if(!cand) return alert("Roll Number not found! Please check your Admit Card.");
+  if(pass !== cand.dob.replace(/-/g, '')) return alert("Incorrect Password! Enter your Date of Birth in YYYYMMDD format.");
+
+  activeCand = cand;
+  activeQuestions = questionsDb[cand.testId] || questionsDb["default_rrb_clerk"] || [];
+  if(activeQuestions.length === 0) return alert("No questions uploaded yet for this test!");
+
+  // Mark student as LIVE in Admin Dashboard
+  activeCand.isLive = true;
+  setDB('candidates', candidates);
+
+  const ex = exams[cand.testId] || {};
+  timerSec = (ex.duration || 45) * 60;
+  curIdx = 0;
+  userAnswers = cand.answers || {};
+
+  document.getElementById('tcsExamTitle').innerText = cand.testName;
+  document.getElementById('tcsCandName').innerText = cand.name;
+  document.getElementById('tcsCandRoll').innerText = cand.rollNo;
+  document.getElementById('tcsSideName').innerText = cand.name;
+  document.getElementById('tcsSideRoll').innerText = "Roll: " + cand.rollNo;
+  document.getElementById('tcsLangSwitch').value = lang;
+
+  buildSectionTabs();
+  document.getElementById('examConsole').style.display = 'flex';
+  startTimer();
+  renderTcsQuestion();
+}
+
+function buildSectionTabs() {
+  const bar = document.getElementById('tcsSectionBar');
+  const sections = [...new Set(activeQuestions.map(q => q.sec))];
+  bar.innerHTML = '';
+  sections.forEach((s, i) => {
+    bar.innerHTML += `<div class="sec-pill ${i===0?'active':''}" onclick="jumpSection('${s}')">${s}</div>`;
   });
 }
 
-function loadExamQuestions() {
-  const examId = document.getElementById('q_target_exam').value;
-  if(!examId) return;
-  db.ref(`exam_questions/${examId}`).once('value', snap => {
-    const questions = snap.val() || {};
-    const tbody = document.querySelector('#questionsTable tbody');
-    tbody.innerHTML = '';
-    let count = 0;
-    for(let id in questions) {
-      count++;
-      tbody.innerHTML += `<tr><td>${count}</td><td>${questions[id].sec}</td><td>${questions[id].text_en.substring(0,60)}...</td><td><button class="btn btn-red" style="padding:4px 8px; margin:0;" onclick="deleteQuestion('${examId}','${id}')">Delete</button></td></tr>`;
+function jumpSection(sec) {
+  const idx = activeQuestions.findIndex(q => q.sec === sec);
+  if(idx !== -1) jumpQuestion(idx);
+}
+
+function startTimer() {
+  clearInterval(timerHandle);
+  timerHandle = setInterval(() => {
+    if(timerSec <= 0) { clearInterval(timerHandle); submitTestNow(); return; }
+    timerSec--;
+    const m = Math.floor(timerSec / 60).toString().padStart(2, '0');
+    const s = (timerSec % 60).toString().padStart(2, '0');
+    document.getElementById('tcsTimer').innerText = `${m}:${s}`;
+  }, 1000);
+}
+
+function renderTcsQuestion() {
+  const q = activeQuestions[curIdx];
+  const lang = document.getElementById('tcsLangSwitch').value;
+  document.getElementById('tcsQHeading').innerText = `Question No. ${q.id} (${q.sec})`;
+
+  // Highlight Section Pill
+  document.querySelectorAll('.sec-pill').forEach(p => {
+    p.classList.toggle('active', p.innerText === q.sec);
+  });
+
+  let text = '';
+  if(lang === 'en') text = `<div>${q.text_en}</div>`;
+  else if(lang === 'hi') text = `<div style="color:#0284c7;">${q.text_hi}</div>`;
+  else text = `<div>${q.text_en}</div><hr style="margin:10px 0; border:0; border-top:1px dashed #ccc;"><div style="color:#0284c7;">${q.text_hi}</div>`;
+
+  let optHtml = '<div class="ion-options">';
+  q.options.forEach((opt, idx) => {
+    const chk = userAnswers[curIdx] === idx ? 'checked' : '';
+    optHtml += `
+      <label class="ion-opt-item">
+        <input type="radio" name="optRadio" value="${idx}" ${chk} onchange="userAnswers[${curIdx}] = ${idx}">
+        <span>${opt}</span>
+      </label>
+    `;
+  });
+  optHtml += '</div>';
+
+  document.getElementById('tcsQBody').innerHTML = text + optHtml;
+  renderPalette();
+}
+
+function renderPalette() {
+  const grid = document.getElementById('tcsPaletteGrid');
+  grid.innerHTML = '';
+  activeQuestions.forEach((q, idx) => {
+    let cls = '';
+    if(qStatus[idx] === 'ans') cls = 'ans';
+    else if(qStatus[idx] === 'not-ans') cls = 'not-ans';
+    else if(qStatus[idx] === 'rev') cls = 'rev';
+    grid.innerHTML += `<div class="p-cell ${cls}" onclick="jumpQuestion(${idx})">${q.id}</div>`;
+  });
+}
+
+function jumpQuestion(i) {
+  if(!qStatus[curIdx]) qStatus[curIdx] = userAnswers[curIdx] !== undefined ? 'ans' : 'not-ans';
+  curIdx = i;
+  renderTcsQuestion();
+}
+
+function tcsSaveNext() {
+  qStatus[curIdx] = userAnswers[curIdx] !== undefined ? 'ans' : 'not-ans';
+  if(curIdx < activeQuestions.length - 1) jumpQuestion(curIdx + 1);
+  else renderPalette();
+}
+
+function tcsReview() {
+  qStatus[curIdx] = 'rev';
+  if(curIdx < activeQuestions.length - 1) jumpQuestion(curIdx + 1);
+  else renderPalette();
+}
+
+function tcsClear() {
+  delete userAnswers[curIdx];
+  qStatus[curIdx] = 'not-ans';
+  renderTcsQuestion();
+}
+
+function confirmTcsSubmit() {
+  if(confirm("Do you want to submit your examination?")) submitTestNow();
+}
+
+function submitTestNow() {
+  clearInterval(timerHandle);
+  document.getElementById('examConsole').style.display = 'none';
+
+  // Mark student as NO LONGER live in Admin Dashboard
+  activeCand.isLive = false;
+
+  const ex = exams[activeCand.testId] || { posMarks: 1.0, negMarks: 0.25 };
+  let correct = 0, wrong = 0;
+  activeQuestions.forEach((q, i) => {
+    if(userAnswers[i] !== undefined) {
+      if(userAnswers[i] === q.correct) correct++;
+      else wrong++;
     }
-    document.getElementById('currentQCount').innerText = count;
   });
+
+  const netScore = (correct * ex.posMarks) - (wrong * ex.negMarks);
+  activeCand.score = netScore;
+  activeCand.answers = userAnswers;
+  candidates[activeCand.regNo] = activeCand;
+  setDB('candidates', candidates);
+
+  alert(`Test Submitted Successfully!\nTotal Questions: ${activeQuestions.length}\nAttempted: ${correct + wrong}\nScore: ${netScore.toFixed(2)}`);
+  navigate('result');
 }
 
-function deleteQuestion(examId, qId) {
-  if(confirm("Delete this question?")) db.ref(`exam_questions/${examId}/${qId}`).remove().then(loadExamQuestions);
+/* 4. RESULT SCORECARD */
+function fetchScorecard() {
+  const roll = document.getElementById('result_in_roll').value.trim();
+  let cand = null;
+  for(let r in candidates) {
+    if(candidates[r].rollNo === roll) { cand = candidates[r]; break; }
+  }
+  if(!cand) return alert("Roll number not found!");
+
+  const ex = exams[cand.testId] || {};
+  if(!ex.resultDeclared) {
+    if(isTodayDate(ex.resultScheduledDate)) alert(`Result will be declared today shortly (${ex.resultScheduledDate}).`);
+    else alert(`Result is scheduled to be declared on ${ex.resultScheduledDate || 'TBA'}.`);
+    return;
+  }
+
+  const score = cand.score !== null ? cand.score.toFixed(2) : 'Absent';
+  const qual = (cand.score !== null && cand.score >= 45) ? '<span style="color:#2e7d32; font-weight:bold;">SHORTLISTED</span>' : '<span style="color:#c62828; font-weight:bold;">NOT SHORTLISTED</span>';
+
+  document.getElementById('scorecardOutput').innerHTML = `
+    <div class="box-card" style="border:2px solid #002b49;">
+      <h3 style="text-align:center; color:#002b49; margin-bottom:12px;">PRELIMINARY EXAMINATION SCORECARD - 2026</h3>
+      <table class="admit-card-table">
+        <tr><td><strong>Candidate:</strong> ${cand.name}</td><td><strong>Roll Number:</strong> ${cand.rollNo}</td></tr>
+        <tr><td><strong>Test Series:</strong> ${cand.testName}</td><td><strong>Status:</strong> ${qual}</td></tr>
+        <tr><td colspan="2" style="font-size:1.15rem; background:#f5f5f5;"><strong>Marks Obtained:</strong> <span style="color:#002b49; font-weight:bold;">${score}</span> / 80.00</td></tr>
+      </table>
+    </div>
+  `;
+  document.getElementById('scorecardOutput').style.display = 'block';
 }
 
-function toggleAdmit(id, status) { db.ref(`exams/${id}/admitReleased`).set(status); }
-function toggleResult(id, status) { db.ref(`exams/${id}/resultDeclared`).set(status); }
-function saveAdmitDate(id) { db.ref(`exams/${id}/admitDate`).set(document.getElementById('admitDate_' + id).value.trim()).then(()=>alert("Saved!")); }
-function saveResultDate(id) { db.ref(`exams/${id}/resultDate`).set(document.getElementById('resultDate_' + id).value.trim()).then(()=>alert("Saved!")); }
+// Initial Run
+populateExamSelect();
+updateDynamicNotices();
 </script>
 </body>
 </html>
