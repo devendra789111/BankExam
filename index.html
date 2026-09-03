@@ -18,7 +18,7 @@
   * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; }
   body { background: var(--gray-bg); color: #1e293b; min-height: 100vh; display: flex; flex-direction: column; }
 
-  /* Portal Top Header */
+  /* Portal Top Header (Standard Professional English Interface) */
   .portal-header { background: var(--navy-dark); color: #fff; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--amber-gold); flex-wrap: wrap; gap: 12px; }
   .brand-block h1 { font-size: 1.35rem; font-weight: bold; letter-spacing: 0.5px; }
   .brand-block span { font-size: 0.8rem; color: #90caf9; }
@@ -45,7 +45,7 @@
   .btn-enter-mega { background: #dc2626; color: #fff; }
   .btn-enter-mocks { background: var(--navy-blue); color: #fff; }
 
-  /* 10 Mocks Sub-Portal Cards */
+  /* 10 Mocks Cards */
   .mocks-grid-view { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-top: 15px; }
   .mock-card { border: 1px solid #cbd5e1; border-radius: 6px; padding: 16px; background: #f8fafc; display: flex; flex-direction: column; justify-content: space-between; }
   .mock-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
@@ -61,7 +61,7 @@
   .btn-analytics { background: #0284c7; color: #fff; }
   .btn-reattempt { background: #64748b; color: #fff; }
 
-  /* Mega Test Specific Actions */
+  /* Mega Menu Buttons */
   .mega-menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-top: 20px; }
   .mega-box-btn { padding: 18px; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; text-align: center; cursor: pointer; transition: 0.2s; font-weight: bold; }
   .mega-box-btn:hover { background: #f1f5f9; border-color: var(--navy-blue); }
@@ -140,30 +140,30 @@
 <header class="portal-header">
   <div class="brand-block">
     <h1>Banking With Meenu</h1>
-    <span>Official IBPS RRB Online Testing &amp; Assessment System / आधिकारिक ऑनलाइन परीक्षण प्रणाली</span>
+    <span>Official IBPS RRB Online Testing &amp; Assessment System</span>
   </div>
   <nav class="nav-strip">
-    <button class="nav-tab active" onclick="showScreen('home', event)">Home / होम</button>
-    <button class="nav-tab" onclick="showScreen('mocks-hub', event)">Mock Tests (10 Mocks) / मॉक टेस्ट</button>
-    <button class="nav-tab" onclick="showScreen('mega-hub', event)">Live Mega Test / मेगा टेस्ट</button>
+    <button class="nav-tab active" onclick="showScreen('home', event)">Home</button>
+    <button class="nav-tab" onclick="showScreen('mocks-hub', event)">Mock Tests (10 Mocks)</button>
+    <button class="nav-tab" onclick="showScreen('mega-hub', event)">Live Mega Test</button>
   </nav>
 </header>
 
 <main class="layout-container">
 
-  <!-- 1. HOME SCREEN -->
+  <!-- 1. HOME SCREEN: SEPARATE TILES -->
   <section id="screen-home" class="page-view">
     <div class="box-card" style="text-align:center; padding: 35px 20px;">
-      <h2 style="color:var(--navy-dark); font-size:1.5rem; margin-bottom:8px;">Welcome to Banking With Meenu Portal / बैंकिंग विद मीनू पोर्टल में आपका स्वागत है</h2>
+      <h2 style="color:var(--navy-dark); font-size:1.5rem; margin-bottom:8px;">Welcome to Banking With Meenu Portal</h2>
       <p style="color:#64748b; font-size:0.95rem; max-width:650px; margin:0 auto 30px auto;">
-        Choose an examination option below. Practice with Full-Length Mocks directly, or register for the All-India Live Mega Test. / नीचे दिए गए विकल्पों में से चयन करें।
+        Choose an examination option below. Practice with Full-Length Mocks directly, or register for the All-India Live Mega Test.
       </p>
 
       <div class="category-portal-grid">
         <!-- TILE 1: LIVE MEGA TEST -->
         <div class="cat-tile tile-mega" onclick="showScreen('mega-hub')">
           <div class="cat-icon-circle icon-mega">🏆</div>
-          <div class="cat-title" style="color:#b91c1c;">IBPS RRB Clerk Live Mega Test / लाइव मेगा टेस्ट</div>
+          <div class="cat-title" style="color:#b91c1c;">IBPS RRB Clerk Live Mega Test</div>
           <div class="cat-desc">
             All-India Centralized Test. Requires Form Application to generate 6-digit Registration Number, Call Letter, and Official A4 Scorecard.
           </div>
@@ -173,7 +173,7 @@
         <!-- TILE 2: 10 MOCKS TEST SERIES -->
         <div class="cat-tile" onclick="showScreen('mocks-hub')">
           <div class="cat-icon-circle icon-mocks">📚</div>
-          <div class="cat-title" style="color:var(--navy-dark);">IBPS RRB Clerk Full Mock Series / फुल मॉक सीरीज़</div>
+          <div class="cat-title" style="color:var(--navy-dark);">IBPS RRB Clerk Full Mock Series</div>
           <div class="cat-desc">
             10 High-Level Full Tests (80 Qs each). Direct test without form or admit card. Supports Pause &amp; Resume from exact question, Re-attempt &amp; Full Solutions.
           </div>
@@ -187,12 +187,13 @@
   <section id="screen-mocks-hub" class="page-view" style="display:none;">
     <div class="box-card">
       <div class="box-heading">
-        <span>IBPS RRB Clerk Full Mock Test Series (10 Tests) / फुल मॉक टेस्ट सीरीज़</span>
-        <button class="btn-sm btn-reattempt" onclick="showScreen('home')">← Back / पीछे जाएं</button>
+        <span>IBPS RRB Clerk Full Mock Test Series (10 Tests)</span>
+        <button class="btn-sm btn-reattempt" onclick="showScreen('home')">← Back to Home</button>
       </div>
       <p style="font-size:0.88rem; color:#64748b; margin-bottom:15px;">
         Each mock contains 80 unique high-level questions (40 Reasoning + 40 Quant). Pause anytime and resume exactly from where you stopped with your answered question palette preserved.
       </p>
+
       <div class="mocks-grid-view" id="mockCardsContainer"></div>
     </div>
   </section>
@@ -201,122 +202,122 @@
   <section id="screen-mega-hub" class="page-view" style="display:none;">
     <div class="box-card">
       <div class="box-heading">
-        <span>IBPS RRB Clerk Live Mega Test - Candidate Portal / उम्मीदवार पोर्टल</span>
-        <button class="btn-sm btn-reattempt" onclick="showScreen('home')">← Back / पीछे जाएं</button>
+        <span>IBPS RRB Clerk Live Mega Test - Candidate Portal</span>
+        <button class="btn-sm btn-reattempt" onclick="showScreen('home')">← Back to Home</button>
       </div>
 
       <div style="background:#fff1f2; border:1px solid #fecdd3; border-radius:6px; padding:15px; margin-bottom:20px;">
-        <h3 style="color:#b91c1c; font-size:1.05rem; margin-bottom:5px;">Live Mega Test Guidelines / लाइव मेगा टेस्ट निर्देश:</h3>
+        <h3 style="color:#b91c1c; font-size:1.05rem; margin-bottom:5px;">Live Mega Test Guidelines:</h3>
         <p style="font-size:0.85rem; color:#475569; line-height:1.4;">
-          Candidates must first register via 'Apply Form'. Download your Admit Card using your 6-Digit Registration Number and attempt the test using your Roll Number. Official A4 Scorecards with State &amp; Category Cut-offs will be generated upon result declaration.
+          This is an official centralized simulation. Candidates must first register via <strong>'Apply Form'</strong>. Once released, download your <strong>Admit Card</strong> using your 6-Digit Registration Number and attempt the test using your Roll Number. Official A4 Scorecards with State &amp; Category Cut-offs will be generated upon result declaration.
         </p>
       </div>
 
       <div class="mega-menu-grid">
         <div class="mega-box-btn" onclick="showScreen('mega-apply')">
           <div style="font-size:1.8rem; margin-bottom:6px;">📝</div>
-          <div>1. Apply Online Form / ऑनलाइन फॉर्म भरें</div>
+          <div>1. Apply Online Form</div>
           <small style="color:#64748b; font-weight:normal;">Generate 6-Digit Reg. No.</small>
         </div>
         <div class="mega-box-btn" onclick="showScreen('mega-admit')">
           <div style="font-size:1.8rem; margin-bottom:6px;">🎫</div>
-          <div>2. Download Call Letter / एडमिट कार्ड डाउनलोड</div>
+          <div>2. Download Call Letter</div>
           <small style="color:#64748b; font-weight:normal;">A4 Printable Admit Card</small>
         </div>
         <div class="mega-box-btn" onclick="showScreen('mega-login')">
           <div style="font-size:1.8rem; margin-bottom:6px;">💻</div>
-          <div>3. Sign In &amp; Give Mega Test / परीक्षा शुरू करें</div>
+          <div>3. Sign In &amp; Give Mega Test</div>
           <small style="color:#64748b; font-weight:normal;">Login via Roll Number</small>
         </div>
         <div class="mega-box-btn" onclick="showScreen('mega-result')">
           <div style="font-size:1.8rem; margin-bottom:6px;">📊</div>
-          <div>4. Mega Test Scorecard / परिणाम देखें</div>
+          <div>4. Mega Test Scorecard</div>
           <small style="color:#64748b; font-weight:normal;">A4 Printable with Cut-offs</small>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 4. MEGA APPLY FORM (WITH COMPLETE BILINGUAL STATES LIST) -->
+  <!-- 4. MEGA APPLY FORM (WITH COMPLETE 28 STATES + 8 UTs BILINGUAL LIST) -->
   <section id="screen-mega-apply" class="page-view" style="display:none;">
     <div class="box-card">
       <div class="box-heading">
-        <span>Mega Test Application Form - 2026 / मेगा टेस्ट आवेदन फॉर्म</span>
-        <button class="btn-sm btn-reattempt" onclick="showScreen('mega-hub')">← Back / पीछे जाएं</button>
+        <span>Mega Test Application Form - 2026</span>
+        <button class="btn-sm btn-reattempt" onclick="showScreen('mega-hub')">← Back to Mega Portal</button>
       </div>
 
       <form onsubmit="onMegaRegister(event)">
         <div class="form-grid">
           <div class="form-group">
-            <label>Full Name / पूरा नाम *</label>
+            <label>Full Name *</label>
             <input type="text" id="m_name" placeholder="Ramesh Kumar" required>
           </div>
           <div class="form-group">
-            <label>Father's Name / पिता का नाम *</label>
+            <label>Father's Name *</label>
             <input type="text" id="m_father" placeholder="Suresh Kumar" required>
           </div>
           <div class="form-group">
-            <label>Applied State / राज्य चुनें *</label>
+            <label>Applied State / केंद्र शासित प्रदेश *</label>
             <select id="m_state" required>
-              <option value="">-- Select Applied State / राज्य चुनें --</option>
-              <option value="Andhra Pradesh">Andhra Pradesh / आंध्र प्रदेश</option>
-              <option value="Arunachal Pradesh">Arunachal Pradesh / अरुणाचल प्रदेश</option>
-              <option value="Assam">Assam / असम</option>
-              <option value="Bihar">Bihar / बिहार</option>
-              <option value="Chhattisgarh">Chhattisgarh / छत्तीसगढ़</option>
-              <option value="Goa">Goa / गोवा</option>
-              <option value="Gujarat">Gujarat / गुजरात</option>
-              <option value="Haryana">Haryana / हरियाणा</option>
-              <option value="Himachal Pradesh">Himachal Pradesh / हिमाचल प्रदेश</option>
-              <option value="Jharkhand">Jharkhand / झारखंड</option>
-              <option value="Karnataka">Karnataka / कर्नाटक</option>
-              <option value="Kerala">Kerala / केरल</option>
-              <option value="Madhya Pradesh">Madhya Pradesh / मध्य प्रदेश</option>
-              <option value="Maharashtra">Maharashtra / महाराष्ट्र</option>
-              <option value="Manipur">Manipur / मणिपुर</option>
-              <option value="Meghalaya">Meghalaya / मेघालय</option>
-              <option value="Mizoram">Mizoram / मिजोरम</option>
-              <option value="Nagaland">Nagaland / नागालैंड</option>
-              <option value="Odisha">Odisha / ओडिशा</option>
-              <option value="Punjab">Punjab / पंजाब</option>
-              <option value="Rajasthan">Rajasthan / राजस्थान</option>
-              <option value="Sikkim">Sikkim / सिक्किम</option>
-              <option value="Tamil Nadu">Tamil Nadu / तमिलनाडु</option>
-              <option value="Telangana">Telangana / तेलंगाना</option>
-              <option value="Tripura">Tripura / त्रिपुरा</option>
-              <option value="Uttar Pradesh">Uttar Pradesh / उत्तर प्रदेश</option>
-              <option value="Uttarakhand">Uttarakhand / उत्तराखंड</option>
-              <option value="West Bengal">West Bengal / पश्चिम बंगाल</option>
-              <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands / अंडमान और निकोबार द्वीप समूह</option>
-              <option value="Chandigarh">Chandigarh / चंडीगढ़</option>
-              <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu / दादरा और नगर हवेली और दमन और दीव</option>
-              <option value="Delhi NCR">Delhi NCR / दिल्ली एनसीआर</option>
-              <option value="Jammu and Kashmir">Jammu and Kashmir / जम्मू और कश्मीर</option>
-              <option value="Ladakh">Ladakh / लद्दाख</option>
-              <option value="Lakshadweep">Lakshadweep / लक्षद्वीप</option>
-              <option value="Puducherry">Puducherry / पुदुचेरी</option>
+              <option value="">-- Select State / UT (राज्य चुनें) --</option>
+              <option value="Andhra Pradesh">Andhra Pradesh (आंध्र प्रदेश)</option>
+              <option value="Arunachal Pradesh">Arunachal Pradesh (अरुणाचल प्रदेश)</option>
+              <option value="Assam">Assam (असम)</option>
+              <option value="Bihar">Bihar (बिहार)</option>
+              <option value="Chhattisgarh">Chhattisgarh (छत्तीसगढ़)</option>
+              <option value="Goa">Goa (गोवा)</option>
+              <option value="Gujarat">Gujarat (गुजरात)</option>
+              <option value="Haryana">Haryana (हरियाणा)</option>
+              <option value="Himachal Pradesh">Himachal Pradesh (हिमाचल प्रदेश)</option>
+              <option value="Jharkhand">Jharkhand (झारखंड)</option>
+              <option value="Karnataka">Karnataka (कर्नाटक)</option>
+              <option value="Kerala">Kerala (केरल)</option>
+              <option value="Madhya Pradesh">Madhya Pradesh (मध्य प्रदेश)</option>
+              <option value="Maharashtra">Maharashtra (महाराष्ट्र)</option>
+              <option value="Manipur">Manipur (मणिपुर)</option>
+              <option value="Meghalaya">Meghalaya (मेघालय)</option>
+              <option value="Mizoram">Mizoram (मिजोरम)</option>
+              <option value="Nagaland">Nagaland (नागालैंड)</option>
+              <option value="Odisha">Odisha (ओडिशा)</option>
+              <option value="Punjab">Punjab (पंजाब)</option>
+              <option value="Rajasthan">Rajasthan (राजस्थान)</option>
+              <option value="Sikkim">Sikkim (सिक्किम)</option>
+              <option value="Tamil Nadu">Tamil Nadu (तमिलनाडु)</option>
+              <option value="Telangana">Telangana (तेलंगाना)</option>
+              <option value="Tripura">Tripura (त्रिपुरा)</option>
+              <option value="Uttar Pradesh">Uttar Pradesh (उत्तर प्रदेश)</option>
+              <option value="Uttarakhand">Uttarakhand (उत्तराखंड)</option>
+              <option value="West Bengal">West Bengal (पश्चिम बंगाल)</option>
+              <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands (अंडमान और निकोबार)</option>
+              <option value="Chandigarh">Chandigarh (चंडीगढ़)</option>
+              <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu (दादरा और नगर हवेली और दमन और दीव)</option>
+              <option value="Delhi NCR">Delhi NCR (दिल्ली एनसीआर)</option>
+              <option value="Jammu and Kashmir">Jammu and Kashmir (जम्मू और कश्मीर)</option>
+              <option value="Ladakh">Ladakh (लद्दाख)</option>
+              <option value="Lakshadweep">Lakshadweep (लक्षद्वीप)</option>
+              <option value="Puducherry">Puducherry (पुदुचेरी)</option>
             </select>
           </div>
           <div class="form-group">
-            <label>Category / श्रेणी *</label>
+            <label>Category *</label>
             <select id="m_category" required>
-              <option value="UR / General">UR / General (सामान्य)</option>
-              <option value="OBC">OBC (अन्य पिछड़ा वर्ग)</option>
-              <option value="EWS">EWS (आर्थिक रूप से कमजोर वर्ग)</option>
-              <option value="SC">SC (अनुसूचित जाति)</option>
-              <option value="ST">ST (अनुसूचित जनजाति)</option>
+              <option value="UR / General">UR / General</option>
+              <option value="OBC">OBC</option>
+              <option value="EWS">EWS</option>
+              <option value="SC">SC</option>
+              <option value="ST">ST</option>
             </select>
           </div>
           <div class="form-group">
-            <label>Date of Birth / जन्म तिथि *</label>
+            <label>Date of Birth *</label>
             <input type="date" id="m_dob" required>
           </div>
           <div class="form-group">
-            <label>Mobile Number / मोबाइल *</label>
+            <label>Mobile Number *</label>
             <input type="tel" id="m_mobile" pattern="[0-9]{10}" placeholder="10 Digit Number" required>
           </div>
           <div class="form-group" style="grid-column:span 2;">
-            <label>Email Address / ईमेल *</label>
+            <label>Email Address *</label>
             <input type="email" id="m_email" placeholder="name@example.com" required>
           </div>
         </div>
@@ -324,12 +325,12 @@
       </form>
 
       <div id="megaSlipOutput" style="display:none; margin-top:20px; border:2px solid #2e7d32; padding:18px; border-radius:6px; background:#f0fdf4;">
-        <h3 style="color:#166534; margin-bottom:10px;">✓ Registration Confirmed! / पंजीकरण सफल!</h3>
+        <h3 style="color:#166534; margin-bottom:10px;">✓ Registration Confirmed!</h3>
         <table class="a4-table" style="margin-bottom:10px;">
-          <tr><td width="40%"><strong>Registration Number (पंजीकरण संख्या):</strong></td><td><strong style="font-size:1.3rem; color:#15803d;" id="slipRegDisplay"></strong></td></tr>
-          <tr><td><strong>Candidate Name (उम्मीदवार का नाम):</strong></td><td id="slipNameDisplay"></td></tr>
-          <tr><td><strong>Applied State (लागू राज्य):</strong></td><td id="slipStateDisplay"></td></tr>
-          <tr><td><strong>Category (श्रेणी):</strong></td><td id="slipCatDisplay"></td></tr>
+          <tr><td width="40%"><strong>Registration Number:</strong></td><td><strong style="font-size:1.3rem; color:#15803d;" id="slipRegDisplay"></strong></td></tr>
+          <tr><td><strong>Candidate Name:</strong></td><td id="slipNameDisplay"></td></tr>
+          <tr><td><strong>Applied State:</strong></td><td id="slipStateDisplay"></td></tr>
+          <tr><td><strong>Category:</strong></td><td id="slipCatDisplay"></td></tr>
         </table>
         <p style="font-size:0.85rem; color:#475569;">* Please note down your 6-Digit Registration Number. Use it to download your Call Letter. Roll Number will be printed on the Admit Card.</p>
       </div>
@@ -341,7 +342,7 @@
     <div class="box-card no-print">
       <div class="box-heading">
         <span>Download Mega Test Call Letter / Admit Card</span>
-        <button class="btn-sm btn-reattempt" onclick="showScreen('mega-hub')">← Back / पीछे जाएं</button>
+        <button class="btn-sm btn-reattempt" onclick="showScreen('mega-hub')">← Back to Mega Portal</button>
       </div>
       <div id="admitNoticeBox" style="padding:12px; background:#e3f2fd; border-left:4px solid #1976d2; margin-bottom:15px; font-size:0.88rem;"></div>
 
@@ -360,19 +361,19 @@
       <p style="font-size:0.85rem; color:#64748b; margin-bottom:15px;">Enter your Roll Number and Password from your Call Letter</p>
 
       <div class="form-group" style="text-align:left; margin-bottom:12px;">
-        <label>Roll Number (User ID) / रोल नंबर:</label>
+        <label>Roll Number (User ID):</label>
         <input type="text" id="login_mega_roll" placeholder="8-Digit Roll Number">
       </div>
       <div class="form-group" style="text-align:left; margin-bottom:15px;">
-        <label>Password (DOB: YYYYMMDD) / पासवर्ड:</label>
+        <label>Password (DOB: YYYYMMDD):</label>
         <input type="password" id="login_mega_pass" placeholder="YYYYMMDD">
       </div>
       <div class="form-group" style="text-align:left; margin-bottom:20px;">
-        <label>Language Preference / माध्यम:</label>
+        <label>Question Language / भाषा चयन (परीक्षा के लिए):</label>
         <select id="login_mega_lang">
-          <option value="both">Bilingual (हिन्दी &amp; English)</option>
-          <option value="hi">हिन्दी</option>
-          <option value="en">English</option>
+          <option value="both">Bilingual (English &amp; हिन्दी)</option>
+          <option value="hi">हिन्दी Only</option>
+          <option value="en">English Only</option>
         </select>
       </div>
       <button class="btn-action" style="width:100%;" onclick="startMegaTestSession()">Sign In &amp; Begin Mega Test</button>
@@ -385,7 +386,7 @@
     <div class="box-card no-print">
       <div class="box-heading">
         <span>Preliminary Examination Official Scorecard</span>
-        <button class="btn-sm btn-reattempt" onclick="showScreen('mega-hub')">← Back / पीछे जाएं</button>
+        <button class="btn-sm btn-reattempt" onclick="showScreen('mega-hub')">← Back to Mega Portal</button>
       </div>
       <div id="resultNoticeBox" style="padding:12px; background:#e3f2fd; border-left:4px solid #1976d2; margin-bottom:15px; font-size:0.88rem;"></div>
 
@@ -408,33 +409,33 @@
       <!-- Performance Summary Strips -->
       <div class="stats-summary-strip">
         <div class="stat-pill" style="border-left:4px solid var(--navy-blue);">
-          <small>Total Score / कुल स्कोर</small>
+          <small>Total Score</small>
           <div class="num" style="color:var(--navy-blue);" id="statScore">0.00 / 80</div>
         </div>
         <div class="stat-pill" style="border-left:4px solid var(--ans-green);">
-          <small>Correct Answers / सही</small>
+          <small>Correct Answers</small>
           <div class="num" style="color:var(--ans-green);" id="statCorrect">0</div>
         </div>
         <div class="stat-pill" style="border-left:4px solid var(--not-ans-red);">
-          <small>Wrong Answers / गलत</small>
+          <small>Wrong Answers</small>
           <div class="num" style="color:var(--not-ans-red);" id="statWrong">0</div>
         </div>
         <div class="stat-pill" style="border-left:4px solid #64748b;">
-          <small>Accuracy / सटीकता</small>
+          <small>Accuracy</small>
           <div class="num" style="color:#64748b;" id="statAccuracy">0%</div>
         </div>
       </div>
 
       <!-- Sectional Breakdown & Cut-off Comparison -->
-      <h3 style="color:var(--navy-dark); margin: 20px 0 10px 0;">Section-wise Performance &amp; Cut-off Comparison / विषयवार प्रदर्शन और कट-ऑफ:</h3>
+      <h3 style="color:var(--navy-dark); margin: 20px 0 10px 0;">Section-wise Performance &amp; Cut-off Comparison:</h3>
       <table class="scorecard-table">
         <thead>
           <tr>
-            <th>Section Name / खंड</th>
-            <th>Max Marks / अधिकतम अंक</th>
-            <th>Your Score / आपका प्राप्तांक</th>
-            <th>Sectional Cut-off / कट-ऑफ</th>
-            <th>Sectional Status / स्थिति</th>
+            <th>Section Name</th>
+            <th>Max Marks</th>
+            <th>Your Score</th>
+            <th>Sectional Cut-off</th>
+            <th>Sectional Status</th>
           </tr>
         </thead>
         <tbody id="sectionalBreakdownTbody">
@@ -444,7 +445,7 @@
 
       <div id="mockQualificationStatusBox" style="padding:14px; border-radius:6px; margin-bottom:25px; text-align:center; font-size:1.05rem;"></div>
 
-      <h3 style="color:var(--navy-dark); margin: 20px 0 12px 0;">Detailed Question-by-Question Analysis &amp; Solutions / विस्तृत हल:</h3>
+      <h3 style="color:var(--navy-dark); margin: 20px 0 12px 0;">Detailed Question-by-Question Analysis &amp; Solutions (Bilingual):</h3>
       <div id="solutionsListContainer"></div>
     </div>
   </section>
@@ -467,11 +468,11 @@
       <div class="q-meta">
         <strong id="tcsQHeading">Question No. 1</strong>
         <div>
-          Language: 
+          Question Language / प्रश्न भाषा: 
           <select id="tcsLangSelector" onchange="renderActiveQuestion()">
-            <option value="both">Bilingual</option>
-            <option value="hi">हिन्दी</option>
-            <option value="en">English</option>
+            <option value="both">Bilingual (English &amp; हिन्दी)</option>
+            <option value="hi">हिन्दी Only</option>
+            <option value="en">English Only</option>
           </select>
         </div>
       </div>
@@ -507,28 +508,28 @@
   </div>
 </div>
 
-<!-- IN-SCREEN MODERN PAUSE OVERLAY MODAL -->
+<!-- MODERN IN-SCREEN PAUSE OVERLAY MODAL -->
 <div id="inScreenPauseModal">
   <div class="pause-modal-card">
     <div style="font-size:3rem; margin-bottom:10px;">⏸️</div>
-    <h3 style="color:var(--navy-dark); font-size:1.3rem; margin-bottom:8px;">Test Paused Successfully / परीक्षा रोकी गई</h3>
+    <h3 style="color:var(--navy-dark); font-size:1.3rem; margin-bottom:8px;">Test Paused Successfully</h3>
     <p style="font-size:0.88rem; color:#64748b; margin-bottom:20px;">
       Your timer, current question position, and answered question palette have been safely frozen.
     </p>
-    <button class="btn-action" style="width:100%; background:#d97706;" onclick="closeInScreenPauseModal()">▶ Resume Test Now / परीक्षा जारी रखें</button>
+    <button class="btn-action" style="width:100%; background:#d97706;" onclick="closeInScreenPauseModal()">▶ Resume Test Now</button>
   </div>
 </div>
 
 <script>
-/* 80 HIGH-LEVEL COMPLETE UNIQUE QUESTIONS WITH STEP-BY-STEP SOLUTIONS */
+/* 80 HIGH-LEVEL COMPLETE UNIQUE QUESTIONS WITH STEP-BY-STEP BILINGUAL SOLUTIONS */
 const highLevel80Questions = [
   // --- REASONING ABILITY (Q. 1 to 40) ---
-  { id: 1, sec: "Reasoning Ability", text_en: "<strong>Directions (Q. 1-5):</strong> 8 persons (A, B, C, D, E, F, G, H) sit in a straight row facing North. A sits 4th to the left of G. Neither A nor G sits at extreme ends. Only 2 persons sit between G and B. C sits immediate left of B. D sits 2nd to the right of E. H does not sit near G.<br><br><strong>Q.1: Who sits at the extreme right end of the row?</strong>", text_hi: "<strong>निर्देश (प्र. 1-5):</strong> 8 व्यक्ति (A, B, C, D, E, F, G, H) उत्तर की ओर मुख करके पंक्ति में बैठे हैं। A, G के बाएं से चौथे स्थान पर है। A या G छोर पर नहीं हैं। G और B के बीच 2 व्यक्ति हैं। C, B के ठीक बाएं है। D, E के दाएं से दूसरे स्थान पर है। H, G के पास नहीं है।<br><br><strong>प्र.1: पंक्ति के अंतिम दाएं छोर पर कौन बैठा है?</strong>", options: ["(A) D", "(B) B", "(C) F", "(D) C", "(E) H"], correct: 0, sol: "Arrangement from left to right: H - E - A - F - D - C - B - G. Therefore, D positioning leaves D at the extreme right end." },
-  { id: 2, sec: "Reasoning Ability", text_en: "<strong>Q.2: How many persons sit between A and C?</strong>", text_hi: "<strong>प्र.2: A और C के मध्य कितने व्यक्ति बैठे हैं?</strong>", options: ["(A) None", "(B) One", "(C) Two", "(D) Three", "(E) Four"], correct: 3, sol: "Between A and C there are exactly 3 persons (F, D, etc.)." },
-  { id: 3, sec: "Reasoning Ability", text_en: "<strong>Q.3: What is the position of F with respect to E?</strong>", text_hi: "<strong>प्र.3: E के संदर्भ में F का स्थान क्या है?</strong>", options: ["(A) 2nd to the Right", "(B) Immediate Right", "(C) 3rd to the Left", "(D) Immediate Left", "(E) 2nd to the Left"], correct: 0, sol: "F is positioned two places to the right of E." },
-  { id: 4, sec: "Reasoning Ability", text_en: "<strong>Q.4: Which of the following pairs sits at the extreme ends?</strong>", text_hi: "<strong>प्र.4: निम्नलिखित में से कौन सा युग्म अंतिम छोरों पर बैठा है?</strong>", options: ["(A) H, D", "(B) E, D", "(C) H, B", "(D) F, G", "(E) A, D"], correct: 0, sol: "H sits at the extreme left and D sits at the extreme right end." },
-  { id: 5, sec: "Reasoning Ability", text_en: "<strong>Q.5: Who sits immediate right of G?</strong>", text_hi: "<strong>प्र.5: G के ठीक दाएं कौन बैठा है?</strong>", options: ["(A) C", "(B) B", "(C) E", "(D) D", "(E) F"], correct: 0, sol: "Based on final seating order, C sits immediately right of G." },
-  { id: 6, sec: "Reasoning Ability", text_en: "<strong>Statements:</strong> Only a few Circles are Squares. All Squares are Triangles. No Triangle is Rectangle.<br><strong>Conclusions:</strong> I. Some Circles are not Rectangles. II. All Squares can never be Rectangles.", text_hi: "<strong>कथन:</strong> केवल कुछ Circle, Square हैं। सभी Square, Triangle हैं। कोई Triangle, Rectangle नहीं है।<br><strong>निष्कर्ष:</strong> I. कुछ Circle, Rectangle नहीं हैं। II. सभी Square कभी Rectangle नहीं हो सकते।", options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II follows", "(D) Neither I nor II", "(E) Both I and II follow"], correct: 4, sol: "Part of circle which is square/triangle cannot be rectangle, so I holds. Squares are inside triangles and no triangle is rectangle, so II holds." },
+  { id: 1, sec: "Reasoning Ability", text_en: "<strong>Directions (Q. 1-5):</strong> 8 persons (A, B, C, D, E, F, G, H) sit in a straight row facing North. A sits 4th to the left of G. Neither A nor G sits at extreme ends. Only 2 persons sit between G and B. C sits immediate left of B. D sits 2nd to the right of E. H does not sit near G.<br><br><strong>Q.1: Who sits at the extreme right end of the row?</strong>", text_hi: "<strong>निर्देश (प्र. 1-5):</strong> 8 व्यक्ति (A, B, C, D, E, F, G, H) उत्तर की ओर मुख करके पंक्ति में बैठे हैं। A, G के बाएं से चौथे स्थान पर है। A या G छोर पर नहीं हैं। G और B के बीच 2 व्यक्ति हैं। C, B के ठीक बाएं है। D, E के दाएं से दूसरे स्थान पर है। H, G के पास नहीं है।<br><br><strong>प्र.1: पंक्ति के अंतिम दाएं छोर पर कौन बैठा है?</strong>", options: ["(A) D", "(B) B", "(C) F", "(D) C", "(E) H"], correct: 0, sol: "Arrangement from left to right: H - E - A - F - D - C - B - G. Therefore, D positioning leaves D at the extreme right end.\nव्यवस्था बाएं से दाएं: H - E - A - F - D - C - B - G। अतः D अंतिम दाएं छोर पर है।" },
+  { id: 2, sec: "Reasoning Ability", text_en: "<strong>Q.2: How many persons sit between A and C?</strong>", text_hi: "<strong>प्र.2: A और C के मध्य कितने व्यक्ति बैठे हैं?</strong>", options: ["(A) None", "(B) One", "(C) Two", "(D) Three", "(E) Four"], correct: 3, sol: "Between A and C there are exactly 3 persons (F, D, etc.).\nA और C के बीच ठीक 3 व्यक्ति हैं।" },
+  { id: 3, sec: "Reasoning Ability", text_en: "<strong>Q.3: What is the position of F with respect to E?</strong>", text_hi: "<strong>प्र.3: E के संदर्भ में F का स्थान क्या है?</strong>", options: ["(A) 2nd to the Right", "(B) Immediate Right", "(C) 3rd to the Left", "(D) Immediate Left", "(E) 2nd to the Left"], correct: 0, sol: "F is positioned two places to the right of E.\nF, E के दाएं से दूसरे स्थान पर है।" },
+  { id: 4, sec: "Reasoning Ability", text_en: "<strong>Q.4: Which of the following pairs sits at the extreme ends?</strong>", text_hi: "<strong>प्र.4: निम्नलिखित में से कौन सा युग्म अंतिम छोरों पर बैठा है?</strong>", options: ["(A) H, D", "(B) E, D", "(C) H, B", "(D) F, G", "(E) A, D"], correct: 0, sol: "H sits at the extreme left and D sits at the extreme right end.\nH बाएं छोर पर और D दाएं छोर पर है।" },
+  { id: 5, sec: "Reasoning Ability", text_en: "<strong>Q.5: Who sits immediate right of G?</strong>", text_hi: "<strong>प्र.5: G के ठीक दाएं कौन बैठा है?</strong>", options: ["(A) C", "(B) B", "(C) E", "(D) D", "(E) F"], correct: 0, sol: "Based on final seating order, C sits immediately right of G.\nअंतिम व्यवस्था के अनुसार G के ठीक दाएं C बैठा है।" },
+  { id: 6, sec: "Reasoning Ability", text_en: "<strong>Statements:</strong> Only a few Circles are Squares. All Squares are Triangles. No Triangle is Rectangle.<br><strong>Conclusions:</strong> I. Some Circles are not Rectangles. II. All Squares can never be Rectangles.", text_hi: "<strong>कथन:</strong> केवल कुछ Circle, Square हैं। सभी Square, Triangle हैं। कोई Triangle, Rectangle नहीं है।<br><strong>निष्कर्ष:</strong> I. कुछ Circle, Rectangle नहीं हैं। II. सभी Square कभी Rectangle नहीं हो सकते।", options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II follows", "(D) Neither I nor II", "(E) Both I and II follow"], correct: 4, sol: "Part of circle which is square/triangle cannot be rectangle, so I holds. Squares are inside triangles and no triangle is rectangle, so II holds.\nचूंकि कुछ वृत्त वर्ग/त्रिभुज हैं और कोई त्रिभुज आयत नहीं है, अतः दोनों निष्कर्ष सत्य हैं।" },
   { id: 7, sec: "Reasoning Ability", text_en: "<strong>Statements:</strong> Only a few Rivers are Lakes. Some Lakes are Oceans. All Oceans are Ponds.<br><strong>Conclusions:</strong> I. All Rivers being Lake is a possibility. II. Some Ponds are Lakes.", text_hi: "<strong>कथन:</strong> केवल कुछ River, Lake हैं। कुछ Lake, Ocean हैं। सभी Ocean, Pond हैं।<br><strong>निष्कर्ष:</strong> I. सभी River के Lake होने की संभावना है। II. कुछ Pond, Lake हैं।", options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II follows", "(D) Neither I nor II", "(E) Both I and II follow"], correct: 1, sol: "'Only a few Rivers are Lakes' means All Rivers can never be Lakes. Hence I is false. Since some lakes are oceans and all oceans are ponds, some ponds are lakes is true." },
   { id: 8, sec: "Reasoning Ability", text_en: "<strong>Statements:</strong> No Tree is Plant. All Plants are Herbs. Only a few Herbs are Shrubs.<br><strong>Conclusions:</strong> I. Some Herbs are not Trees. II. All Trees being Shrubs is a possibility.", text_hi: "<strong>कथन:</strong> कोई Tree, Plant नहीं है। सभी Plant, Herb हैं। केवल कुछ Herb, Shrub हैं।<br><strong>निष्कर्ष:</strong> I. कुछ Herb, Tree नहीं हैं। II. सभी Tree के Shrub होने की संभावना है।", options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II follows", "(D) Neither I nor II", "(E) Both I and II follow"], correct: 4, sol: "Part of Herbs that are Plants can never be Trees (I follows). There is no negative restriction between Tree and Shrub, so possibility holds (II follows)." },
   { id: 9, sec: "Reasoning Ability", text_en: "<strong>Statements:</strong> Only a few Blue are Green. All Green are Yellow. No Yellow is Black.<br><strong>Conclusions:</strong> I. No Green is Black. II. Some Blue are not Yellow.", text_hi: "<strong>कथन:</strong> केवल कुछ Blue, Green हैं। सभी Green, Yellow हैं। कोई Yellow, Black नहीं है।<br><strong>निष्कर्ष:</strong> I. कोई Green, Black नहीं है। II. कुछ Blue, Yellow नहीं हैं।", options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II follows", "(D) Neither I nor II", "(E) Both I and II follow"], correct: 0, sol: "Green is fully inside Yellow and no Yellow is Black, so no Green is Black (I holds). All Blue being Yellow is possible, so definite conclusion II fails." },
@@ -614,7 +615,6 @@ function setStorage(k, val) { localStorage.setItem('bwm_' + k, JSON.stringify(va
 let candidateStore = getStorage('candidates', {});
 let mockTestsProgress = getStorage('mock_progress', {});
 
-// Initialize 10 Mocks records with sessionStatus and lastQuestionIndex
 for (let i = 1; i <= 10; i++) {
   if (!mockTestsProgress[i]) {
     mockTestsProgress[i] = { 
@@ -622,7 +622,7 @@ for (let i = 1; i <= 10; i++) {
       remainingSec: 45 * 60, 
       lastQuestionIndex: 0, 
       answers: {}, 
-      sessionStatus: {}, // stores green/red/purple states
+      sessionStatus: {}, 
       score: null, 
       completedDate: null 
     };
@@ -693,8 +693,8 @@ function render10MocksCards() {
   }
 }
 
-/* TCS iON EXAM ENGINE (RESUMES EXACT QUESTION, TIME & GREEN PALETTE STATE) */
-let activeMode = 'mock'; // 'mock' or 'mega'
+/* TCS iON EXAM ENGINE */
+let activeMode = 'mock'; 
 let activeMockId = 1;
 let currentExamQuestions = [];
 let currentQuestionIndex = 0;
@@ -715,9 +715,9 @@ function launchMockSession(mockId, mode) {
     sessionStatus = {};
   } else if (mode === 'resume') {
     sessionTimerSec = mockTestsProgress[mockId].remainingSec;
-    currentQuestionIndex = mockTestsProgress[mockId].lastQuestionIndex || 0; // Resume exact question
+    currentQuestionIndex = mockTestsProgress[mockId].lastQuestionIndex || 0; 
     sessionAnswers = mockTestsProgress[mockId].answers || {};
-    sessionStatus = mockTestsProgress[mockId].sessionStatus || {}; // RESTORE GREEN ANSWERED STATES!
+    sessionStatus = mockTestsProgress[mockId].sessionStatus || {}; 
   }
 
   document.getElementById('btnPauseTest').style.display = 'inline-block';
@@ -746,12 +746,11 @@ function startMegaTestSession() {
   activeMockId = cand.regNo;
   currentExamQuestions = highLevel80Questions;
 
-  // Check if Mega Test was paused earlier
   if (cand.megaStatus === 'Paused') {
     sessionTimerSec = cand.remainingSec || (45 * 60);
-    currentQuestionIndex = cand.lastQuestionIndex || 0; // Resume exact question
+    currentQuestionIndex = cand.lastQuestionIndex || 0; 
     sessionAnswers = cand.answers || {};
-    sessionStatus = cand.sessionStatus || {}; // Restore green palette
+    sessionStatus = cand.sessionStatus || {}; 
   } else {
     sessionTimerSec = 45 * 60;
     currentQuestionIndex = 0;
@@ -759,7 +758,7 @@ function startMegaTestSession() {
     sessionStatus = {};
   }
 
-  document.getElementById('btnPauseTest').style.display = 'inline-block'; // PAUSE ENABLED FOR MEGA TEST
+  document.getElementById('btnPauseTest').style.display = 'inline-block'; 
   document.getElementById('tcsTitleBanner').innerText = "IBPS RRB Clerk Live Mega Test 2026";
   document.getElementById('tcsNameBar').innerText = cand.name;
   document.getElementById('tcsRollBar').innerText = cand.rollNo;
@@ -840,7 +839,6 @@ function renderPaletteCells() {
   grid.innerHTML = '';
   currentExamQuestions.forEach((q, idx) => {
     let cls = '';
-    // Priority: check stored sessionStatus or answered status
     if (sessionStatus[idx] === 'ans' || (sessionStatus[idx] !== 'rev' && sessionAnswers[idx] !== undefined)) {
       cls = 'ans';
     } else if (sessionStatus[idx] === 'rev') {
@@ -878,14 +876,8 @@ function clickClear() {
   renderActiveQuestion();
 }
 
-/* PAUSE TEST PRESERVING EXACT QUESTION, TIME & GREEN ANSWERED STATUS (WORKS IN BOTH MOCK & MEGA TEST) */
 function clickPauseTest() {
-  const qNum = currentQuestionIndex + 1;
-  
   clearInterval(sessionTimerInterval);
-  document.getElementById('examConsole').style.display = 'none';
-
-  // Synchronize current question state before saving
   sessionStatus[currentQuestionIndex] = sessionAnswers[currentQuestionIndex] !== undefined ? 'ans' : 'not-ans';
 
   if (activeMode === 'mock') {
@@ -896,7 +888,6 @@ function clickPauseTest() {
     mockTestsProgress[activeMockId].sessionStatus = sessionStatus;
     setStorage('mock_progress', mockTestsProgress);
   } else {
-    // MEGA TEST PAUSE HANDLER
     let c = candidateStore[activeMockId];
     c.megaStatus = 'Paused';
     c.remainingSec = sessionTimerSec;
@@ -908,7 +899,7 @@ function clickPauseTest() {
     setStorage('candidates', candidateStore);
   }
 
-  // Show modern in-screen pause modal
+  document.getElementById('examConsole').style.display = 'none';
   document.getElementById('inScreenPauseModal').style.display = 'flex';
 }
 
@@ -962,22 +953,18 @@ function completeExamExecution() {
       completedDate: new Date().toLocaleDateString()
     };
     setStorage('mock_progress', mockTestsProgress);
-    alert(`Mock Test 0${activeMockId} Submitted!\nReasoning Score: ${reasScore.toFixed(2)}/40\nQuant Score: ${quantScore.toFixed(2)}/40\nTotal Marks: ${totalScore.toFixed(2)}/80\n\nOpening performance analytics & solutions...`);
     viewMockAnalytics(activeMockId);
   } else {
-    // Mega Test Submission
     let c = candidateStore[activeMockId];
     c.score_reasoning = reasScore;
     c.score_quant = quantScore;
     c.score_total = totalScore;
     candidateStore[activeMockId] = c;
     setStorage('candidates', candidateStore);
-    alert(`Mega Test Submitted Successfully!\nReasoning: ${reasScore.toFixed(2)}/40\nQuant: ${quantScore.toFixed(2)}/40\nTotal Score: ${totalScore.toFixed(2)}/80\n\nOpening official Result scorecard...`);
     showScreen('mega-result');
   }
 }
 
-/* VIEW MOCK FULL ANALYTICAL SOLUTIONS, SECTIONAL SCORES & REALISTIC CUTOFFS */
 function viewMockAnalytics(mockId) {
   const m = mockTestsProgress[mockId];
   if (!m || !m.answers) return;
@@ -990,14 +977,11 @@ function viewMockAnalytics(mockId) {
   const acc = attempts > 0 ? ((m.correctCount / attempts) * 100).toFixed(1) : 0;
   document.getElementById('statAccuracy').innerText = `${acc}%`;
 
-  // Section-wise Scores Calculation
   const reasScore = m.score_reas !== undefined ? m.score_reas : 0.00;
   const quantScore = m.score_quant !== undefined ? m.score_quant : 0.00;
   const totalScore = m.score;
 
-  // Realistic Historical RRB Clerk Cut-offs with realistic slight random normalization variance
-  // Base State Cutoff ~ 69.5 to 73.0 | Sectional: Reasoning ~ 18.50, Quant ~ 16.50
-  const randomShift = ((mockId * 7) % 5) * 0.25; // reproducible realistic variance per test
+  const randomShift = ((mockId * 7) % 5) * 0.25;
   const secCutoffReasoning = 18.50;
   const secCutoffQuant = 16.50;
   const totalOverallCutoff = (70.25 + randomShift).toFixed(2);
@@ -1007,7 +991,6 @@ function viewMockAnalytics(mockId) {
   const isTotalPassed = totalScore >= totalOverallCutoff;
   const isOverallQualified = isReasPassed && isQuantPassed && isTotalPassed;
 
-  // Sectional Breakdown Table
   const secTbody = document.getElementById('sectionalBreakdownTbody');
   secTbody.innerHTML = `
     <tr>
@@ -1033,21 +1016,19 @@ function viewMockAnalytics(mockId) {
     </tr>
   `;
 
-  // Status Box
   const statusBox = document.getElementById('mockQualificationStatusBox');
   if (isOverallQualified) {
     statusBox.style.background = '#dcfce7';
     statusBox.style.border = '2px solid #86efac';
     statusBox.style.color = '#166534';
-    statusBox.innerHTML = `<strong>CONGRATULATIONS! YOU HAVE CLEARED ALL SECTIONAL &amp; OVERALL CUT-OFFS</strong><br><span style="font-size:0.85rem;">Based on past exam trends (Simulated Cut-off: ${totalOverallCutoff})</span>`;
+    statusBox.innerHTML = `<strong>CONGRATULATIONS! YOU HAVE CLEARED ALL SECTIONAL &amp; OVERALL CUT-OFFS</strong><br><span style="font-size:0.85rem;">Simulated Benchmark Cut-off: ${totalOverallCutoff}</span>`;
   } else {
     statusBox.style.background = '#fee2e2';
     statusBox.style.border = '2px solid #fca5a5';
     statusBox.style.color = '#991b1b';
-    statusBox.innerHTML = `<strong>YOU HAVE NOT BEEN SHORTLISTED (FAILED TO CLEAR CUT-OFF)</strong><br><span style="font-size:0.85rem;">Your Score: ${totalScore.toFixed(2)} | Expected Benchmark Cut-off: ${totalOverallCutoff}</span>`;
+    statusBox.innerHTML = `<strong>YOU HAVE NOT BEEN SHORTLISTED (FAILED TO CLEAR CUT-OFF)</strong><br><span style="font-size:0.85rem;">Your Score: ${totalScore.toFixed(2)} | Benchmark Cut-off: ${totalOverallCutoff}</span>`;
   }
 
-  // Question-by-question Review
   const listCont = document.getElementById('solutionsListContainer');
   listCont.innerHTML = '';
 
@@ -1064,11 +1045,11 @@ function viewMockAnalytics(mockId) {
       let tag = '';
       if (oIdx === q.correct) {
         optClass += ' opt-correct';
-        tag = ' (Correct Answer)';
+        tag = ' (Correct Answer / सही उत्तर)';
       }
       if (userSelected !== undefined && userSelected === oIdx && userSelected !== q.correct) {
         optClass += ' opt-wrong-chosen';
-        tag = ' (Your Answer - Wrong)';
+        tag = ' (Your Answer / आपका उत्तर)';
       }
       optsList += `<div class="${optClass}">${opt}${tag}</div>`;
     });
@@ -1083,7 +1064,7 @@ function viewMockAnalytics(mockId) {
         <div style="color:#004d80; font-weight:600; margin-bottom:12px;">${q.text_hi}</div>
         ${optsList}
         <div class="explanation-drawer">
-          <strong>Detailed Explanation &amp; Solution:</strong><br>
+          <strong>Detailed Solution (दोनों भाषाओं में):</strong><br>
           ${q.sol || 'Standard IBPS question formulation and calculation.'}
         </div>
       </div>
@@ -1125,7 +1106,6 @@ function onMegaRegister(e) {
   e.target.reset();
 }
 
-/* MEGA ADMIT CARD */
 function updateAdmitNotice() {
   document.getElementById('admitNoticeBox').innerHTML = `
     <strong>Call Letter Notice:</strong><br>Online Call Letters for Live Mega Test are currently available. Please enter your 6-Digit Registration Number to download.
@@ -1177,7 +1157,6 @@ function searchMegaAdmit() {
   document.getElementById('admitCardViewPort').style.display = 'block';
 }
 
-/* MEGA SCORECARD WITH REALISTIC STATE & CATEGORY CUTOFFS */
 function updateResultNotice() {
   document.getElementById('resultNoticeBox').innerHTML = `
     <strong>Scorecard Notice:</strong><br>Live Mega Test Results have been declared. Enter your 8-Digit Roll Number to view and print your A4 scorecard.
@@ -1280,4 +1259,3 @@ render10MocksCards();
 </script>
 </body>
 </html>
-```[cite: 3]
