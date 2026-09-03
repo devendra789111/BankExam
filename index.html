@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Banking With Meenu - Official Examination Portal</title>
+<title>Banking With Meenu - Online Examination Portal</title>
 <style>
   :root {
     --navy-dark: #002b49;
@@ -18,7 +18,7 @@
   * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; }
   body { background: var(--gray-bg); color: #1e293b; min-height: 100vh; display: flex; flex-direction: column; }
 
-  /* Header */
+  /* Portal Top Header */
   .portal-header { background: var(--navy-dark); color: #fff; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--amber-gold); flex-wrap: wrap; gap: 12px; }
   .brand-block h1 { font-size: 1.35rem; font-weight: bold; letter-spacing: 0.5px; }
   .brand-block span { font-size: 0.8rem; color: #90caf9; }
@@ -30,7 +30,7 @@
   .box-card { background: #fff; border: 1px solid var(--border-gray); border-radius: 8px; padding: 25px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); margin-bottom: 20px; }
   .box-heading { font-size: 1.2rem; font-weight: bold; color: var(--navy-dark); border-bottom: 2px solid var(--navy-dark); padding-bottom: 8px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
 
-  /* Home Screen Category Tiles */
+  /* Category Icons on Home Screen */
   .category-portal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 10px; }
   .cat-tile { background: #fff; border: 2px solid #e2e8f0; border-radius: 10px; padding: 30px 24px; text-align: center; cursor: pointer; transition: all 0.25s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.04); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 220px; }
   .cat-tile:hover { transform: translateY(-4px); border-color: var(--navy-blue); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
@@ -45,7 +45,7 @@
   .btn-enter-mega { background: #dc2626; color: #fff; }
   .btn-enter-mocks { background: var(--navy-blue); color: #fff; }
 
-  /* 10 Mocks Cards */
+  /* 10 Mocks Sub-Portal Cards */
   .mocks-grid-view { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-top: 15px; }
   .mock-card { border: 1px solid #cbd5e1; border-radius: 6px; padding: 16px; background: #f8fafc; display: flex; flex-direction: column; justify-content: space-between; }
   .mock-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
@@ -61,7 +61,7 @@
   .btn-analytics { background: #0284c7; color: #fff; }
   .btn-reattempt { background: #64748b; color: #fff; }
 
-  /* Mega Menu Buttons */
+  /* Mega Test Specific Actions */
   .mega-menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-top: 20px; }
   .mega-box-btn { padding: 18px; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; text-align: center; cursor: pointer; transition: 0.2s; font-weight: bold; }
   .mega-box-btn:hover { background: #f1f5f9; border-color: var(--navy-blue); }
@@ -73,10 +73,15 @@
   .form-group input, .form-group select { padding: 9px 12px; border: 1px solid #b0bec5; border-radius: 4px; font-size: 0.9rem; }
   .btn-action { background: var(--navy-dark); color: #fff; border: none; padding: 11px 26px; font-size: 0.95rem; font-weight: bold; border-radius: 4px; cursor: pointer; }
 
-  /* Analytical Solution Viewer */
+  /* Analytics & Solution Review Page */
   .stats-summary-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 20px; }
   .stat-pill { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 14px; text-align: center; }
-  .stat-pill .num { font-size: 1.5rem; font-weight: bold; margin-top: 4px; }
+  .stat-pill .num { font-size: 1.45rem; font-weight: bold; margin-top: 4px; }
+  
+  .scorecard-table { width: 100%; border-collapse: collapse; margin: 15px 0 25px 0; font-size: 0.88rem; }
+  .scorecard-table th, .scorecard-table td { border: 1px solid #cbd5e1; padding: 8px 12px; text-align: left; }
+  .scorecard-table th { background: #f1f2f6; color: var(--navy-dark); font-weight: bold; }
+
   .q-sol-card { border: 1px solid #cbd5e1; border-radius: 6px; padding: 16px; margin-bottom: 15px; background: #fff; }
   .q-sol-head { display: flex; justify-content: space-between; font-weight: bold; font-size: 0.85rem; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid #e2e8f0; }
   .sol-opt-row { padding: 6px 10px; border-radius: 4px; margin: 4px 0; font-size: 0.88rem; border: 1px solid transparent; }
@@ -84,7 +89,7 @@
   .opt-wrong-chosen { background: #fee2e2; border-color: #fca5a5; color: #991b1b; font-weight: bold; }
   .explanation-drawer { background: #f1f5f9; padding: 12px; border-radius: 4px; font-size: 0.85rem; margin-top: 10px; border-left: 4px solid var(--navy-blue); }
 
-  /* A4 Printable Layouts */
+  /* Printable Sheets */
   .a4-page { max-width: 800px; margin: 0 auto; background: #fff; border: 2px solid #000; padding: 25px; color: #000; font-size: 0.88rem; }
   .a4-table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
   .a4-table th, .a4-table td { border: 1px solid #000; padding: 7px 10px; }
@@ -114,9 +119,9 @@
   .tcs-right { width: 310px; background: #e5f6fd; display: flex; flex-direction: column; border-left: 1px solid #ccc; }
   .palette-grid { padding: 10px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; overflow-y: auto; flex: 1; }
   .p-cell { height: 35px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.82rem; cursor: pointer; border: 1px solid #b0bec5; background: #fff; border-radius: 3px; }
-  .p-cell.ans { background: var(--ans-green); color: #fff; }
-  .p-cell.not-ans { background: var(--not-ans-red); color: #fff; }
-  .p-cell.rev { background: var(--review-purple); color: #fff; border-radius: 50%; }
+  .p-cell.ans { background: var(--ans-green) !important; color: #fff !important; border-color: var(--ans-green) !important; }
+  .p-cell.not-ans { background: var(--not-ans-red) !important; color: #fff !important; border-color: var(--not-ans-red) !important; }
+  .p-cell.rev { background: var(--review-purple) !important; color: #fff !important; border-radius: 50% !important; }
 
   @media print {
     body * { visibility: hidden; }
@@ -182,7 +187,7 @@
         <button class="btn-sm btn-reattempt" onclick="showScreen('home')">← Back to Home</button>
       </div>
       <p style="font-size:0.88rem; color:#64748b; margin-bottom:15px;">
-        Each mock contains 80 unique high-level questions (40 Reasoning + 40 Quant). Pause anytime and resume exactly from where you stopped.
+        Each mock contains 80 unique high-level questions (40 Reasoning + 40 Quant). Pause anytime and resume exactly from where you stopped with your answered question palette preserved.
       </p>
 
       <div class="mocks-grid-view" id="mockCardsContainer"></div>
@@ -363,7 +368,7 @@
     <div id="scorecardViewPort" class="print-target" style="display:none; margin-top:15px;"></div>
   </section>
 
-  <!-- 8. MOCK ANALYTICS & DETAILED SOLUTIONS -->
+  <!-- 8. MOCK ANALYTICS & DETAILED SOLUTIONS (WITH SECTIONAL SCORES & REALISTIC CUTOFFS) -->
   <section id="screen-mock-analytics" class="page-view" style="display:none;">
     <div class="box-card">
       <div class="box-heading">
@@ -391,7 +396,26 @@
         </div>
       </div>
 
-      <h3 style="color:var(--navy-dark); margin: 20px 0 12px 0;">Detailed Question Analysis &amp; Solutions:</h3>
+      <!-- Real-Exam Sectional Breakdown & Cut-off Card -->
+      <h3 style="color:var(--navy-dark); margin: 20px 0 10px 0;">Section-wise Performance &amp; Cut-off Comparison:</h3>
+      <table class="scorecard-table">
+        <thead>
+          <tr>
+            <th>Section Name</th>
+            <th>Max Marks</th>
+            <th>Your Score</th>
+            <th>Sectional Cut-off</th>
+            <th>Sectional Status</th>
+          </tr>
+        </thead>
+        <tbody id="sectionalBreakdownTbody">
+          <!-- Rendered dynamically -->
+        </tbody>
+      </table>
+
+      <div id="mockQualificationStatusBox" style="padding:14px; border-radius:6px; margin-bottom:25px; text-align:center; font-size:1.05rem;"></div>
+
+      <h3 style="color:var(--navy-dark); margin: 20px 0 12px 0;">Detailed Question-by-Question Analysis &amp; Solutions:</h3>
       <div id="solutionsListContainer"></div>
     </div>
   </section>
@@ -542,14 +566,14 @@ const highLevel80Questions = [
   { id: 80, sec: "Quantitative Aptitude", text_en: "Bag has 5 red, 4 green, 3 blue balls. 2 balls drawn without replacement. Probability both same color?", text_hi: "थैले में 5 लाल, 4 हरी, 3 नीली गेंदें हैं। 2 गेंदें बिना प्रतिस्थापन के निकाली जाती हैं। दोनों समान रंग की होने की प्रायिकता?", options: ["(A) 19/66", "(B) 17/66", "(C) 7/22", "(D) 5/18", "(E) 23/66"], correct: 0, sol: "Total = 12 balls. Total pairs = 12C2 = 66. Favorable = 5C2 + 4C2 + 3C2 = 10 + 6 + 3 = 19. Probability = 19/66." }
 ];
 
-/* SYSTEM STORAGE & REAL-TIME STATE */
+/* SYSTEM DATABASE & REAL-TIME STATE ENGINE */
 function getStorage(k, fallback) { return JSON.parse(localStorage.getItem('bwm_' + k)) || fallback; }
 function setStorage(k, val) { localStorage.setItem('bwm_' + k, JSON.stringify(val)); }
 
 let candidateStore = getStorage('candidates', {});
 let mockTestsProgress = getStorage('mock_progress', {});
 
-// Initialize 10 Mocks tracker if empty
+// Initialize 10 Mocks records with sessionStatus and lastQuestionIndex
 for (let i = 1; i <= 10; i++) {
   if (!mockTestsProgress[i]) {
     mockTestsProgress[i] = { 
@@ -557,6 +581,7 @@ for (let i = 1; i <= 10; i++) {
       remainingSec: 45 * 60, 
       lastQuestionIndex: 0, 
       answers: {}, 
+      sessionStatus: {}, // stores green/red/purple states
       score: null, 
       completedDate: null 
     };
@@ -619,7 +644,7 @@ function render10MocksCards() {
   }
 }
 
-/* TCS iON EXAM ENGINE (WITH RESUME FROM EXACT QUESTION & TIME) */
+/* TCS iON EXAM ENGINE (RESUMES EXACT QUESTION, TIME & GREEN PALETTE STATE) */
 let activeMode = 'mock'; // 'mock' or 'mega'
 let activeMockId = 1;
 let currentExamQuestions = [];
@@ -641,9 +666,9 @@ function launchMockSession(mockId, mode) {
     sessionStatus = {};
   } else if (mode === 'resume') {
     sessionTimerSec = mockTestsProgress[mockId].remainingSec;
-    currentQuestionIndex = mockTestsProgress[mockId].lastQuestionIndex || 0; // RESUME FROM EXACT QUESTION
+    currentQuestionIndex = mockTestsProgress[mockId].lastQuestionIndex || 0; // Resume exact question
     sessionAnswers = mockTestsProgress[mockId].answers || {};
-    sessionStatus = {};
+    sessionStatus = mockTestsProgress[mockId].sessionStatus || {}; // RESTORE GREEN ANSWERED STATES!
   }
 
   document.getElementById('btnPauseTest').style.display = 'inline-block';
@@ -757,9 +782,14 @@ function renderPaletteCells() {
   grid.innerHTML = '';
   currentExamQuestions.forEach((q, idx) => {
     let cls = '';
-    if (sessionStatus[idx] === 'ans') cls = 'ans';
-    else if (sessionStatus[idx] === 'not-ans') cls = 'not-ans';
-    else if (sessionStatus[idx] === 'rev') cls = 'rev';
+    // Priority: check stored sessionStatus or answered status
+    if (sessionStatus[idx] === 'ans' || (sessionStatus[idx] !== 'rev' && sessionAnswers[idx] !== undefined)) {
+      cls = 'ans';
+    } else if (sessionStatus[idx] === 'rev') {
+      cls = 'rev';
+    } else if (sessionStatus[idx] === 'not-ans') {
+      cls = 'not-ans';
+    }
     grid.innerHTML += `<div class="p-cell ${cls}" onclick="jumpTcsQ(${idx})">${q.id}</div>`;
   });
 }
@@ -790,16 +820,20 @@ function clickClear() {
   renderActiveQuestion();
 }
 
-/* PAUSE TEST AT EXACT QUESTION AND TIME */
+/* PAUSE TEST PRESERVING EXACT QUESTION, TIME & GREEN ANSWERED STATUS */
 function clickPauseTest() {
-  if (confirm("Are you sure you want to PAUSE this test? It will be saved at Question " + (currentQuestionIndex + 1) + " and resume from the exact same point.")) {
+  if (confirm("Are you sure you want to PAUSE this test? It will be saved at Question " + (currentQuestionIndex + 1) + " with all your answered questions and time preserved.")) {
     clearInterval(sessionTimerInterval);
     document.getElementById('examConsole').style.display = 'none';
 
+    // Synchronize current question state before saving
+    sessionStatus[currentQuestionIndex] = sessionAnswers[currentQuestionIndex] !== undefined ? 'ans' : 'not-ans';
+
     mockTestsProgress[activeMockId].status = 'Paused';
     mockTestsProgress[activeMockId].remainingSec = sessionTimerSec;
-    mockTestsProgress[activeMockId].lastQuestionIndex = currentQuestionIndex; // STORED CURRENT QUESTION
+    mockTestsProgress[activeMockId].lastQuestionIndex = currentQuestionIndex; // Exact Question
     mockTestsProgress[activeMockId].answers = sessionAnswers;
+    mockTestsProgress[activeMockId].sessionStatus = sessionStatus; // GREEN PALETTE STATE PRESERVED
     setStorage('mock_progress', mockTestsProgress);
 
     alert(`Mock Test 0${activeMockId} paused at Question ${currentQuestionIndex + 1}. You can resume anytime.`);
@@ -837,11 +871,16 @@ function completeExamExecution() {
       remainingSec: 0,
       lastQuestionIndex: 0,
       answers: sessionAnswers,
+      sessionStatus: sessionStatus,
       score: totalScore,
       score_reas: reasScore,
       score_quant: quantScore,
       correctCount: reasRight + quantRight,
       wrongCount: reasWrong + quantWrong,
+      reasRight: reasRight,
+      reasWrong: reasWrong,
+      quantRight: quantRight,
+      quantWrong: quantWrong,
       completedDate: new Date().toLocaleDateString()
     };
     setStorage('mock_progress', mockTestsProgress);
@@ -860,7 +899,7 @@ function completeExamExecution() {
   }
 }
 
-/* VIEW MOCK FULL ANALYTICAL SOLUTIONS & REVIEW */
+/* VIEW MOCK FULL ANALYTICAL SOLUTIONS, SECTIONAL SCORES & REALISTIC CUTOFFS */
 function viewMockAnalytics(mockId) {
   const m = mockTestsProgress[mockId];
   if (!m || !m.answers) return;
@@ -873,6 +912,64 @@ function viewMockAnalytics(mockId) {
   const acc = attempts > 0 ? ((m.correctCount / attempts) * 100).toFixed(1) : 0;
   document.getElementById('statAccuracy').innerText = `${acc}%`;
 
+  // Section-wise Scores Calculation
+  const reasScore = m.score_reas !== undefined ? m.score_reas : 0.00;
+  const quantScore = m.score_quant !== undefined ? m.score_quant : 0.00;
+  const totalScore = m.score;
+
+  // Realistic Historical RRB Clerk Cut-offs with realistic slight random normalization variance
+  // Base State Cutoff ~ 69.5 to 73.0 | Sectional: Reasoning ~ 18.50, Quant ~ 16.50
+  const randomShift = ((mockId * 7) % 5) * 0.25; // reproducible realistic variance per test
+  const secCutoffReasoning = 18.50;
+  const secCutoffQuant = 16.50;
+  const totalOverallCutoff = (70.25 + randomShift).toFixed(2);
+
+  const isReasPassed = reasScore >= secCutoffReasoning;
+  const isQuantPassed = quantScore >= secCutoffQuant;
+  const isTotalPassed = totalScore >= totalOverallCutoff;
+  const isOverallQualified = isReasPassed && isQuantPassed && isTotalPassed;
+
+  // Sectional Breakdown Table
+  const secTbody = document.getElementById('sectionalBreakdownTbody');
+  secTbody.innerHTML = `
+    <tr>
+      <td><strong>Reasoning Ability</strong></td>
+      <td>40.00</td>
+      <td><strong style="color:var(--navy-blue); font-size:1.05rem;">${reasScore.toFixed(2)}</strong></td>
+      <td><strong>${secCutoffReasoning.toFixed(2)}</strong></td>
+      <td>${isReasPassed ? '<span style="color:#16a34a; font-weight:bold;">✔ Cleared</span>' : '<span style="color:#dc2626; font-weight:bold;">✖ Not Cleared</span>'}</td>
+    </tr>
+    <tr>
+      <td><strong>Quantitative Aptitude</strong></td>
+      <td>40.00</td>
+      <td><strong style="color:var(--navy-blue); font-size:1.05rem;">${quantScore.toFixed(2)}</strong></td>
+      <td><strong>${secCutoffQuant.toFixed(2)}</strong></td>
+      <td>${isQuantPassed ? '<span style="color:#16a34a; font-weight:bold;">✔ Cleared</span>' : '<span style="color:#dc2626; font-weight:bold;">✖ Not Cleared</span>'}</td>
+    </tr>
+    <tr style="background:#f8fafc; font-size:0.95rem;">
+      <td><strong>Total (Aggregate)</strong></td>
+      <td><strong>80.00</strong></td>
+      <td><strong style="color:#004d80; font-size:1.15rem;">${totalScore.toFixed(2)}</strong></td>
+      <td><strong style="color:#b91c1c; font-size:1.15rem;">${totalOverallCutoff}</strong></td>
+      <td>${isTotalPassed ? '<span style="color:#16a34a; font-weight:bold;">✔ Cleared</span>' : '<span style="color:#dc2626; font-weight:bold;">✖ Not Cleared</span>'}</td>
+    </tr>
+  `;
+
+  // Status Box
+  const statusBox = document.getElementById('mockQualificationStatusBox');
+  if (isOverallQualified) {
+    statusBox.style.background = '#dcfce7';
+    statusBox.style.border = '2px solid #86efac';
+    statusBox.style.color = '#166534';
+    statusBox.innerHTML = `<strong>CONGRATULATIONS! YOU HAVE CLEARED ALL SECTIONAL &amp; OVERALL CUT-OFFS</strong><br><span style="font-size:0.85rem;">Based on past exam trends (Simulated Cut-off: ${totalOverallCutoff})</span>`;
+  } else {
+    statusBox.style.background = '#fee2e2';
+    statusBox.style.border = '2px solid #fca5a5';
+    statusBox.style.color = '#991b1b';
+    statusBox.innerHTML = `<strong>YOU HAVE NOT BEEN SHORTLISTED (FAILED TO CLEAR CUT-OFF)</strong><br><span style="font-size:0.85rem;">Your Score: ${totalScore.toFixed(2)} | Expected Benchmark Cut-off: ${totalOverallCutoff}</span>`;
+  }
+
+  // Question-by-question Review
   const listCont = document.getElementById('solutionsListContainer');
   listCont.innerHTML = '';
 
