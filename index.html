@@ -235,7 +235,7 @@
     </div>
   </section>
 
-  <!-- 4. MEGA APPLY FORM (WITH COMPLETE 28 STATES + 8 UTs BILINGUAL LIST) -->
+  <!-- 4. MEGA APPLY FORM -->
   <section id="screen-mega-apply" class="page-view" style="display:none;">
     <div class="box-card">
       <div class="box-heading">
@@ -465,7 +465,7 @@
       <div class="q-meta">
         <strong id="tcsQHeading">Question No. 1</strong>
         <div>
-          Question Language / भाषा चयन: 
+          Question Language / प्रश्न भाषा: 
           <select id="tcsLangSelector" onchange="renderActiveQuestion()">
             <option value="both">Bilingual (English &amp; हिन्दी)</option>
             <option value="hi">हिन्दी Only</option>
@@ -1238,7 +1238,7 @@ const highLevel80Questions = [
     id: 80, sec: "Quantitative Aptitude", 
     text_en: "Bag has 5 red, 4 green, 3 blue balls. 2 balls drawn without replacement. Probability both same color?", 
     text_hi: "थैले में 5 लाल, 4 हरी, 3 नीली गेंदें हैं। 2 गेंदें बिना प्रतिस्थापन के निकाली जाती हैं। दोनों समान रंग की होने की प्रायिकता?", 
-    options_en: ["(A) 19/66", "(B) 17/66", "(C) 7/22", "(D) 5/18", "(E) 23/66"], 
+    options_en: ["(A) 19/66", "(B) 17/66", "(C) 7/22", "(B) 5/18", "(E) 23/66"], 
     options_hi: ["(A) 19/66", "(B) 17/66", "(C) 7/22", "(D) 5/18", "(E) 23/66"], 
     correct: 0, 
     sol: "Total = 12 balls. Total pairs = 12C2 = 66. Favorable = 5C2 + 4C2 + 3C2 = 10 + 6 + 3 = 19. Probability = 19/66." }
@@ -1329,7 +1329,7 @@ function render10MocksCards() {
   }
 }
 
-/* TCS iON EXAM ENGINE (STRICT BILINGUAL OPTIONS FILTERING & AUTO-SAVE REFRESH PROTECTION) */
+/* TCS iON EXAM ENGINE (STRICT LANGUAGE FILTERING + PAGE REFRESH AUTO-PROTECTION) */
 let activeMode = 'mock'; 
 let activeMockId = 1;
 let currentExamQuestions = [];
@@ -1339,8 +1339,8 @@ let sessionStatus = {};
 let sessionTimerSec = 45 * 60;
 let sessionTimerInterval = null;
 
-// Auto-Save active state to localStorage so page refresh doesn't lose progress
-window.addEventListener('beforeunload', () => {
+// PAGE REFRESH AUTO-SAVE PROTECTION: Automatically save state so browser refresh won't destroy active test session
+window.addEventListener('beforeunload', (e) => {
   if (document.getElementById('examConsole').style.display === 'flex') {
     sessionStatus[currentQuestionIndex] = sessionAnswers[currentQuestionIndex] !== undefined ? 'ans' : 'not-ans';
     if (activeMode === 'mock') {
@@ -1370,10 +1370,9 @@ function launchMockSession(mockId, mode) {
   activeMockId = mockId;
   currentExamQuestions = highLevel80Questions;
 
-  // Check if there's an ongoing active session saved or if user clicks Resume
   const savedMock = mockTestsProgress[mockId];
   if (mode === 'resume' || (savedMock && savedMock.status === 'Paused' && mode === 'start')) {
-    sessionTimerSec = savedMock.remainingSec || (45 * 60);
+    sessionTimerSec = savedMock.remainingSec;
     currentQuestionIndex = savedMock.lastQuestionIndex || 0; 
     sessionAnswers = savedMock.answers || {};
     sessionStatus = savedMock.sessionStatus || {}; 
@@ -1492,7 +1491,7 @@ function renderActiveQuestion() {
     textHtml = `<div>${q.text_en}</div><hr style="margin:10px 0; border:0; border-top:1px dashed #cbd5e1;"><div style="color:#004d80;">${q.text_hi}</div>`;
   }
 
-  // Strict Options Filtering according to language selection (No accidental mixing)
+  // Strict Options Filtering according to language selection (NO mixed english in hindi-only mode)
   let optHtml = '<div style="margin-top:15px;">';
   let targetOpts = q.options_en;
   if (lang === 'hi') targetOpts = q.options_hi;
