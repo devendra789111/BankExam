@@ -1,0 +1,235 @@
+abel>Section:</label>
+            <select id="q_sec">
+              <option value="Reasoning Ability">Reasoning Ability</option>
+              <option value="Quantitative Aptitude">Quantitative Aptitude</option>
+              <option value="General Awareness">General Awareness</option>
+              <option value="English/Hindi Language">English/Hindi Language</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Correct Answer Index:</label>
+            <select id="q_correct">
+              <option value="0">Option (A)</option>
+              <option value="1">Option (B)</option>
+              <option value="2">Option (C)</option>
+              <option value="3">Option (D)</option>
+              <option value="4">Option (E)</option>
+            </select>
+          </div>
+          <div class="form-group"><input type="text" id="q_opt0" placeholder="Option A" required></div>
+          <div class="form-group"><input type="text" id="q_opt1" placeholder="Option B" required></div>
+          <div class="form-group"><input type="text" id="q_opt2" placeholder="Option C" required></div>
+          <div class="form-group"><input type="text" id="q_opt3" placeholder="Option D" required></div>
+          <div class="form-group"><input type="text" id="q_opt4" placeholder="Option E" required></div>
+        </div>
+        <button type="submit" class="btn">Add Question into Test</button>
+      </form>
+
+      <div style="margin-top:20px;">
+        <h4>Current Uploaded Questions: <span id="currentQCount">0</span></h4>
+        <table id="questionsTable">
+          <thead><tr><th>#</th><th>Section</th><th>Question (English)</th><th>Action</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 3: ADMIT CARD & RESULT CONTROLS -->
+  <div id="tab-manage-exams" class="tab-panel" style="display:none;">
+    <div class="panel-card">
+      <div class="panel-title">Admit Card & Result Control Room</div>
+      <div id="examControlCardsContainer"></div>
+    </div>
+  </div>
+
+  <!-- TAB 4: REGISTERED CANDIDATES -->
+  <div id="tab-candidates" class="tab-panel" style="display:none;">
+    <div class="panel-card">
+      <div class="panel-title">Registered Candidates Directory</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Reg No. (6-Digit)</th>
+            <th>Roll No.</th>
+            <th>Candidate Name</th>
+            <th>Selected Test Series</th>
+            <th>Score</th>
+            <th>Current Status</th>
+          </tr>
+        </thead>
+        <tbody id="candidatesTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// FIREBASE CONFIGURATION (Replace with your Firebase database URL)
+const firebaseConfig = {
+  databaseURL: "https://banking-with-meenu-default-rtdb.firebaseio.com"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+function showTab(tabId) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.style.display = 'none');
+  document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+  const el = document.getElementById('tab-' + tabId);
+  if(el) el.style.display = 'block';
+  event.target.classList.add('active');
+}
+
+// REALTIME MONITORING OF LIVE STUDENTS AND REGISTERED CANDIDATES
+db.ref('live_sessions').on('value', snap => {
+  const data = snap.val() || {};
+  let activeCount = 0;
+  const now = Date.now();
+  for (let key in data) {
+    if (now - data[key].last_ping < 15000) activeCount++; // ping within 15 seconds
+  }
+  document.getElementById('liveStudentsCount').innerText = activeCount;
+});
+
+db.ref('candidates').on('value', snap => {
+  const data = snap.val() || {};
+  const tbody = document.getElementById('candidatesTableBody');
+  tbody.innerHTML = '';
+  let count = 0;
+  for(let id in data) {
+    count++;
+    const c = data[id];
+    tbody.innerHTML += `
+      <tr>
+        <td><strong>${c.regNo}</strong></td>
+        <td>${c.rollNo || 'Pending Admit Card'}</td>
+        <td>${c.name}</td>
+        <td>${c.testName || 'IBPS RRB Clerk'}</td>
+        <td>${c.score !== undefined ? c.score.toFixed(2) : 'Not Attempted'}</td>
+        <td>${c.isExamActive ? '<span style="color:red;font-weight:bold;">● Live Exam Taking</span>' : 'Idle'}</td>
+      </tr>
+    `;
+  }
+  document.getElementById('totalRegisteredCount').innerText = count;
+});
+
+// TEST SERIES MANAGEMENT
+db.ref('exams').on('value', snap => {
+  const exams = snap.val() || {};
+  const select = document.getElementById('q_target_exam');
+  const controlContainer = document.getElementById('examControlCardsContainer');
+  select.innerHTML = '';
+  controlContainer.innerHTML = '';
+  let examCount = 0;
+
+  for(let id in exams) {
+    examCount++;
+    const ex = exams[id];
+    select.innerHTML += `<option value="${id}">${ex.name}</option>`;
+
+    controlContainer.innerHTML += `
+      <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; padding:15px; margin-bottom:15px;">
+        <h3 style="color:var(--primary);">${ex.name}</h3>
+        <p style="font-size:0.85rem; color:#64748b; margin-bottom:10px;">Duration: ${ex.duration} mins | Marking: +${ex.posMarks}, -${ex.negMarks} | Schedule: ${ex.examShift}</p>
+        
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-top:10px;">
+          <div>
+            <label style="font-size:0.85rem; font-weight:bold;">Admit Card Release Status:</label><br>
+            <input type="checkbox" ${ex.admitReleased ? 'checked' : ''} onchange="toggleAdmit('${id}', this.checked)">
+            <strong>${ex.admitReleased ? 'Active (Live)' : 'Disabled'}</strong>
+            <div style="margin-top:5px;">
+              <input type="text" value="${ex.admitDate || ''}" placeholder="e.g. 10 September 2026 at 11:00 AM" id="admitDate_${id}" style="padding:6px; width:70%;">
+              <button class="btn" style="padding:5px 10px; margin:0;" onclick="saveAdmitDate('${id}')">Save</button>
+            </div>
+          </div>
+          <div>
+            <label style="font-size:0.85rem; font-weight:bold;">Result Declaration Status:</label><br>
+            <input type="checkbox" ${ex.resultDeclared ? 'checked' : ''} onchange="toggleResult('${id}', this.checked)">
+            <strong>${ex.resultDeclared ? 'Declared (Live)' : 'Under Evaluation'}</strong>
+            <div style="margin-top:5px;">
+              <input type="text" value="${ex.resultDate || ''}" placeholder="e.g. 15 September 2026 at 05:00 PM" id="resultDate_${id}" style="padding:6px; width:70%;">
+              <button class="btn" style="padding:5px 10px; margin:0;" onclick="saveResultDate('${id}')">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  document.getElementById('totalExamsCount').innerText = examCount;
+  loadExamQuestions();
+});
+
+function handleCreateExam(e) {
+  e.preventDefault();
+  const examId = 'exam_' + Date.now();
+  db.ref('exams/' + examId).set({
+    name: document.getElementById('exam_name').value.trim(),
+    duration: parseInt(document.getElementById('exam_duration').value),
+    posMarks: parseFloat(document.getElementById('exam_pos_marks').value),
+    negMarks: parseFloat(document.getElementById('exam_neg_marks').value),
+    examShift: document.getElementById('exam_shift').value.trim(),
+    examVenue: document.getElementById('exam_venue').value.trim(),
+    admitReleased: false,
+    resultDeclared: false,
+    admitDate: "10 September 2026 at 11:00 AM",
+    resultDate: "15 September 2026 at 05:00 PM"
+  }).then(() => {
+    alert("New Test Series Launched Successfully!");
+    e.target.reset();
+  });
+}
+
+function handleQuestionUpload(e) {
+  e.preventDefault();
+  const examId = document.getElementById('q_target_exam').value;
+  if(!examId) return alert("Select or create an exam first!");
+
+  const qId = 'q_' + Date.now();
+  db.ref(`exam_questions/${examId}/${qId}`).set({
+    text_en: document.getElementById('q_en').value.trim(),
+    text_hi: document.getElementById('q_hi').value.trim(),
+    sec: document.getElementById('q_sec').value,
+    correct: parseInt(document.getElementById('q_correct').value),
+    options: [
+      document.getElementById('q_opt0').value.trim(),
+      document.getElementById('q_opt1').value.trim(),
+      document.getElementById('q_opt2').value.trim(),
+      document.getElementById('q_opt3').value.trim(),
+      document.getElementById('q_opt4').value.trim()
+    ]
+  }).then(() => {
+    alert("Question uploaded successfully!");
+    document.getElementById('q_en').value = '';
+    document.getElementById('q_hi').value = '';
+    loadExamQuestions();
+  });
+}
+
+function loadExamQuestions() {
+  const examId = document.getElementById('q_target_exam').value;
+  if(!examId) return;
+  db.ref(`exam_questions/${examId}`).once('value', snap => {
+    const questions = snap.val() || {};
+    const tbody = document.querySelector('#questionsTable tbody');
+    tbody.innerHTML = '';
+    let count = 0;
+    for(let id in questions) {
+      count++;
+      tbody.innerHTML += `<tr><td>${count}</td><td>${questions[id].sec}</td><td>${questions[id].text_en.substring(0,60)}...</td><td><button class="btn btn-red" style="padding:4px 8px; margin:0;" onclick="deleteQuestion('${examId}','${id}')">Delete</button></td></tr>`;
+    }
+    document.getElementById('currentQCount').innerText = count;
+  });
+}
+
+function deleteQuestion(examId, qId) {
+  if(confirm("Delete this question?")) db.ref(`exam_questions/${examId}/${qId}`).remove().then(loadExamQuestions);
+}
+
+function toggleAdmit(id, status) { db.ref(`exams/${id}/admitReleased`).set(status); }
+function toggleResult(id, status) { db.ref(`exams/${id}/resultDeclared`).set(status); }
+function saveAdmitDate(id) { db.ref(`exams/${id}/admitDate`).set(document.getElementById('admitDate_' + id).value.trim()).then(()=>alert("Saved!")); }
+function saveResultDate(id) { db.ref(`exams/${id}/resultDate`).set(document.getElementById('resultDate_' + id).value.trim()).then(()=>alert("Saved!")); }
+</script>
+</body>
+</html>
