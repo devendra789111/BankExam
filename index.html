@@ -3,878 +3,553 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Banking With Meenu - Online Examination Portal</title>
+<title>Banking With Meenu - Official Candidate Exam Portal</title>
 <style>
   :root {
-    --tcs-blue: #003366;
+    --ibps-navy: #002b49;
+    --ibps-blue: #004d80;
+    --ibps-gold: #ffb300;
     --ans-green: #2e7d32;
     --not-ans-red: #c62828;
     --review-purple: #6a1b9a;
-    --not-visited: #e0e0e0;
+    --border-gray: #cfd8dc;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; }
-  body { background: #f4f6f9; color: #212121; min-height: 100vh; display: flex; flex-direction: column; }
+  body { background: #f4f6f9; color: #1e293b; min-height: 100vh; display: flex; flex-direction: column; }
 
-  .main-header { background: #002b49; color: #fff; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #ffb300; }
-  .logo h1 { font-size: 1.35rem; font-weight: bold; }
-  .logo span { font-size: 0.8rem; color: #b0bec5; }
-  .nav-bar { display: flex; gap: 8px; }
-  .nav-link { background: rgba(255,255,255,0.12); color: #fff; border: 1px solid rgba(255,255,255,0.3); padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 0.88rem; font-weight: 600; }
-  .nav-link:hover, .nav-link.active { background: #ffb300; color: #000; border-color: #ffb300; }
+  /* Main Navigation Header */
+  .portal-header { background: var(--ibps-navy); color: #fff; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--ibps-gold); flex-wrap: wrap; gap: 12px; }
+  .brand h1 { font-size: 1.35rem; font-weight: bold; letter-spacing: 0.5px; }
+  .brand span { font-size: 0.8rem; color: #90caf9; }
+  .top-nav { display: flex; gap: 8px; flex-wrap: wrap; }
+  .nav-btn { background: rgba(255,255,255,0.12); color: #fff; border: 1px solid rgba(255,255,255,0.3); padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 0.86rem; font-weight: 600; text-decoration: none; }
+  .nav-btn:hover, .nav-btn.active { background: var(--ibps-gold); color: #000; border-color: var(--ibps-gold); }
 
-  .content-wrapper { max-width: 1100px; width: 100%; margin: 25px auto; padding: 0 15px; flex: 1; }
-  .box-card { background: #fff; border: 1px solid #cfd8dc; border-radius: 4px; padding: 25px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); margin-bottom: 20px; }
-  .box-title { font-size: 1.2rem; font-weight: bold; color: #002b49; border-bottom: 2px solid #002b49; padding-bottom: 8px; margin-bottom: 20px; }
+  .content-area { max-width: 1100px; width: 100%; margin: 25px auto; padding: 0 15px; flex: 1; }
+  .card-box { background: #fff; border: 1px solid var(--border-gray); border-radius: 6px; padding: 25px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); margin-bottom: 20px; }
+  .card-head { font-size: 1.2rem; font-weight: bold; color: var(--ibps-navy); border-bottom: 2px solid var(--ibps-navy); padding-bottom: 8px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
 
-  .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; }
-  .form-field { display: flex; flex-direction: column; gap: 5px; }
-  .form-field label { font-size: 0.85rem; font-weight: bold; color: #37474f; }
-  .form-field input, .form-field select { padding: 9px 12px; border: 1px solid #b0bec5; border-radius: 3px; font-size: 0.9rem; }
-  .btn-submit { background: #002b49; color: #fff; border: none; padding: 10px 24px; font-size: 0.95rem; font-weight: bold; border-radius: 3px; cursor: pointer; margin-top: 15px; }
-  .btn-submit:hover { background: #004d80; }
+  /* Test Series Showcase */
+  .series-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+  .series-card { border: 1px solid #cbd5e1; border-radius: 8px; padding: 20px; background: #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; transition: 0.2s; }
+  .series-card:hover { border-color: var(--ibps-blue); transform: translateY(-2px); }
+  .series-card.featured { border: 2px solid #e11d48; background: #fff5f5; }
+  .badge { display: inline-block; padding: 4px 10px; font-size: 0.75rem; font-weight: bold; border-radius: 4px; margin-bottom: 8px; }
+  .badge-live { background: #e11d48; color: #fff; }
+  .badge-free { background: #0284c7; color: #fff; }
 
-  .status-notice { padding: 14px 18px; border-radius: 4px; margin-bottom: 20px; font-size: 0.92rem; font-weight: 500; line-height: 1.4; }
+  .test-list { margin-top: 15px; border-top: 1px solid #e2e8f0; padding-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+  .test-item { display: flex; justify-content: space-between; align-items: center; padding: 9px 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 4px; font-size: 0.88rem; }
+  .btn-take { background: var(--ibps-navy); color: #fff; border: none; padding: 6px 14px; border-radius: 3px; font-weight: bold; cursor: pointer; font-size: 0.82rem; }
+  .btn-take:hover { background: var(--ibps-blue); }
+
+  /* Form Elements */
+  .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group label { font-size: 0.85rem; font-weight: bold; color: #37474f; }
+  .form-group input, .form-group select { padding: 9px 12px; border: 1px solid #b0bec5; border-radius: 4px; font-size: 0.9rem; }
+  .btn-submit { background: var(--ibps-navy); color: #fff; border: none; padding: 11px 26px; font-size: 0.95rem; font-weight: bold; border-radius: 4px; cursor: pointer; margin-top: 15px; }
+
+  /* Dynamic Status Box */
+  .status-box { padding: 14px 18px; border-radius: 4px; margin-bottom: 20px; font-size: 0.92rem; font-weight: 500; line-height: 1.4; }
   .status-active { background: #e8f5e9; border-left: 5px solid #2e7d32; color: #1b5e20; }
   .status-today { background: #fff8e1; border-left: 5px solid #fbc02d; color: #f57f17; }
   .status-future { background: #e3f2fd; border-left: 5px solid #1976d2; color: #0d47a1; }
 
-  /* REAL TCS iON EXAM CONSOLE */
-  #examConsole { display: none; position: fixed; inset: 0; background: #fff; z-index: 9999; flex-direction: column; }
-  .ion-top-bar { background: #285e8e; color: #fff; height: 45px; display: flex; justify-content: space-between; align-items: center; padding: 0 16px; font-size: 0.9rem; }
-  .ion-sub-header { background: #e6e6e6; border-bottom: 1px solid #ccc; height: 35px; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; font-size: 0.85rem; }
+  /* A4 Printable Call Letter & Scorecard */
+  .admit-a4-sheet, .scorecard-a4-sheet { max-width: 800px; margin: 0 auto; background: #fff; border: 2px solid #000; padding: 25px; color: #000; }
+  .sheet-header { text-align: center; border-bottom: 2px solid #000; padding-bottom: 12px; margin-bottom: 15px; }
+  .sheet-header h2 { font-size: 1.3rem; font-weight: 800; text-transform: uppercase; }
+  .sheet-header h3 { font-size: 1rem; margin-top: 3px; }
+  
+  .sheet-table { width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 0.88rem; }
+  .sheet-table th, .sheet-table td { border: 1px solid #000; padding: 7px 10px; }
+  .sheet-table th { background: #f0f0f0; }
 
-  .ion-body { display: flex; flex: 1; height: calc(100vh - 125px); }
-  .ion-left { flex: 1; display: flex; flex-direction: column; border-right: 1px solid #ccc; }
-  .ion-sections { background: #fff; border-bottom: 1px solid #ccc; padding: 6px 12px; display: flex; gap: 6px; }
+  .photo-slot { width: 130px; height: 160px; border: 1px solid #000; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; text-align: center; margin: 0 auto; background: #fafafa; }
+  .sign-slot { width: 130px; height: 45px; border: 1px solid #000; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; margin: 8px auto 0 auto; }
+
+  /* TCS iON Full Simulation */
+  #examConsole { display: none; position: fixed; inset: 0; background: #fff; z-index: 9999; flex-direction: column; }
+  .tcs-header { background: #285e8e; color: #fff; height: 45px; display: flex; justify-content: space-between; align-items: center; padding: 0 16px; font-size: 0.9rem; }
+  .tcs-sub { background: #e6e6e6; border-bottom: 1px solid #ccc; height: 35px; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; font-size: 0.85rem; }
+  .tcs-body { display: flex; flex: 1; height: calc(100vh - 125px); }
+  .tcs-left { flex: 1; display: flex; flex-direction: column; border-right: 1px solid #ccc; }
+  .tcs-sections { background: #fff; border-bottom: 1px solid #ccc; padding: 6px 12px; display: flex; gap: 6px; }
   .sec-pill { padding: 5px 12px; border: 1px solid #337ab7; background: #fff; color: #337ab7; font-size: 0.82rem; font-weight: bold; cursor: pointer; }
   .sec-pill.active { background: #337ab7; color: #fff; }
+  .tcs-q-meta { padding: 8px 16px; background: #f5f5f5; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
+  .tcs-q-area { flex: 1; padding: 20px; overflow-y: auto; font-size: 0.95rem; line-height: 1.5; }
+  .tcs-options { margin-top: 15px; display: flex; flex-direction: column; gap: 10px; }
+  .tcs-opt-item { display: flex; gap: 10px; align-items: center; padding: 8px 12px; border: 1px solid #e0e0e0; border-radius: 4px; cursor: pointer; }
+  .tcs-opt-item:hover { background: #f9f9f9; }
 
-  .ion-q-meta { padding: 8px 16px; background: #f5f5f5; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
-  .ion-q-scroll { flex: 1; padding: 20px; overflow-y: auto; line-height: 1.5; font-size: 0.95rem; }
-  .ion-options { margin-top: 15px; display: flex; flex-direction: column; gap: 10px; }
-  .ion-opt-item { display: flex; gap: 10px; align-items: center; padding: 8px 12px; border: 1px solid #e0e0e0; border-radius: 4px; cursor: pointer; }
-  .ion-opt-item:hover { background: #f9f9f9; }
-
-  .ion-footer { height: 50px; background: #e6e6e6; border-top: 1px solid #ccc; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; }
-  .ion-btn { padding: 8px 16px; font-size: 0.85rem; font-weight: bold; border-radius: 3px; cursor: pointer; border: 1px solid transparent; }
+  .tcs-footer { height: 50px; background: #e6e6e6; border-top: 1px solid #ccc; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; }
+  .tcs-btn { padding: 8px 16px; font-size: 0.85rem; font-weight: bold; border-radius: 3px; cursor: pointer; border: 1px solid transparent; }
   .btn-save { background: #449d44; color: #fff; }
-  .btn-review { background: #ec971f; color: #fff; }
-  .btn-clear { background: #fff; color: #333; border: 1px solid #ccc; }
-  .btn-submit-exam { background: #337ab7; color: #fff; }
+  .btn-rev { background: #ec971f; color: #fff; }
+  .btn-clr { background: #fff; color: #333; border: 1px solid #ccc; }
+  .btn-sub { background: #337ab7; color: #fff; }
 
-  .ion-right { width: 310px; background: #e5f6fd; display: flex; flex-direction: column; border-left: 1px solid #ccc; }
-  .candidate-profile-box { padding: 12px; display: flex; gap: 12px; align-items: center; border-bottom: 1px solid #ccc; background: #d9edf7; }
-  .profile-photo { width: 45px; height: 55px; background: #fff; border: 1px solid #999; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; }
-
+  .tcs-right { width: 310px; background: #e5f6fd; display: flex; flex-direction: column; border-left: 1px solid #ccc; }
   .palette-symbols { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 8px; font-size: 0.72rem; border-bottom: 1px solid #ccc; background: #fff; }
-  .sym-row { display: flex; align-items: center; gap: 6px; }
-  .shape-badge { width: 18px; height: 18px; font-size: 0.7rem; font-weight: bold; color: #fff; display: flex; align-items: center; justify-content: center; }
-  .sh-ans { background: var(--ans-green); clip-path: polygon(0 25%, 50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%); }
-  .sh-not-ans { background: var(--not-ans-red); border-radius: 50% 50% 0 0; }
-  .sh-not-visited { background: #e0e0e0; color: #333; border: 1px solid #999; }
-  .sh-review { background: var(--review-purple); border-radius: 50%; }
-
   .palette-grid { padding: 10px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; overflow-y: auto; flex: 1; }
   .p-cell { height: 35px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.82rem; cursor: pointer; border: 1px solid #b0bec5; background: #fff; border-radius: 3px; }
-  .p-cell.ans { background: var(--ans-green); color: #fff; border-color: var(--ans-green); }
-  .p-cell.not-ans { background: var(--not-ans-red); color: #fff; border-color: var(--not-ans-red); }
+  .p-cell.ans { background: var(--ans-green); color: #fff; }
+  .p-cell.not-ans { background: var(--not-ans-red); color: #fff; }
   .p-cell.rev { background: var(--review-purple); color: #fff; border-radius: 50%; }
-
-  .admit-card-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.88rem; }
-  .admit-card-table td, .admit-card-table th { border: 1px solid #000; padding: 7px 10px; }
-  .photo-frame { width: 130px; height: 160px; border: 1px solid #000; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; text-align: center; margin: 0 auto; background: #fafafa; }
 
   @media print {
     body * { visibility: hidden; }
-    #admitCardOutput, #admitCardOutput * { visibility: visible; }
-    #admitCardOutput { position: absolute; left: 0; top: 0; width: 100%; }
+    .print-area, .print-area * { visibility: visible; }
+    .print-area { position: absolute; left: 0; top: 0; width: 100%; }
     .no-print { display: none !important; }
   }
 </style>
 </head>
 <body>
 
-<header class="main-header">
-  <div class="logo">
+<header class="portal-header">
+  <div class="brand">
     <h1>Banking With Meenu</h1>
-    <span>Official IBPS RRB Examination Portal</span>
+    <span>Official IBPS RRB Online Testing & Assessment System</span>
   </div>
-  <nav class="nav-bar">
-    <button class="nav-link active" onclick="navigate('apply', event)">Apply Online</button>
-    <button class="nav-link" onclick="navigate('admit', event)">Admit Card</button>
-    <button class="nav-link" onclick="navigate('test', event)">Test Portal</button>
-    <button class="nav-link" onclick="navigate('result', event)">Result</button>
+  <nav class="top-nav">
+    <button class="nav-btn active" onclick="showTab('series', event)">Test Series</button>
+    <button class="nav-btn" onclick="showTab('apply', event)">Mega Test Apply</button>
+    <button class="nav-btn" onclick="showTab('admit', event)">Mega Test Admit Card</button>
+    <button class="nav-btn" onclick="showTab('result', event)">Mega Test Result</button>
   </nav>
 </header>
 
-<main class="content-wrapper">
+<main class="content-area">
 
-  <!-- 1. APPLY ONLINE FORM -->
-  <section id="page-apply" class="page-view">
-    <div class="box-card">
-      <div class="box-title">IBPS RRB Mock Test 2026 - Online Application Form</div>
-      <form onsubmit="onCandidateRegister(event)">
-        <div class="form-grid">
-          <div class="form-field">
-            <label>Select Test Series / Mock Exam *</label>
-            <select id="reg_test_id" required></select>
+  <!-- TAB 1: TEST SERIES DASHBOARD -->
+  <section id="tab-series" class="page-view">
+    <div class="card-box">
+      <div class="card-head">
+        <span>Available Test Series (New Pattern)</span>
+        <span style="font-size:0.85rem; font-weight:normal; color:#64748b;">Choose a package to practice</span>
+      </div>
+
+      <div class="series-grid">
+        <!-- 1. LIVE MEGA TEST (Requires Apply & Admit Card) -->
+        <div class="series-card featured">
+          <div>
+            <span class="badge badge-live">LIVE ALL INDIA RANKING</span>
+            <h3 style="color:#b91c1c;">IBPS RRB Clerk Live Mega Test 2026</h3>
+            <p style="font-size:0.85rem; color:#64748b; margin: 6px 0 12px 0;">Official Mega Mock. Requires prior registration to generate 6-digit Registration Number &amp; Official Call Letter.</p>
+            <div style="background:#fff; border:1px solid #fecaca; border-radius:4px; padding:10px; font-size:0.82rem;">
+              • <strong>Registration:</strong> Mandatory via 'Mega Test Apply'<br>
+              • <strong>Entry:</strong> Roll Number on Admit Card<br>
+              • <strong>Result:</strong> Official A4 Scorecard with Category &amp; State Cut-off
+            </div>
           </div>
-          <div class="form-field">
-            <label>Full Name / पूरा नाम *</label>
-            <input type="text" id="reg_name" placeholder="Enter Full Name" required>
-          </div>
-          <div class="form-field">
-            <label>Father's Name / पिता का नाम *</label>
-            <input type="text" id="reg_father" placeholder="Enter Father's Name" required>
-          </div>
-          <div class="form-field">
-            <label>Date of Birth / जन्म तिथि *</label>
-            <input type="date" id="reg_dob" required>
-          </div>
-          <div class="form-field">
-            <label>Mobile Number / मोबाइल *</label>
-            <input type="tel" id="reg_mobile" pattern="[0-9]{10}" placeholder="10 Digit Mobile Number" required>
-          </div>
-          <div class="form-field">
-            <label>Email Address / ईमेल *</label>
-            <input type="email" id="reg_email" placeholder="name@example.com" required>
+          <div style="margin-top:15px; display:flex; gap:8px;">
+            <button class="btn-take" style="background:#e11d48; width:100%; padding:10px;" onclick="goToMegaTestLogin()">Sign In &amp; Give Mega Test</button>
           </div>
         </div>
-        <button type="submit" class="btn-submit">Submit Application</button>
+
+        <!-- 2. FULL MOCK TEST SERIES (10 Tests - Direct Access, No Form Needed) -->
+        <div class="series-card">
+          <div>
+            <span class="badge badge-free">DIRECT ACCESS (10 TESTS)</span>
+            <h3 style="color:var(--ibps-navy);">IBPS RRB Clerk Full Mock Test Series</h3>
+            <p style="font-size:0.85rem; color:#64748b; margin: 6px 0 12px 0;">Comprehensive 10 Full-Length Test Papers. No registration form or admit card required. Direct test start.</p>
+            <div class="test-list">
+              <div class="test-item"><span>Mock Test 01 (80 Questions)</span> <button class="btn-take" onclick="startDirectMock(1)">Start Test</button></div>
+              <div class="test-item"><span>Mock Test 02 (80 Questions)</span> <button class="btn-take" onclick="startDirectMock(2)">Start Test</button></div>
+              <div class="test-item"><span>Mock Test 03 (80 Questions)</span> <button class="btn-take" onclick="startDirectMock(3)">Start Test</button></div>
+              <div class="test-item"><span>Mock Test 04 (80 Questions)</span> <button class="btn-take" onclick="startDirectMock(4)">Start Test</button></div>
+              <div class="test-item"><span>Mock Test 05 (80 Questions)</span> <button class="btn-take" onclick="startDirectMock(5)">Start Test</button></div>
+              <div class="test-item"><span>Mock Test 06 (80 Questions)</span> <button class="btn-take" onclick="startDirectMock(6)">Start Test</button></div>
+              <div class="test-item"><span>Mock Test 07 (80 Questions)</span> <button class="btn-take" onclick="startDirectMock(7)">Start Test</button></div>
+              <div class="test-item"><span>Mock Test 08 (80 Questions)</span> <button class="btn-take" onclick="startDirectMock(8)">Start Test</button></div>
+              <div class="test-item"><span>Mock Test 09 (80 Questions)</span> <button class="btn-take" onclick="startDirectMock(9)">Start Test</button></div>
+              <div class="test-item"><span>Mock Test 10 (80 Questions)</span> <button class="btn-take" onclick="startDirectMock(10)">Start Test</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 2: MEGA TEST APPLY FORM (With State Option) -->
+  <section id="tab-apply" class="page-view" style="display:none;">
+    <div class="card-box">
+      <div class="card-head">
+        <span>IBPS RRB Clerk Live Mega Test 2026 - Registration Form</span>
+        <span style="font-size:0.85rem; color:#e11d48; font-weight:bold;">Mandatory for Live Mega Test</span>
+      </div>
+
+      <form onsubmit="handleMegaApply(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Full Name / पूरा नाम *</label>
+            <input type="text" id="m_name" placeholder="e.g. Ramesh Kumar" required>
+          </div>
+          <div class="form-group">
+            <label>Father's Name / पिता का नाम *</label>
+            <input type="text" id="m_father" placeholder="e.g. Suresh Kumar" required>
+          </div>
+          <div class="form-group">
+            <label>Applied State / राज्य चुनें *</label>
+            <select id="m_state" required>
+              <option value="">-- Select Applied State --</option>
+              <option value="Rajasthan">Rajasthan</option>
+              <option value="Uttar Pradesh">Uttar Pradesh</option>
+              <option value="Madhya Pradesh">Madhya Pradesh</option>
+              <option value="Bihar">Bihar</option>
+              <option value="Haryana">Haryana</option>
+              <option value="Delhi NCR">Delhi NCR</option>
+              <option value="Punjab">Punjab</option>
+              <option value="Gujarat">Gujarat</option>
+              <option value="Maharashtra">Maharashtra</option>
+              <option value="Other State">Other State</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Category / श्रेणी *</label>
+            <select id="m_category" required>
+              <option value="UR / General">UR / General</option>
+              <option value="OBC">OBC</option>
+              <option value="EWS">EWS</option>
+              <option value="SC">SC</option>
+              <option value="ST">ST</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Date of Birth / जन्म तिथि *</label>
+            <input type="date" id="m_dob" required>
+          </div>
+          <div class="form-group">
+            <label>Mobile Number / मोबाइल नंबर *</label>
+            <input type="tel" id="m_mobile" pattern="[0-9]{10}" placeholder="10 Digit Number" required>
+          </div>
+          <div class="form-group" style="grid-column: span 2;">
+            <label>Email Address / ईमेल आईडी *</label>
+            <input type="email" id="m_email" placeholder="name@example.com" required>
+          </div>
+        </div>
+        <button type="submit" class="btn-submit">Submit Mega Test Registration</button>
       </form>
     </div>
 
-    <!-- Registration Slip (ONLY 6-Digit Reg Number) -->
-    <div id="regSlipCard" class="box-card" style="display:none; border:2px solid #2e7d32;">
-      <h3 style="color:#2e7d32; margin-bottom:12px;">✓ Application Registered Successfully!</h3>
-      <table class="admit-card-table" style="margin-top:0;">
-        <tr><th colspan="2" style="background:#f1f8e9; text-align:center;">REGISTRATION CONFIRMATION SLIP - 2026</th></tr>
+    <!-- Confirmation Slip (ONLY 6-Digit Registration Number) -->
+    <div id="applySlipBox" class="card-box" style="display:none; border:2px solid #2e7d32;">
+      <h3 style="color:#2e7d32; margin-bottom:12px;">✓ Mega Test Registration Confirmed!</h3>
+      <table class="sheet-table">
+        <tr><th colspan="2" style="background:#f1f8e9; text-align:center;">OFFICIAL CONFIRMATION SLIP - 2026</th></tr>
         <tr>
           <td colspan="2" style="background:#fffde7; padding:12px;">
-            Your Application has been registered.<br>
-            <strong>Registration Number:</strong> <span id="slip_reg" style="font-size:1.35rem; color:#2e7d32; font-weight:bold; letter-spacing:1px;"></span>
+            Your Application for IBPS RRB Clerk Live Mega Test is successful.<br>
+            <strong>Registration Number:</strong> <span id="slipRegVal" style="font-size:1.35rem; color:#2e7d32; font-weight:bold; letter-spacing:1px;"></span>
           </td>
         </tr>
-        <tr><td><strong>Candidate Name:</strong> <span id="slip_name"></span></td><td><strong>Target Exam:</strong> <span id="slip_test"></span></td></tr>
-        <tr><td><strong>Father's Name:</strong> <span id="slip_father"></span></td><td><strong>Date of Birth:</strong> <span id="slip_dob"></span></td></tr>
+        <tr><td><strong>Candidate Name:</strong> <span id="slipNameVal"></span></td><td><strong>Applied State:</strong> <span id="slipStateVal"></span></td></tr>
+        <tr><td><strong>Category:</strong> <span id="slipCatVal"></span></td><td><strong>Date of Birth:</strong> <span id="slipDobVal"></span></td></tr>
       </table>
-      <div class="status-notice status-today" style="margin-top:12px; margin-bottom:0;">
-        <strong>Important:</strong> Please note down your <strong>6-Digit Registration Number</strong>. Your Roll Number and Password will be allocated on your Admit Card.
+      <div class="status-box status-today" style="margin-bottom:0;">
+        <strong>Important:</strong> Keep your <strong>6-Digit Registration Number</strong> safe. You will need it to download your Admit Card. Roll Number will be printed on the Call Letter.
       </div>
     </div>
   </section>
 
-  <!-- 2. ADMIT CARD -->
-  <section id="page-admit" class="page-view" style="display:none;">
-    <div class="box-card no-print">
-      <div class="box-title">Preliminary Examination Call Letter / Admit Card</div>
-      <div id="admitNoticeArea" class="status-notice"></div>
+  <!-- TAB 3: ADMIT CARD SECTION -->
+  <section id="tab-admit" class="page-view" style="display:none;">
+    <div class="card-box no-print">
+      <div class="card-head">IBPS RRB Clerk Live Mega Test Call Letter / Admit Card</div>
+      <div id="megaAdmitStatusNotice" class="status-box"></div>
 
       <div style="display:flex; gap:10px; max-width:500px;">
-        <input type="text" id="admit_in_reg" placeholder="Enter 6-Digit Registration Number" style="flex:1; padding:9px; border:1px solid #b0bec5; border-radius:3px;">
-        <button class="btn-submit" style="margin:0;" onclick="fetchAdmitCard()">Get Admit Card</button>
+        <input type="text" id="admit_in_reg" placeholder="Enter 6-Digit Registration No." style="flex:1; padding:10px; border:1px solid #b0bec5; border-radius:4px;">
+        <button class="btn-submit" style="margin:0;" onclick="fetchMegaAdmitCard()">Download Admit Card</button>
       </div>
     </div>
-    <div id="admitCardOutput" style="display:none;"></div>
+
+    <!-- Printable A4 Call Letter Display -->
+    <div id="admitCardPrintBox" class="print-area" style="display:none;"></div>
   </section>
 
-  <!-- 3. TEST PORTAL -->
-  <section id="page-test" class="page-view" style="display:none;">
-    <div class="box-card" style="max-width:480px; margin:30px auto; text-align:center;">
-      <div class="box-title" style="text-align:center;">IBPS Online Examination Login</div>
-      <p style="font-size:0.85rem; color:#546e7a; margin-bottom:15px;">Login using credentials printed on your Call Letter</p>
+  <!-- TAB 4: RESULT / SCORECARD (A4 Printable with Full Cutoffs) -->
+  <section id="tab-result" class="page-view" style="display:none;">
+    <div class="card-box no-print">
+      <div class="card-head">IBPS RRB Clerk Live Mega Test Result &amp; Scorecard</div>
+      <div id="megaResultStatusNotice" class="status-box"></div>
 
-      <div class="form-field" style="text-align:left; margin-bottom:12px;">
+      <div style="display:flex; gap:10px; max-width:500px;">
+        <input type="text" id="result_in_roll" placeholder="Enter 8-Digit Roll Number" style="flex:1; padding:10px; border:1px solid #b0bec5; border-radius:4px;">
+        <button class="btn-submit" style="margin:0;" onclick="fetchMegaScorecard()">View Official Scorecard</button>
+      </div>
+    </div>
+
+    <!-- Printable A4 Scorecard Display -->
+    <div id="scorecardPrintBox" class="print-area" style="display:none;"></div>
+  </section>
+
+  <!-- MEGA TEST LOGIN BOX -->
+  <section id="tab-mega-login" class="page-view" style="display:none;">
+    <div class="card-box" style="max-width:500px; margin:30px auto; text-align:center;">
+      <div class="card-head" style="justify-content:center;">Live Mega Test Examination Login</div>
+      <p style="font-size:0.85rem; color:#64748b; margin-bottom:15px;">Login with Roll Number and Password printed on your Call Letter</p>
+      
+      <div class="form-group" style="text-align:left; margin-bottom:12px;">
         <label>Roll Number (User ID):</label>
-        <input type="text" id="login_roll" placeholder="Enter 8-Digit Roll Number">
+        <input type="text" id="mega_login_roll" placeholder="Enter 8-Digit Roll Number">
       </div>
-      <div class="form-field" style="text-align:left; margin-bottom:15px;">
+      <div class="form-group" style="text-align:left; margin-bottom:15px;">
         <label>Password (DOB: YYYYMMDD):</label>
-        <input type="password" id="login_pass" placeholder="e.g. 20000512">
+        <input type="password" id="mega_login_pass" placeholder="e.g. 20000512">
       </div>
-      <div class="form-field" style="text-align:left; margin-bottom:20px;">
+      <div class="form-group" style="text-align:left; margin-bottom:20px;">
         <label>Default Test Language / माध्यम:</label>
-        <select id="login_lang">
+        <select id="mega_login_lang">
           <option value="both">Bilingual (हिन्दी &amp; English)</option>
-          <option value="hi">हिन्दी (Hindi)</option>
+          <option value="hi">हिन्दी</option>
           <option value="en">English</option>
         </select>
       </div>
-      <button class="btn-submit" style="width:100%;" onclick="startCandidateTest()">Sign In &amp; Start Real Exam</button>
-    </div>
-  </section>
-
-  <!-- 4. RESULT -->
-  <section id="page-result" class="page-view" style="display:none;">
-    <div class="box-card" style="max-width:600px; margin:20px auto;">
-      <div class="box-title">Preliminary Examination Result &amp; Scorecard</div>
-      <div id="resultNoticeArea" class="status-notice"></div>
-
-      <div style="display:flex; gap:10px;">
-        <input type="text" id="result_in_roll" placeholder="Enter 8-Digit Roll Number" style="flex:1; padding:9px; border:1px solid #b0bec5; border-radius:3px;">
-        <button class="btn-submit" style="margin:0;" onclick="fetchScorecard()">View Result</button>
-      </div>
-      <div id="scorecardOutput" style="display:none; margin-top:20px;"></div>
+      <button class="btn-submit" style="width:100%;" onclick="startMegaTestSession()">Sign In &amp; Start Mega Test</button>
     </div>
   </section>
 
 </main>
 
-<!-- TCS iON REAL EXAM CONSOLE -->
+<!-- TCS iON AUTHENTIC EXAM CONSOLE -->
 <div id="examConsole">
-  <div class="ion-top-bar">
-    <div style="font-weight:bold;"><span id="tcsExamTitle">IBPS RRB Examination</span></div>
-    <div>System Name: <strong style="color:#ffb300;">C001</strong> &nbsp;|&nbsp; Meenu Pathak Online Center</div>
+  <div class="tcs-header">
+    <div><strong id="examConsoleTitle">IBPS RRB Online Examination</strong></div>
+    <div>System: <span style="color:#ffb300; font-weight:bold;">C-104</span> &nbsp;|&nbsp; Meenu Pathak Center</div>
   </div>
-  <div class="ion-sub-header">
-    <div>Candidate Name: <strong id="tcsCandName">Candidate</strong> &nbsp;(Roll: <span id="tcsCandRoll"></span>)</div>
-    <div style="font-weight:bold; color:#c62828;">Time Remaining: <span id="tcsTimer">45:00</span></div>
+  <div class="tcs-sub">
+    <div>Candidate: <strong id="examCandidateName">Candidate</strong> &nbsp;(Roll: <span id="examCandidateRoll"></span>)</div>
+    <div style="font-weight:bold; color:#c62828;">Time Remaining: <span id="examTimerDisplay">45:00</span></div>
   </div>
-
-  <div class="ion-body">
-    <div class="ion-left">
-      <div class="ion-sections" id="tcsSectionBar"></div>
-      <div class="ion-q-meta">
-        <strong id="tcsQHeading">Question No. 1</strong>
+  <div class="tcs-body">
+    <div class="tcs-left">
+      <div class="tcs-sections" id="sectionTabs"></div>
+      <div class="tcs-q-meta">
+        <strong id="qTitleDisplay">Question No. 1</strong>
         <div>
-          View in:
-          <select id="tcsLangSwitch" onchange="renderTcsQuestion()">
+          View in: 
+          <select id="langSwitchConsole" onchange="renderQuestionItem()">
             <option value="both">Bilingual</option>
             <option value="hi">हिन्दी</option>
             <option value="en">English</option>
           </select>
         </div>
       </div>
-      <div class="ion-q-scroll" id="tcsQBody"></div>
-      <div class="ion-footer">
+      <div class="tcs-q-area" id="qBodyDisplay"></div>
+      <div class="tcs-footer">
         <div>
-          <button class="ion-btn btn-review" onclick="tcsReview()">Mark for Review &amp; Next</button>
-          <button class="ion-btn btn-clear" onclick="tcsClear()">Clear Response</button>
+          <button class="tcs-btn btn-rev" onclick="actionReview()">Mark for Review &amp; Next</button>
+          <button class="tcs-btn btn-clr" onclick="actionClear()">Clear Response</button>
         </div>
-        <button class="ion-btn btn-save" onclick="tcsSaveNext()">Save &amp; Next</button>
+        <button class="tcs-btn btn-save" onclick="actionSaveNext()">Save &amp; Next</button>
       </div>
     </div>
-
-    <div class="ion-right">
-      <div class="candidate-profile-box">
-        <div class="profile-photo">Photo</div>
+    <div class="tcs-right">
+      <div style="padding:12px; background:#d9edf7; display:flex; gap:10px; align-items:center; border-bottom:1px solid #ccc;">
+        <div style="width:45px; height:55px; background:#fff; border:1px solid #999; display:flex; align-items:center; justify-content:center; font-size:0.65rem;">Photo</div>
         <div>
-          <strong id="tcsSideName" style="font-size:0.85rem;">Candidate Name</strong><br>
-          <small id="tcsSideRoll">Roll No</small>
+          <strong id="sideCandName" style="font-size:0.85rem;">Candidate Name</strong><br>
+          <small id="sideCandRoll">Roll Number</small>
         </div>
       </div>
-
       <div class="palette-symbols">
-        <div class="sym-row"><span class="shape-badge sh-ans">✔</span> Answered</div>
-        <div class="sym-row"><span class="shape-badge sh-not-ans">✖</span> Not Answered</div>
-        <div class="sym-row"><span class="shape-badge sh-not-visited">0</span> Not Visited</div>
-        <div class="sym-row"><span class="shape-badge sh-review">?</span> Review</div>
+        <div><span style="background:#2e7d32; color:#fff; padding:2px 5px; border-radius:2px; font-weight:bold;">✔</span> Answered</div>
+        <div><span style="background:#c62828; color:#fff; padding:2px 5px; border-radius:2px; font-weight:bold;">✖</span> Not Answered</div>
+        <div><span style="background:#e0e0e0; color:#000; padding:2px 5px; border-radius:2px; border:1px solid #999;">0</span> Not Visited</div>
+        <div><span style="background:#6a1b9a; color:#fff; padding:2px 5px; border-radius:50%; font-weight:bold;">?</span> Review</div>
       </div>
-
-      <div class="palette-grid" id="tcsPaletteGrid"></div>
+      <div class="palette-grid" id="questionPaletteGrid"></div>
       <div style="padding:10px; background:#fff; border-top:1px solid #ccc; text-align:center;">
-        <button class="ion-btn btn-submit-exam" style="width:100%;" onclick="confirmTcsSubmit()">Submit Examination</button>
+        <button class="tcs-btn btn-sub" style="width:100%;" onclick="confirmExamSubmit()">Submit Examination</button>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-// --- FULL 80 HIGH-LEVEL QUESTIONS EMBEDDED DIRECTLY ---
-const full80HighLevelQuestions = [
-  // --- REASONING ABILITY (Q. 1 to 40) ---
-  {
-    id: 1, sec: "Reasoning Ability",
-    text_en: "<strong>Directions (Q. 1-5):</strong> Eight persons A, B, C, D, E, F, G, and H sit in a straight row facing North. A sits 4th to the left of G. Neither A nor G sits at any extreme end. Only two persons sit between G and B. C sits immediate left of B. D sits 2nd to the right of E. H does not sit near G.<br><br><strong>Q.1: Who sits at the extreme right end of the row?</strong>",
-    text_hi: "<strong>निर्देश (प्र. 1-5):</strong> आठ व्यक्ति A, B, C, D, E, F, G और H उत्तर की ओर मुख करके एक पंक्ति में बैठे हैं। A, G के बाएं से चौथे स्थान पर है। न तो A और न ही G किसी अंतिम छोर पर बैठे हैं। G और B के बीच केवल दो व्यक्ति हैं। C, B के ठीक बाएं बैठा है। D, E के दाएं से दूसरे स्थान पर है। H, G के पास नहीं बैठा है।<br><br><strong>प्र.1: पंक्ति के अंतिम दाएं छोर पर कौन बैठा है?</strong>",
-    options: ["(A) D", "(B) B", "(C) F", "(D) C", "(E) H"], correct: 0
-  },
-  {
-    id: 2, sec: "Reasoning Ability",
-    text_en: "<strong>Q.2: How many persons sit between A and C?</strong>",
-    text_hi: "<strong>प्र.2: A और C के मध्य कितने व्यक्ति बैठे हैं?</strong>",
-    options: ["(A) None", "(B) One", "(C) Two", "(D) Three", "(E) Four"], correct: 3
-  },
-  {
-    id: 3, sec: "Reasoning Ability",
-    text_en: "<strong>Q.3: What is the position of F with respect to E?</strong>",
-    text_hi: "<strong>प्र.3: E के संदर्भ में F का स्थान क्या है?</strong>",
-    options: ["(A) Immediate Right", "(B) 2nd to the Right", "(C) 3rd to the Left", "(D) Immediate Left", "(E) 2nd to the Left"], correct: 0
-  },
-  {
-    id: 4, sec: "Reasoning Ability",
-    text_en: "<strong>Q.4: Which of the following pairs sits at the extreme ends?</strong>",
-    text_hi: "<strong>प्र.4: निम्नलिखित में से कौन सा युग्म अंतिम छोरों पर बैठा है?</strong>",
-    options: ["(A) H, D", "(B) E, D", "(C) H, B", "(D) F, G", "(E) A, D"], correct: 0
-  },
-  {
-    id: 5, sec: "Reasoning Ability",
-    text_en: "<strong>Q.5: Who sits immediate right of G?</strong>",
-    text_hi: "<strong>प्र.5: G के ठीक दाएं कौन बैठा है?</strong>",
-    options: ["(A) C", "(B) B", "(C) E", "(D) D", "(E) F"], correct: 0
-  },
-  {
-    id: 6, sec: "Reasoning Ability",
-    text_en: "<strong>Statements:</strong> Only a few Circles are Squares. All Squares are Triangles. No Triangle is Rectangle.<br><strong>Conclusions:</strong><br>I. Some Circles are not Rectangles.<br>II. All Squares can never be Rectangles.",
-    text_hi: "<strong>कथन:</strong> केवल कुछ Circle, Square हैं। सभी Square, Triangle हैं। कोई Triangle, Rectangle नहीं है।<br><strong>निष्कर्ष:</strong><br>I. कुछ Circle, Rectangle नहीं हैं।<br>II. सभी Square कभी भी Rectangle नहीं हो सकते।",
-    options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II follows", "(D) Neither I nor II follows", "(E) Both I and II follow"], correct: 4
-  },
-  {
-    id: 7, sec: "Reasoning Ability",
-    text_en: "<strong>Statements:</strong> Only a few Rivers are Lakes. Some Lakes are Oceans. All Oceans are Ponds.<br><strong>Conclusions:</strong><br>I. All Rivers being Lake is a possibility.<br>II. Some Ponds are Lakes.",
-    text_hi: "<strong>कथन:</strong> केवल कुछ River, Lake हैं। कुछ Lake, Ocean हैं। सभी Ocean, Pond हैं।<br><strong>निष्कर्ष:</strong><br>I. सभी River के Lake होने की संभावना है।<br>II. कुछ Pond, Lake हैं।",
-    options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II follows", "(D) Neither I nor II follows", "(E) Both I and II follow"], correct: 1
-  },
-  {
-    id: 8, sec: "Reasoning Ability",
-    text_en: "<strong>Statements:</strong> No Tree is Plant. All Plants are Herbs. Only a few Herbs are Shrubs.<br><strong>Conclusions:</strong><br>I. Some Herbs are not Trees.<br>II. All Trees being Shrubs is a possibility.",
-    text_hi: "<strong>कथन:</strong> कोई Tree, Plant नहीं है। सभी Plant, Herb हैं। केवल कुछ Herb, Shrub हैं।<br><strong>निष्कर्ष:</strong><br>I. कुछ Herb, Tree नहीं हैं।<br>II. सभी Tree के Shrub होने की संभावना है।",
-    options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II follows", "(D) Neither I nor II follows", "(E) Both I and II follow"], correct: 4
-  },
-  {
-    id: 9, sec: "Reasoning Ability",
-    text_en: "<strong>Statements:</strong> Only a few Blue are Green. All Green are Yellow. No Yellow is Black.<br><strong>Conclusions:</strong><br>I. No Green is Black.<br>II. Some Blue are not Yellow.",
-    text_hi: "<strong>कथन:</strong> केवल कुछ Blue, Green हैं। सभी Green, Yellow हैं। कोई Yellow, Black नहीं है।<br><strong>निष्कर्ष:</strong><br>I. कोई Green, Black नहीं है।<br>II. कुछ Blue, Yellow नहीं हैं।",
-    options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II follows", "(D) Neither I nor II follows", "(E) Both I and II follow"], correct: 0
-  },
-  {
-    id: 10, sec: "Reasoning Ability",
-    text_en: "<strong>Statements:</strong> All Mobile are Laptop. Only a few Laptop are Tablet. No Tablet is Watch.<br><strong>Conclusions:</strong><br>I. Some Laptop are not Watch.<br>II. All Mobile being Tablet is a possibility.",
-    text_hi: "<strong>कथन:</strong> सभी Mobile, Laptop हैं। केवल कुछ Laptop, Tablet हैं। कोई Tablet, Watch नहीं है।<br><strong>निष्कर्ष:</strong><br>I. कुछ Laptop, Watch नहीं हैं।<br>II. सभी Mobile के Tablet होने की संभावना है।",
-    options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II follows", "(D) Neither I nor II follows", "(E) Both I and II follow"], correct: 4
-  },
-  {
-    id: 11, sec: "Reasoning Ability",
-    text_en: "<strong>Directions (Q. 11-15):</strong> Eight persons (P, Q, R, S, T, U, V, W) sit around a circular table facing the center. P sits 3rd to the right of W. Only two persons sit between W and R. Q sits 2nd to the left of R. V is not an immediate neighbor of P. T sits 2nd to the right of U. U does not sit adjacent to W.<br><br><strong>Q.11: Who sits opposite to P?</strong>",
-    text_hi: "<strong>निर्देश (प्र. 11-15):</strong> आठ व्यक्ति (P, Q, R, S, T, U, V, W) केंद्र की ओर मुख करके एक वृत्ताकार मेज पर बैठे हैं। P, W के दाएं से तीसरे स्थान पर है। W और R के बीच केवल दो व्यक्ति हैं। Q, R के बाएं से दूसरे स्थान पर है। V, P का निकटतम पड़ोसी नहीं है। T, U के दाएं से दूसरे स्थान पर है। U, W के निकट नहीं बैठा है।<br><br><strong>प्र.11: P के विपरीत कौन बैठा है?</strong>",
-    options: ["(A) Q", "(B) T", "(C) U", "(D) R", "(E) V"], correct: 0
-  },
-  {
-    id: 12, sec: "Reasoning Ability",
-    text_en: "<strong>Q.12: Who sits immediate left of V?</strong>",
-    text_hi: "<strong>प्र.12: V के ठीक बाएं कौन बैठा है?</strong>",
-    options: ["(A) W", "(B) T", "(C) R", "(D) Q", "(E) P"], correct: 0
-  },
-  {
-    id: 13, sec: "Reasoning Ability",
-    text_en: "<strong>Q.13: How many persons sit between T and R when counted from left of T?</strong>",
-    text_hi: "<strong>प्र.13: T के बाएं से गिनने पर T और R के मध्य कितने व्यक्ति हैं?</strong>",
-    options: ["(A) One", "(B) Two", "(C) Three", "(D) Four", "(E) More than four"], correct: 1
-  },
-  {
-    id: 14, sec: "Reasoning Ability",
-    text_en: "<strong>Q.14: Which statement is definitely TRUE?</strong>",
-    text_hi: "<strong>प्र.14: निम्नलिखित में से कौन सा कथन निश्चित रूप से सत्य है?</strong>",
-    options: ["(A) S sits immediate right of P", "(B) W sits opposite to U", "(C) Q is neighbor of P", "(D) T sits 3rd left of W", "(E) None of these"], correct: 0
-  },
-  {
-    id: 15, sec: "Reasoning Ability",
-    text_en: "<strong>Q.15: Who among the following sits 2nd to the left of Q?</strong>",
-    text_hi: "<strong>प्र.15: निम्नलिखित में से कौन Q के बाएं से दूसरे स्थान पर बैठा है?</strong>",
-    options: ["(A) P", "(B) V", "(C) T", "(D) S", "(E) U"], correct: 1
-  },
-  {
-    id: 16, sec: "Reasoning Ability",
-    text_en: "<strong>Statements:</strong> K ≥ L > M = N; N ≥ O > P<br><strong>Conclusions:</strong> I. K > N &nbsp;&nbsp; II. L > P",
-    text_hi: "<strong>कथन:</strong> K ≥ L > M = N; N ≥ O > P<br><strong>निष्कर्ष:</strong> I. K > N &nbsp;&nbsp; II. L > P",
-    options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II", "(D) Neither I nor II", "(E) Both I and II follow"], correct: 4
-  },
-  {
-    id: 17, sec: "Reasoning Ability",
-    text_en: "<strong>Statements:</strong> Z < Y ≤ X = W; W < V ≤ U<br><strong>Conclusions:</strong> I. Z < W &nbsp;&nbsp; II. X < U",
-    text_hi: "<strong>कथन:</strong> Z < Y ≤ X = W; W < V ≤ U<br><strong>निष्कर्ष:</strong> I. Z < W &nbsp;&nbsp; II. X < U",
-    options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II", "(D) Neither I nor II", "(E) Both I and II follow"], correct: 4
-  },
-  {
-    id: 18, sec: "Reasoning Ability",
-    text_en: "<strong>Statements:</strong> G ≤ H = I < J; J ≤ K < L<br><strong>Conclusions:</strong> I. G < J &nbsp;&nbsp; II. I < L",
-    text_hi: "<strong>कथन:</strong> G ≤ H = I < J; J ≤ K < L<br><strong>निष्कर्ष:</strong> I. G < J &nbsp;&nbsp; II. I < L",
-    options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II", "(D) Neither I nor II", "(E) Both I and II follow"], correct: 4
-  },
-  {
-    id: 19, sec: "Reasoning Ability",
-    text_en: "<strong>Statements:</strong> D > E ≥ F = G; G < H ≤ I<br><strong>Conclusions:</strong> I. D > G &nbsp;&nbsp; II. E < I",
-    text_hi: "<strong>कथन:</strong> D > E ≥ F = G; G < H ≤ I<br><strong>निष्कर्ष:</strong> I. D > G &nbsp;&nbsp; II. E < I",
-    options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II", "(D) Neither I nor II", "(E) Both I and II follow"], correct: 0
-  },
-  {
-    id: 20, sec: "Reasoning Ability",
-    text_en: "<strong>Statements:</strong> P ≤ Q < R = S; T > S ≥ U<br><strong>Conclusions:</strong> I. P < T &nbsp;&nbsp; II. R ≥ U",
-    text_hi: "<strong>कथन:</strong> P ≤ Q < R = S; T > S ≥ U<br><strong>निष्कर्ष:</strong> I. P < T &nbsp;&nbsp; II. R ≥ U",
-    options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II", "(D) Neither I nor II", "(E) Both I and II follow"], correct: 4
-  },
-  {
-    id: 21, sec: "Reasoning Ability",
-    text_en: "<strong>Directions (Q. 21-25):</strong> Seven persons M, N, O, P, Q, R, and S live on 7 different floors (Ground=1, Top=7). P lives on an odd floor above floor 4. Only two persons live between P and R. S lives immediately below R. As many persons live above S as below Q. Only one person lives between Q and M. N lives above O.<br><br><strong>Q.21: Who lives on the topmost floor?</strong>",
-    text_hi: "<strong>निर्देश (प्र. 21-25):</strong> सात व्यक्ति M, N, O, P, Q, R और S एक इमारत की 7 अलग-अलग मंजिलों पर रहते हैं (तल 1, शीर्ष 7)। P मंजिल 4 के ऊपर एक विषम मंजिल पर रहता है। P और R के बीच केवल दो व्यक्ति रहते हैं। S, R के ठीक नीचे रहता है। जितने व्यक्ति S के ऊपर रहते हैं उतने ही Q के नीचे रहते हैं। Q और M के बीच केवल एक व्यक्ति रहता है। N, O के ऊपर रहता है।<br><br><strong>प्र.21: सबसे ऊपरी मंजिल (मंजिल 7) पर कौन रहता है?</strong>",
-    options: ["(A) N", "(B) P", "(C) M", "(D) S", "(E) O"], correct: 0
-  },
-  {
-    id: 22, sec: "Reasoning Ability",
-    text_en: "<strong>Q.22: How many persons live between P and S?</strong>",
-    text_hi: "<strong>प्र.22: P और S के मध्य कितने व्यक्ति रहते हैं?</strong>",
-    options: ["(A) None", "(B) One", "(C) Two", "(D) Three", "(E) Four"], correct: 3
-  },
-  {
-    id: 23, sec: "Reasoning Ability",
-    text_en: "<strong>Q.23: Which floor does Q live on?</strong>",
-    text_hi: "<strong>प्र.23: Q किस मंजिल पर रहता है?</strong>",
-    options: ["(A) Floor 6", "(B) Floor 4", "(C) Floor 5", "(D) Floor 7", "(E) Floor 3"], correct: 0
-  },
-  {
-    id: 24, sec: "Reasoning Ability",
-    text_en: "<strong>Q.24: Who lives immediately above O?</strong>",
-    text_hi: "<strong>प्र.24: O के ठीक ऊपर कौन रहता है?</strong>",
-    options: ["(A) M", "(B) R", "(C) Q", "(D) S", "(E) P"], correct: 3
-  },
-  {
-    id: 25, sec: "Reasoning Ability",
-    text_en: "<strong>Q.25: Who lives on Floor number 3?</strong>",
-    text_hi: "<strong>प्र.25: मंजिल संख्या 3 पर कौन रहता है?</strong>",
-    options: ["(A) R", "(B) M", "(C) S", "(D) O", "(E) P"], correct: 0
-  },
-  {
-    id: 26, sec: "Reasoning Ability",
-    text_en: "<strong>Directions (Q. 26-30):</strong> In a code language:<br>'focus on smart practice' is coded as 'kx tm zo bl'<br>'smart approach gives result' is coded as 'bl jm qv sp'<br>'practice gives deep focus' is coded as 'zo qv ch kx'<br>'approach result leads success' is coded as 'jm sp yt wr'<br><br><strong>Q.26: What is the code for 'focus'?</strong>",
-    text_hi: "<strong>निर्देश (प्र. 26-30):</strong> दी गई कूट भाषा के अनुसार उत्तर दें:<br>'focus on smart practice' को 'kx tm zo bl' लिखा जाता है<br>'smart approach gives result' को 'bl jm qv sp' लिखा जाता है<br>'practice gives deep focus' को 'zo qv ch kx' लिखा जाता है<br>'approach result leads success' को 'jm sp yt wr' लिखा जाता है<br><br><strong>प्र.26: 'focus' के लिए क्या कूट हो सकता है?</strong>",
-    options: ["(A) Either 'kx' or 'zo'", "(B) 'bl'", "(C) 'tm'", "(D) 'qv'", "(E) 'ch'"], correct: 0
-  },
-  {
-    id: 27, sec: "Reasoning Ability",
-    text_en: "<strong>Q.27: What is the code for 'smart'?</strong>",
-    text_hi: "<strong>प्र.27: 'smart' के लिए क्या कूट है?</strong>",
-    options: ["(A) kx", "(B) bl", "(C) zo", "(D) jm", "(E) qv"], correct: 1
-  },
-  {
-    id: 28, sec: "Reasoning Ability",
-    text_en: "<strong>Q.28: What does 'qv' stand for?</strong>",
-    text_hi: "<strong>प्र.28: कूट 'qv' किसके लिए प्रयुक्त हुआ है?</strong>",
-    options: ["(A) approach", "(B) result", "(C) gives", "(D) practice", "(E) focus"], correct: 2
-  },
-  {
-    id: 29, sec: "Reasoning Ability",
-    text_en: "<strong>Q.29: What is the code for 'deep'?</strong>",
-    text_hi: "<strong>प्र.29: 'deep' के लिए क्या कूट है?</strong>",
-    options: ["(A) ch", "(B) kx", "(C) zo", "(D) tm", "(E) sp"], correct: 0
-  },
-  {
-    id: 30, sec: "Reasoning Ability",
-    text_en: "<strong>Q.30: What is the code for 'on'?</strong>",
-    text_hi: "<strong>प्र.30: 'on' के लिए क्या कूट है?</strong>",
-    options: ["(A) tm", "(B) bl", "(C) zo", "(D) kx", "(E) ch"], correct: 0
-  },
-  {
-    id: 31, sec: "Reasoning Ability",
-    text_en: "<strong>Directions (Q. 31-33):</strong> Point M is 12m North of Point N. Point O is 9m West of Point N. Point P is 6m South of Point O. Point Q is 15m East of Point P.<br><br><strong>Q.31: What is the shortest distance between Point M and Point O?</strong>",
-    text_hi: "<strong>निर्देश (प्र. 31-33):</strong> बिंदु M, बिंदु N के 12m उत्तर में है। बिंदु O, बिंदु N के 9m पश्चिम में है। बिंदु P, बिंदु O के 6m दक्षिण में है। बिंदु Q, बिंदु P के 15m पूर्व में है।<br><br><strong>प्र.31: बिंदु M और बिंदु O के मध्य न्यूनतम दूरी क्या है?</strong>",
-    options: ["(A) 15m", "(B) 16m", "(C) 18m", "(D) 21m", "(E) 13m"], correct: 0
-  },
-  {
-    id: 32, sec: "Reasoning Ability",
-    text_en: "<strong>Q.32: In which direction is Point Q with respect to Point N?</strong>",
-    text_hi: "<strong>प्र.32: बिंदु N के संदर्भ में बिंदु Q किस दिशा में है?</strong>",
-    options: ["(A) South-East", "(B) North-East", "(C) South-West", "(D) North-West", "(E) East"], correct: 0
-  },
-  {
-    id: 33, sec: "Reasoning Ability",
-    text_en: "<strong>Q.33: What is the shortest distance between Point N and Point Q?</strong>",
-    text_hi: "<strong>प्र.33: बिंदु N और बिंदु Q के मध्य न्यूनतम दूरी क्या है?</strong>",
-    options: ["(A) 6√2 m", "(B) 8m", "(C) 10m", "(D) 7√2 m", "(E) 12m"], correct: 0
-  },
-  {
-    id: 34, sec: "Reasoning Ability",
-    text_en: "<strong>Directions (Q. 34-36):</strong> In a family of 7 members: K is father of L. L is brother of M. M is mother of N. P is sister of N. Q is father-in-law of M. R is husband of M.<br><br><strong>Q.34: How is R related to K?</strong>",
-    text_hi: "<strong>निर्देश (प्र. 34-36):</strong> 7 सदस्यों के परिवार में: K, L का पिता है। L, M का भाई है। M, N की माता है। P, N की बहन है। Q, M का ससुर है। R, M का पति है।<br><br><strong>प्र.34: R का K से क्या संबंध है?</strong>",
-    options: ["(A) Son", "(B) Son-in-law", "(C) Brother", "(D) Nephew", "(E) Father"], correct: 1
-  },
-  {
-    id: 35, sec: "Reasoning Ability",
-    text_en: "<strong>Q.35: How is P related to L?</strong>",
-    text_hi: "<strong>प्र.35: P का L से क्या संबंध है?</strong>",
-    options: ["(A) Daughter", "(B) Sister", "(C) Niece", "(D) Mother", "(E) Aunt"], correct: 2
-  },
-  {
-    id: 36, sec: "Reasoning Ability",
-    text_en: "<strong>Q.36: How is Q related to R?</strong>",
-    text_hi: "<strong>प्र.36: Q का R से क्या संबंध है?</strong>",
-    options: ["(A) Father", "(B) Uncle", "(C) Brother", "(D) Grandfather", "(E) Son"], correct: 0
-  },
-  {
-    id: 37, sec: "Reasoning Ability",
-    text_en: "<strong>Directions (Q. 37-39):</strong> Study the numbers: <strong>835 &nbsp; 472 &nbsp; 619 &nbsp; 394 &nbsp; 751</strong><br><br><strong>Q.37: If 1 is subtracted from 1st digit and 1 is added to 3rd digit of each number, which will be the 2nd highest?</strong>",
-    text_hi: "<strong>निर्देश (प्र. 37-39):</strong> संख्याओं का अध्ययन करें: <strong>835 &nbsp; 472 &nbsp; 619 &nbsp; 394 &nbsp; 751</strong><br><br><strong>प्र.37: यदि पहले अंक से 1 घटाएं और तीसरे अंक में 1 जोड़ें, तो दूसरी सबसे बड़ी संख्या कौन सी होगी?</strong>",
-    options: ["(A) 835", "(B) 472", "(C) 619", "(D) 394", "(E) 751"], correct: 4
-  },
-  {
-    id: 38, sec: "Reasoning Ability",
-    text_en: "<strong>Q.38: If digits within each number are arranged in descending order, what will be the difference between highest and lowest new numbers?</strong>",
-    text_hi: "<strong>प्र.38: यदि प्रत्येक संख्या के अंकों को अवरोही क्रम में व्यवस्थित किया जाए, तो सबसे बड़ी और सबसे छोटी नई संख्या का अंतर क्या होगा?</strong>",
-    options: ["(A) 111", "(B) 211", "(C) 219", "(D) 201", "(E) 189"], correct: 2
-  },
-  {
-    id: 39, sec: "Reasoning Ability",
-    text_en: "<strong>Q.39: What is the product of 2nd digit of lowest number (394) and 3rd digit of highest number (835)?</strong>",
-    text_hi: "<strong>प्र.39: सबसे छोटी संख्या (394) के दूसरे अंक और सबसे बड़ी संख्या (835) के तीसरे अंक का गुणनफल क्या है?</strong>",
-    options: ["(A) 45", "(B) 36", "(C) 27", "(D) 35", "(E) 40"], correct: 0
-  },
-  {
-    id: 40, sec: "Reasoning Ability",
-    text_en: "<strong>Q.40: How many pairs of letters are there in 'CLEARANCE', having as many letters between them as in the English alphabet (both forward & backward)?</strong>",
-    text_hi: "<strong>प्र.40: शब्द 'CLEARANCE' में ऐसे कितने अक्षर युग्म हैं जिनके बीच उतने ही अक्षर हैं जितने अंग्रेजी वर्णमाला में होते हैं (आगे और पीछे दोनों ओर)?</strong>",
-    options: ["(A) None", "(B) One", "(C) Two", "(D) Three", "(E) More than three"], correct: 3
-  },
-    // --- QUANTITATIVE APTITUDE (Q. 41 to 80) ---
-  {
-    id: 41, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.41:</strong> 18.5% of 600 + 45% of 420 - 15 × 8 = ?",
-    text_hi: "<strong>प्र.41:</strong> 600 का 18.5% + 420 का 45% - 15 × 8 = ?",
-    options: ["(A) 180", "(B) 195", "(C) 175", "(D) 185", "(E) 190"], correct: 0
-  },
-  {
-    id: 42, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.42:</strong> (24)² + (16)² - (18)² = ? × 13",
-    text_hi: "<strong>प्र.42:</strong> (24)² + (16)² - (18)² = ? × 13",
-    options: ["(A) 36", "(B) 39", "(C) 42", "(D) 45", "(E) 48"], correct: 1
-  },
-  {
-    id: 43, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.43:</strong> √1296 + √2401 - 25 = (?)²",
-    text_hi: "<strong>प्र.43:</strong> √1296 + √2401 - 25 = (?)²",
-    options: ["(A) 8", "(B) 6", "(C) 7", "(D) 9", "(E) 5"], correct: 1
-  },
-  {
-    id: 44, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.44:</strong> (3/8 of 512) + (5/7 of 343) - 180 = ?",
-    text_hi: "<strong>प्र.44:</strong> (512 का 3/8) + (343 का 5/7) - 180 = ?",
-    options: ["(A) 257", "(B) 267", "(C) 247", "(D) 237", "(E) 277"], correct: 0
-  },
-  {
-    id: 45, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.45:</strong> 480 ÷ 12 × 15 + 240 = ?% of 1400",
-    text_hi: "<strong>प्र.45:</strong> 480 ÷ 12 × 15 + 240 = 1400 का ?%",
-    options: ["(A) 55", "(B) 60", "(C) 65", "(D) 50", "(E) 70"], correct: 1
-  },
-  {
-    id: 46, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.46:</strong> 125% of 640 - 75% of 480 = ? + 140",
-    text_hi: "<strong>प्र.46:</strong> 640 का 125% - 480 का 75% = ? + 140",
-    options: ["(A) 300", "(B) 320", "(C) 280", "(D) 340", "(E) 360"], correct: 0
-  },
-  {
-    id: 47, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.47:</strong> (15 × 28) ÷ 14 + 160 = ? × 19",
-    text_hi: "<strong>प्र.47:</strong> (15 × 28) ÷ 14 + 160 = ? × 19",
-    options: ["(A) 8", "(B) 10", "(C) 12", "(D) 14", "(E) 15"], correct: 1
-  },
-  {
-    id: 48, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.48:</strong> (14)² - √784 + (12)² = ? × 13",
-    text_hi: "<strong>प्र.48:</strong> (14)² - √784 + (12)² = ? × 13",
-    options: ["(A) 22", "(B) 24", "(C) 26", "(D) 28", "(E) 20"], correct: 1
-  },
-  {
-    id: 49, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.49:</strong> 35% of 800 + 42% of 500 - 190 = ?",
-    text_hi: "<strong>प्र.49:</strong> 800 का 35% + 500 का 42% - 190 = ?",
-    options: ["(A) 300", "(B) 310", "(C) 290", "(D) 320", "(E) 280"], correct: 0
-  },
-  {
-    id: 50, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.50:</strong> 540 ÷ 9 + 18 × 16 - 120 = ?",
-    text_hi: "<strong>प्र.50:</strong> 540 ÷ 9 + 18 × 16 - 120 = ?",
-    options: ["(A) 228", "(B) 238", "(C) 248", "(D) 218", "(E) 258"], correct: 0
-  },
-  {
-    id: 51, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.51:</strong> 14, 21, 35, 56, 84, ?",
-    text_hi: "<strong>प्र.51:</strong> 14, 21, 35, 56, 84, ?",
-    options: ["(A) 119", "(B) 121", "(C) 126", "(D) 112", "(E) 133"], correct: 0
-  },
-  {
-    id: 52, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.52:</strong> 12, 13, 28, 87, 352, ?",
-    text_hi: "<strong>प्र.52:</strong> 12, 13, 28, 87, 352, ?",
-    options: ["(A) 1765", "(B) 1755", "(C) 1745", "(D) 1775", "(E) 1785"], correct: 0
-  },
-  {
-    id: 53, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.53:</strong> 400, 396, 380, 344, 280, ?",
-    text_hi: "<strong>प्र.53:</strong> 400, 396, 380, 344, 280, ?",
-    options: ["(A) 180", "(B) 176", "(C) 184", "(D) 170", "(E) 160"], correct: 0
-  },
-  {
-    id: 54, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.54:</strong> 18, 36, 18, 54, 13.5, ?",
-    text_hi: "<strong>प्र.54:</strong> 18, 36, 18, 54, 13.5, ?",
-    options: ["(A) 67.5", "(B) 54", "(C) 81", "(D) 40.5", "(E) 72"], correct: 0
-  },
-  {
-    id: 55, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.55:</strong> 25, 34, 52, 79, 115, ?",
-    text_hi: "<strong>प्र.55:</strong> 25, 34, 52, 79, 115, ?",
-    options: ["(A) 160", "(B) 155", "(C) 165", "(D) 170", "(E) 150"], correct: 0
-  },
-  {
-    id: 56, sec: "Quantitative Aptitude",
-    text_en: "<strong>I.</strong> 2x² - 11x + 15 = 0<br><strong>II.</strong> 2y² - 17y + 36 = 0",
-    text_hi: "<strong>I.</strong> 2x² - 11x + 15 = 0<br><strong>II.</strong> 2y² - 17y + 36 = 0",
-    options: ["(A) x > y", "(B) x ≥ y", "(C) x < y", "(D) x ≤ y", "(E) x = y or no relation"], correct: 3
-  },
-  {
-    id: 57, sec: "Quantitative Aptitude",
-    text_en: "<strong>I.</strong> x² - 14x + 48 = 0<br><strong>II.</strong> y² - 9y + 20 = 0",
-    text_hi: "<strong>I.</strong> x² - 14x + 48 = 0<br><strong>II.</strong> y² - 9y + 20 = 0",
-    options: ["(A) x > y", "(B) x ≥ y", "(C) x < y", "(D) x ≤ y", "(E) x = y or no relation"], correct: 0
-  },
-  {
-    id: 58, sec: "Quantitative Aptitude",
-    text_en: "<strong>I.</strong> 3x² + 13x + 14 = 0<br><strong>II.</strong> 2y² + 15y + 28 = 0",
-    text_hi: "<strong>I.</strong> 3x² + 13x + 14 = 0<br><strong>II.</strong> 2y² + 15y + 28 = 0",
-    options: ["(A) x > y", "(B) x ≥ y", "(C) x < y", "(D) x ≤ y", "(E) x = y or no relation"], correct: 0
-  },
-  {
-    id: 59, sec: "Quantitative Aptitude",
-    text_en: "<strong>I.</strong> x² = 196<br><strong>II.</strong> y² - 28y + 196 = 0",
-    text_hi: "<strong>I.</strong> x² = 196<br><strong>II.</strong> y² - 28y + 196 = 0",
-    options: ["(A) x > y", "(B) x ≥ y", "(C) x < y", "(D) x ≤ y", "(E) x = y or no relation"], correct: 3
-  },
-  {
-    id: 60, sec: "Quantitative Aptitude",
-    text_en: "<strong>I.</strong> 2x² - 9x + 10 = 0<br><strong>II.</strong> 3y² - 7y + 4 = 0",
-    text_hi: "<strong>I.</strong> 2x² - 9x + 10 = 0<br><strong>II.</strong> 3y² - 7y + 4 = 0",
-    options: ["(A) x > y", "(B) x ≥ y", "(C) x < y", "(D) x ≤ y", "(E) x = y or no relation"], correct: 0
-  },
-  {
-    id: 61, sec: "Quantitative Aptitude",
-    text_en: "<strong>Directions (Q. 61-65):</strong> Table shows the total number of students enrolled in 4 colleges (A, B, C, D) and the ratio of Boys to Girls:<br>• College A: Total = 800, Boys : Girls = 5 : 3<br>• College B: Total = 1200, Boys : Girls = 7 : 5<br>• College C: Total = 900, Boys : Girls = 4 : 5<br>• College D: Total = 1000, Boys : Girls = 3 : 2<br><br><strong>Q.61: What is the total number of girls enrolled in all four colleges together?</strong>",
-    text_hi: "<strong>निर्देश (प्र. 61-65):</strong> सारणी 4 कॉलेजों (A, B, C, D) में नामांकित कुल छात्रों और लड़कों तथा लड़कियों के अनुपात को दर्शाती है:<br>• कॉलेज A: कुल = 800, लड़के : लड़कियाँ = 5 : 3<br>• कॉलेज B: कुल = 1200, लड़के : लड़कियाँ = 7 : 5<br>• कॉलेज C: कुल = 900, लड़के : लड़कियाँ = 4 : 5<br>• कॉलेज D: कुल = 1000, लड़के : लड़कियाँ = 3 : 2<br><br><strong>प्र.61: चारों कॉलेजों में मिलाकर नामांकित लड़कियों की कुल संख्या कितनी है?</strong>",
-    options: ["(A) 1650", "(B) 1700", "(C) 1750", "(D) 1600", "(E) 1800"], correct: 1
-  },
-  {
-    id: 62, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.62: What is the ratio of boys in College B to girls in College A?</strong>",
-    text_hi: "<strong>प्र.62: कॉलेज B के लड़कों का कॉलेज A की लड़कियों से अनुपात क्या है?</strong>",
-    options: ["(A) 7 : 3", "(B) 5 : 2", "(C) 4 : 3", "(D) 7 : 4", "(E) 3 : 2"], correct: 0
-  },
-  {
-    id: 63, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.63: Boys in College C are what percentage of total students in College D?</strong>",
-    text_hi: "<strong>प्र.63: कॉलेज C के लड़के, कॉलेज D के कुल छात्रों का कितना प्रतिशत हैं?</strong>",
-    options: ["(A) 36%", "(B) 40%", "(C) 45%", "(D) 50%", "(E) 35%"], correct: 1
-  },
-  {
-    id: 64, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.64: What is the average number of boys across all four colleges?</strong>",
-    text_hi: "<strong>प्र.64: चारों कॉलेजों में लड़कों की औसत संख्या क्या है?</strong>",
-    options: ["(A) 550", "(B) 575", "(C) 525", "(D) 600", "(E) 580"], correct: 0
-  },
-  {
-    id: 65, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.65: Girls in College D are how much percent less than boys in College B?</strong>",
-    text_hi: "<strong>प्र.65: कॉलेज D की लड़कियाँ, कॉलेज B के लड़कों से कितने प्रतिशत कम हैं?</strong>",
-    options: ["(A) 42.85%", "(B) 45%", "(C) 38.5%", "(D) 50%", "(E) 40%"], correct: 0
-  },
-  {
-    id: 66, sec: "Quantitative Aptitude",
-    text_en: "<strong>Directions (Q. 66-70):</strong> Production of Cars (in thousands) by Company X and Company Y from 2021 to 2024:<br>• 2021: X = 45, Y = 60<br>• 2022: X = 75, Y = 50<br>• 2023: X = 90, Y = 80<br>• 2024: X = 60, Y = 90<br><br><strong>Q.66: What is the difference between total production of Company X and Company Y in all 4 years?</strong>",
-    text_hi: "<strong>निर्देश (प्र. 66-70):</strong> 2021 से 2024 तक कंपनी X और Y द्वारा कारों का उत्पादन (हजारों में):<br>• 2021: X = 45, Y = 60<br>• 2022: X = 75, Y = 50<br>• 2023: X = 90, Y = 80<br>• 2024: X = 60, Y = 90<br><br><strong>प्र.66: सभी 4 वर्षों में कंपनी X और कंपनी Y के कुल उत्पादन का अंतर क्या है?</strong>",
-    options: ["(A) 10 thousand", "(B) 15 thousand", "(C) 20 thousand", "(D) 25 thousand", "(E) 5 thousand"], correct: 0
-  },
-  {
-    id: 67, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.67: What is the percentage increase in production of Company X from 2021 to 2023?</strong>",
-    text_hi: "<strong>प्र.67: 2021 से 2023 तक कंपनी X के उत्पादन में कितने प्रतिशत की वृद्धि हुई?</strong>",
-    options: ["(A) 100%", "(B) 80%", "(C) 120%", "(D) 75%", "(E) 90%"], correct: 0
-  },
-  {
-    id: 68, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.68: What is the ratio of total production in 2022 to total production in 2024?</strong>",
-    text_hi: "<strong>प्र.68: वर्ष 2022 में कुल उत्पादन का वर्ष 2024 में कुल उत्पादन से अनुपात क्या है?</strong>",
-    options: ["(A) 5 : 6", "(B) 4 : 5", "(C) 6 : 7", "(D) 3 : 4", "(E) 5 : 7"], correct: 0
-  },
-  {
-    id: 69, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.69: What is the average production of Company Y over the given 4 years?</strong>",
-    text_hi: "<strong>प्र.69: दिए गए 4 वर्षों में कंपनी Y का औसत उत्पादन क्या है?</strong>",
-    options: ["(A) 70 thousand", "(B) 65 thousand", "(C) 75 thousand", "(D) 80 thousand", "(E) 68 thousand"], correct: 0
-  },
-  {
-    id: 70, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.70: Production of Company Y in 2023 is what percentage of production of Company X in 2022?</strong>",
-    text_hi: "<strong>प्र.70: वर्ष 2023 में कंपनी Y का उत्पादन, 2022 में कंपनी X के उत्पादन का कितना प्रतिशत है?</strong>",
-    options: ["(A) 106.67%", "(B) 110%", "(C) 105%", "(D) 112.5%", "(E) 108%"], correct: 0
-  },
-  {
-    id: 71, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.71 (Ages):</strong> Six years ago, the ratio of the ages of A and B was 3 : 4. Four years hence, the ratio of their ages will be 4 : 5. What is the present age of B?",
-    text_hi: "<strong>प्र.71 (आयु):</strong> छह वर्ष पहले A और B की आयु का अनुपात 3 : 4 था। चार वर्ष बाद उनकी आयु का अनुपात 4 : 5 होगा। B की वर्तमान आयु क्या है?",
-    options: ["(A) 46 years", "(B) 42 years", "(C) 38 years", "(D) 40 years", "(E) 44 years"], correct: 0
-  },
-  {
-    id: 72, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.72 (Profit & Loss):</strong> A shopkeeper marks an article 40% above the cost price and allows a discount of 20%. If he makes a profit of ₹180, find the cost price.",
-    text_hi: "<strong>प्र.72 (लाभ एवं हानि):</strong> एक दुकानदार किसी वस्तु पर क्रय मूल्य से 40% अधिक अंकित करता है और 20% की छूट देता है। यदि वह ₹180 का लाभ कमाता है, तो क्रय मूल्य ज्ञात कीजिए।",
-    options: ["(A) ₹1500", "(B) ₹1400", "(C) ₹1600", "(D) ₹1200", "(E) ₹1800"], correct: 0
-  },
-  {
-    id: 73, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.73 (Time & Work):</strong> A can complete a work in 16 days and B in 24 days. They started together, but A left 4 days before completion. In how many days was the total work finished?",
-    text_hi: "<strong>प्र.73 (समय एवं कार्य):</strong> A किसी कार्य को 16 दिन में और B 24 दिन में पूरा कर सकता है। वे एक साथ कार्य शुरू करते हैं, लेकिन कार्य पूरा होने से 4 दिन पहले A छोड़ देता है। कुल कार्य कितने दिनों में समाप्त हुआ?",
-    options: ["(A) 12 days", "(B) 10 days", "(C) 14 days", "(D) 15 days", "(E) 16 days"], correct: 0
-  },
-  {
-    id: 74, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.74 (Speed & Train):</strong> A train 240m long crosses a platform of double its length in 36 seconds. What is the speed of the train in km/hr?",
-    text_hi: "<strong>प्र.74 (ट्रेन एवं दूरी):</strong> 240 मीटर लंबी एक ट्रेन अपनी लंबाई से दोगुने लंबे प्लेटफॉर्म को 36 सेकंड में पार करती है। ट्रेन की गति km/hr में क्या है?",
-    options: ["(A) 72 km/hr", "(B) 64 km/hr", "(C) 80 km/hr", "(D) 54 km/hr", "(E) 90 km/hr"], correct: 0
-  },
-  {
-    id: 75, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.75 (SI & CI):</strong> The difference between Compound Interest and Simple Interest on a sum of money for 2 years at 12% per annum is ₹216. Find the principal sum.",
-    text_hi: "<strong>प्र.75 (साधारण एवं चक्रवृद्धि ब्याज):</strong> किसी धनराशि पर 12% वार्षिक दर से 2 वर्ष के चक्रवृद्धि ब्याज और साधारण ब्याज का अंतर ₹216 है। मूलधन ज्ञात कीजिए।",
-    options: ["(A) ₹15,000", "(B) ₹16,000", "(C) ₹14,000", "(D) ₹18,000", "(E) ₹12,500"], correct: 0
-  },
-  {
-    id: 76, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.76 (Partnership):</strong> P, Q, and R started a business investing ₹20,000, ₹25,000, and ₹30,000 respectively. After 4 months, P withdrew ₹5,000 and R invested ₹5,000 more. If total annual profit is ₹37,200, find P's share.",
-    text_hi: "<strong>प्र.76 (साझेदारी):</strong> P, Q और R ने क्रमशः ₹20,000, ₹25,000 और ₹30,000 का निवेश करके व्यापार शुरू किया। 4 महीने बाद P ने ₹5,000 निकाल लिए और R ने ₹5,000 और निवेश किए। यदि वार्षिक लाभ ₹37,200 है, तो P का हिस्सा ज्ञात कीजिए।",
-    options: ["(A) ₹8,800", "(B) ₹9,200", "(C) ₹8,400", "(D) ₹9,600", "(E) ₹10,200"], correct: 0
-  },
-  {
-    id: 77, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.77 (Mensuration):</strong> The ratio of length to breadth of a rectangle is 5 : 3. If its perimeter is 128 cm, find the area of a circle whose radius is equal to the breadth of this rectangle.",
-    text_hi: "<strong>प्र.77 (क्षेत्रमिति):</strong> एक आयत की लंबाई और चौड़ाई का अनुपात 5 : 3 है। यदि इसका परिमाप 128 सेमी है, तो उस वृत्त का क्षेत्रफल ज्ञात कीजिए जिसकी त्रिज्या इस आयत की चौड़ाई के बराबर है।",
-    options: ["(A) 1810.28 cm²", "(B) 1750.5 cm²", "(C) 1900 cm²", "(D) 1680 cm²", "(E) 1840 cm²"], correct: 0
-  },
-  {
-    id: 78, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.78 (Mixture & Alligation):</strong> A vessel contains 90 liters of mixture of milk and water in ratio 7 : 2. If 18 liters of mixture is replaced by 18 liters of pure water, what is the new ratio of milk to water?",
-    text_hi: "<strong>प्र.78 (मिश्रण):</strong> एक बर्तन में दूध और पानी का 90 लीटर मिश्रण 7 : 2 के अनुपात में है। यदि 18 लीटर मिश्रण निकालकर उसके स्थान पर 18 लीटर शुद्ध पानी मिला दिया जाए, तो नया अनुपात क्या होगा?",
-    options: ["(A) 7 : 5", "(B) 14 : 11", "(C) 8 : 5", "(D) 7 : 4", "(E) 9 : 5"], correct: 1
-  },
-  {
-    id: 79, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.79 (Boats & Streams):</strong> A boat takes 4 hours to travel 48 km downstream and 6 hours to travel 36 km upstream. What is the speed of the current?",
-    text_hi: "<strong>प्र.79 (नाव एवं धारा):</strong> एक नाव को धारा के अनुकूल 48 km जाने में 4 घंटे और धारा के प्रतिकूल 36 km जाने में 6 घंटे लगते हैं। धारा की गति ज्ञात कीजिए।",
-    options: ["(A) 3 km/hr", "(B) 2.5 km/hr", "(C) 4 km/hr", "(D) 2 km/hr", "(E) 3.5 km/hr"], correct: 0
-  },
-  {
-    id: 80, sec: "Quantitative Aptitude",
-    text_en: "<strong>Q.80 (Probability):</strong> A bag contains 5 red balls, 4 green balls, and 3 blue balls. If two balls are drawn at random without replacement, find the probability that both balls are of the same color.",
-    text_hi: "<strong>प्र.80 (प्रायिकता):</strong> एक थैले में 5 लाल, 4 हरी और 3 नीली गेंदें हैं। यदि बिना प्रतिस्थापन के यादृच्छिक रूप से दो गेंदें निकाली जाती हैं, तो दोनों गेंदों के एक ही रंग के होने की प्रायिकता क्या है?",
-    options: ["(A) 19/66", "(B) 17/66", "(C) 7/22", "(D) 5/18", "(E) 23/66"], correct: 0
-  }
+/* 80 HIGH-LEVEL COMPLETE NON-REPEATING QUESTIONS BLUEPRINT */
+const highLevel80Questions = [
+  // REASONING ABILITY (Q. 1 to 40)
+  { id: 1, sec: "Reasoning Ability", text_en: "<strong>Directions (Q. 1-5):</strong> 8 persons (A, B, C, D, E, F, G, H) sit in a straight row facing North. A sits 4th to the left of G. Neither A nor G sits at extreme ends. Only 2 persons sit between G and B. C sits immediate left of B. D sits 2nd to the right of E. H does not sit near G.<br><br><strong>Q.1: Who sits at the extreme right end of the row?</strong>", text_hi: "<strong>निर्देश (प्र. 1-5):</strong> 8 व्यक्ति (A, B, C, D, E, F, G, H) उत्तर की ओर मुख करके पंक्ति में बैठे हैं। A, G के बाएं से चौथे स्थान पर है। A या G छोर पर नहीं हैं। G और B के बीच 2 व्यक्ति हैं। C, B के ठीक बाएं है। D, E के दाएं से दूसरे स्थान पर है। H, G के पास नहीं है।<br><br><strong>प्र.1: पंक्ति के अंतिम दाएं छोर पर कौन बैठा है?</strong>", options: ["(A) D", "(B) B", "(C) F", "(D) C", "(E) H"], correct: 0 },
+  { id: 2, sec: "Reasoning Ability", text_en: "<strong>Q.2: How many persons sit between A and C?</strong>", text_hi: "<strong>प्र.2: A और C के मध्य कितने व्यक्ति बैठे हैं?</strong>", options: ["(A) None", "(B) One", "(C) Two", "(D) Three", "(E) Four"], correct: 3 },
+  { id: 3, sec: "Reasoning Ability", text_en: "<strong>Q.3: What is the position of F with respect to E?</strong>", text_hi: "<strong>प्र.3: E के संदर्भ में F का स्थान क्या है?</strong>", options: ["(A) Immediate Right", "(B) 2nd to Right", "(C) 3rd to Left", "(D) Immediate Left", "(E) 2nd to Left"], correct: 0 },
+  { id: 4, sec: "Reasoning Ability", text_en: "<strong>Q.4: Which of the following pairs sits at the extreme ends?</strong>", text_hi: "<strong>प्र.4: निम्नलिखित में से कौन सा युग्म अंतिम छोरों पर बैठा है?</strong>", options: ["(A) H, D", "(B) E, D", "(C) H, B", "(D) F, G", "(E) A, D"], correct: 0 },
+  { id: 5, sec: "Reasoning Ability", text_en: "<strong>Q.5: Who sits immediate right of G?</strong>", text_hi: "<strong>प्र.5: G के ठीक दाएं कौन बैठा है?</strong>", options: ["(A) C", "(B) B", "(C) E", "(D) D", "(E) F"], correct: 0 },
+  { id: 6, sec: "Reasoning Ability", text_en: "<strong>Statements:</strong> Only a few Circles are Squares. All Squares are Triangles. No Triangle is Rectangle.<br><strong>Conclusions:</strong> I. Some Circles are not Rectangles. II. All Squares can never be Rectangles.", text_hi: "<strong>कथन:</strong> केवल कुछ Circle, Square हैं। सभी Square, Triangle हैं। कोई Triangle, Rectangle नहीं है।<br><strong>निष्कर्ष:</strong> I. कुछ Circle, Rectangle नहीं हैं। II. सभी Square कभी Rectangle नहीं हो सकते।", options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II follows", "(D) Neither I nor II", "(E) Both I and II follow"], correct: 4 },
+  { id: 7, sec: "Reasoning Ability", text_en: "<strong>Statements:</strong> Only a few Rivers are Lakes. Some Lakes are Oceans. All Oceans are Ponds.<br><strong>Conclusions:</strong> I. All Rivers being Lake is a possibility. II. Some Ponds are Lakes.", text_hi: "<strong>कथन:</strong> केवल कुछ River, Lake हैं। कुछ Lake, Ocean हैं। सभी Ocean, Pond हैं।<br><strong>निष्कर्ष:</strong> I. सभी River के Lake होने की संभावना है। II. कुछ Pond, Lake हैं।", options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II follows", "(D) Neither I nor II", "(E) Both I and II follow"], correct: 1 },
+  { id: 8, sec: "Reasoning Ability", text_en: "<strong>Statements:</strong> No Tree is Plant. All Plants are Herbs. Only a few Herbs are Shrubs.<br><strong>Conclusions:</strong> I. Some Herbs are not Trees. II. All Trees being Shrubs is a possibility.", text_hi: "<strong>कथन:</strong> कोई Tree, Plant नहीं है। सभी Plant, Herb हैं। केवल कुछ Herb, Shrub हैं।<br><strong>निष्कर्ष:</strong> I. कुछ Herb, Tree नहीं हैं। II. सभी Tree के Shrub होने की संभावना है।", options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II follows", "(D) Neither I nor II", "(E) Both I and II follow"], correct: 4 },
+  { id: 9, sec: "Reasoning Ability", text_en: "<strong>Statements:</strong> Only a few Blue are Green. All Green are Yellow. No Yellow is Black.<br><strong>Conclusions:</strong> I. No Green is Black. II. Some Blue are not Yellow.", text_hi: "<strong>कथन:</strong> केवल कुछ Blue, Green हैं। सभी Green, Yellow हैं। कोई Yellow, Black नहीं है।<br><strong>निष्कर्ष:</strong> I. कोई Green, Black नहीं है। II. कुछ Blue, Yellow नहीं हैं।", options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II follows", "(D) Neither I nor II", "(E) Both I and II follow"], correct: 0 },
+  { id: 10, sec: "Reasoning Ability", text_en: "<strong>Statements:</strong> All Mobile are Laptop. Only a few Laptop are Tablet. No Tablet is Watch.<br><strong>Conclusions:</strong> I. Some Laptop are not Watch. II. All Mobile being Tablet is a possibility.", text_hi: "<strong>कथन:</strong> सभी Mobile, Laptop हैं। केवल कुछ Laptop, Tablet हैं। कोई Tablet, Watch नहीं है।<br><strong>निष्कर्ष:</strong> I. कुछ Laptop, Watch नहीं हैं। II. सभी Mobile के Tablet होने की संभावना है।", options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II follows", "(D) Neither I nor II", "(E) Both I and II follow"], correct: 4 },
+  { id: 11, sec: "Reasoning Ability", text_en: "<strong>Directions (Q. 11-15):</strong> 8 persons (P, Q, R, S, T, U, V, W) sit around a circular table facing center. P sits 3rd to right of W. 2 persons sit between W and R. Q sits 2nd to left of R. V is not neighbor of P. T sits 2nd to right of U. U is not near W.<br><br><strong>Q.11: Who sits opposite to P?</strong>", text_hi: "<strong>निर्देश (प्र. 11-15):</strong> 8 व्यक्ति (P, Q, R, S, T, U, V, W) केंद्र की ओर मुख करके गोल मेज पर बैठे हैं। P, W के दाएं से तीसरे स्थान पर है। W और R के बीच 2 व्यक्ति हैं। Q, R के बाएं से दूसरे स्थान पर है। V, P का पड़ोसी नहीं है। T, U के दाएं से दूसरे स्थान पर है। U, W के पास नहीं है।<br><br><strong>प्र.11: P के विपरीत कौन बैठा है?</strong>", options: ["(A) Q", "(B) T", "(C) U", "(D) R", "(E) V"], correct: 0 },
+  { id: 12, sec: "Reasoning Ability", text_en: "<strong>Q.12: Who sits immediate left of V?</strong>", text_hi: "<strong>प्र.12: V के ठीक बाएं कौन बैठा है?</strong>", options: ["(A) W", "(B) T", "(C) R", "(D) Q", "(E) P"], correct: 0 },
+  { id: 13, sec: "Reasoning Ability", text_en: "<strong>Q.13: How many persons sit between T and R counted from left of T?</strong>", text_hi: "<strong>प्र.13: T के बाएं से गिनने पर T और R के मध्य कितने व्यक्ति हैं?</strong>", options: ["(A) One", "(B) Two", "(C) Three", "(D) Four", "(E) More than four"], correct: 1 },
+  { id: 14, sec: "Reasoning Ability", text_en: "<strong>Q.14: Which statement is definitely TRUE?</strong>", text_hi: "<strong>प्र.14: निम्नलिखित में से कौन सा कथन निश्चित रूप से सत्य है?</strong>", options: ["(A) S sits immediate right of P", "(B) W sits opposite to U", "(C) Q is neighbor of P", "(D) T sits 3rd left of W", "(E) None of these"], correct: 0 },
+  { id: 15, sec: "Reasoning Ability", text_en: "<strong>Q.15: Who sits 2nd to the left of Q?</strong>", text_hi: "<strong>प्र.15: Q के बाएं से दूसरे स्थान पर कौन बैठा है?</strong>", options: ["(A) P", "(B) V", "(C) T", "(D) S", "(E) U"], correct: 1 },
+  { id: 16, sec: "Reasoning Ability", text_en: "<strong>Statements:</strong> K ≥ L > M = N; N ≥ O > P<br><strong>Conclusions:</strong> I. K > N &nbsp;&nbsp; II. L > P", text_hi: "<strong>कथन:</strong> K ≥ L > M = N; N ≥ O > P<br><strong>निष्कर्ष:</strong> I. K > N &nbsp;&nbsp; II. L > P", options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II", "(D) Neither I nor II", "(E) Both I and II follow"], correct: 4 },
+  { id: 17, sec: "Reasoning Ability", text_en: "<strong>Statements:</strong> Z < Y ≤ X = W; W < V ≤ U<br><strong>Conclusions:</strong> I. Z < W &nbsp;&nbsp; II. X < U", text_hi: "<strong>कथन:</strong> Z < Y ≤ X = W; W < V ≤ U<br><strong>निष्कर्ष:</strong> I. Z < W &nbsp;&nbsp; II. X < U", options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II", "(D) Neither I nor II", "(E) Both I and II follow"], correct: 4 },
+  { id: 18, sec: "Reasoning Ability", text_en: "<strong>Statements:</strong> G ≤ H = I < J; J ≤ K < L<br><strong>Conclusions:</strong> I. G < J &nbsp;&nbsp; II. I < L", text_hi: "<strong>कथन:</strong> G ≤ H = I < J; J ≤ K < L<br><strong>निष्कर्ष:</strong> I. G < J &nbsp;&nbsp; II. I < L", options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II", "(D) Neither I nor II", "(E) Both I and II follow"], correct: 4 },
+  { id: 19, sec: "Reasoning Ability", text_en: "<strong>Statements:</strong> D > E ≥ F = G; G < H ≤ I<br><strong>Conclusions:</strong> I. D > G &nbsp;&nbsp; II. E < I", text_hi: "<strong>कथन:</strong> D > E ≥ F = G; G < H ≤ I<br><strong>निष्कर्ष:</strong> I. D > G &nbsp;&nbsp; II. E < I", options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II", "(D) Neither I nor II", "(E) Both I and II follow"], correct: 0 },
+  { id: 20, sec: "Reasoning Ability", text_en: "<strong>Statements:</strong> P ≤ Q < R = S; T > S ≥ U<br><strong>Conclusions:</strong> I. P < T &nbsp;&nbsp; II. R ≥ U", text_hi: "<strong>कथन:</strong> P ≤ Q < R = S; T > S ≥ U<br><strong>निष्कर्ष:</strong> I. P < T &nbsp;&nbsp; II. R ≥ U", options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II", "(D) Neither I nor II", "(E) Both I and II follow"], correct: 4 },
+  { id: 21, sec: "Reasoning Ability", text_en: "<strong>Directions (Q. 21-25):</strong> 7 persons (M, N, O, P, Q, R, S) live on 7 floors (1 to 7). P lives on odd floor above floor 4. 2 persons between P and R. S lives immediately below R. Persons above S equals persons below Q. 1 person between Q and M. N lives above O.<br><br><strong>Q.21: Who lives on Floor 7?</strong>", text_hi: "<strong>निर्देश (प्र. 21-25):</strong> 7 व्यक्ति (M, N, O, P, Q, R, S) 7 मंजिलों पर रहते हैं। P मंजिल 4 के ऊपर विषम मंजिल पर है। P और R के बीच 2 व्यक्ति हैं। S, R के ठीक नीचे है। S के ऊपर व्यक्ति = Q के नीचे व्यक्ति। Q और M के बीच 1 व्यक्ति है। N, O के ऊपर है।<br><br><strong>प्र.21: मंजिल 7 पर कौन रहता है?</strong>", options: ["(A) N", "(B) P", "(C) M", "(D) S", "(E) O"], correct: 0 },
+  { id: 22, sec: "Reasoning Ability", text_en: "<strong>Q.22: How many persons live between P and S?</strong>", text_hi: "<strong>प्र.22: P और S के मध्य कितने व्यक्ति रहते हैं?</strong>", options: ["(A) None", "(B) One", "(C) Two", "(D) Three", "(E) Four"], correct: 3 },
+  { id: 23, sec: "Reasoning Ability", text_en: "<strong>Q.23: Which floor does Q live on?</strong>", text_hi: "<strong>प्र.23: Q किस मंजिल पर रहता है?</strong>", options: ["(A) Floor 6", "(B) Floor 4", "(C) Floor 5", "(D) Floor 7", "(E) Floor 3"], correct: 0 },
+  { id: 24, sec: "Reasoning Ability", text_en: "<strong>Q.24: Who lives immediately above O?</strong>", text_hi: "<strong>प्र.24: O के ठीक ऊपर कौन रहता है?</strong>", options: ["(A) M", "(B) R", "(C) Q", "(D) S", "(E) P"], correct: 3 },
+  { id: 25, sec: "Reasoning Ability", text_en: "<strong>Q.25: Who lives on Floor number 3?</strong>", text_hi: "<strong>प्र.25: मंजिल संख्या 3 पर कौन रहता है?</strong>", options: ["(A) R", "(B) M", "(C) S", "(D) O", "(E) P"], correct: 0 },
+  { id: 26, sec: "Reasoning Ability", text_en: "<strong>Coding:</strong> 'focus on smart practice'='kx tm zo bl', 'smart approach gives result'='bl jm qv sp', 'practice gives deep focus'='zo qv ch kx'. What is code for 'smart'?", text_hi: "<strong>कूट:</strong> 'focus on smart practice'='kx tm zo bl', 'smart approach gives result'='bl jm qv sp', 'practice gives deep focus'='zo qv ch kx'. 'smart' का कूट क्या है?", options: ["(A) kx", "(B) bl", "(C) zo", "(D) jm", "(E) qv"], correct: 1 },
+  { id: 27, sec: "Reasoning Ability", text_en: "<strong>Q.27: What is code for 'gives'?</strong>", text_hi: "<strong>प्र.27: 'gives' के लिए क्या कूट है?</strong>", options: ["(A) qv", "(B) bl", "(C) kx", "(D) zo", "(E) ch"], correct: 0 },
+  { id: 28, sec: "Reasoning Ability", text_en: "<strong>Q.28: What does 'ch' stand for?</strong>", text_hi: "<strong>प्र.28: कूट 'ch' का अर्थ क्या है?</strong>", options: ["(A) practice", "(B) deep", "(C) focus", "(D) gives", "(E) on"], correct: 1 },
+  { id: 29, sec: "Reasoning Ability", text_en: "<strong>Q.29: What is code for 'on'?</strong>", text_hi: "<strong>प्र.29: 'on' का कूट क्या है?</strong>", options: ["(A) tm", "(B) kx", "(C) zo", "(D) bl", "(E) qv"], correct: 0 },
+  { id: 30, sec: "Reasoning Ability", text_en: "<strong>Q.30: What may be code for 'deep focus'?</strong>", text_hi: "<strong>प्र.30: 'deep focus' का संभावित कूट क्या है?</strong>", options: ["(A) ch kx", "(B) tm bl", "(C) jm sp", "(D) qv ch", "(E) bl kx"], correct: 0 },
+  { id: 31, sec: "Reasoning Ability", text_en: "Point M is 12m North of Point N. Point O is 9m West of Point N. Shortest distance between Point M and Point O?", text_hi: "बिंदु M, बिंदु N के 12m उत्तर में है। बिंदु O, बिंदु N के 9m पश्चिम में है। बिंदु M और बिंदु O के मध्य न्यूनतम दूरी क्या है?", options: ["(A) 15m", "(B) 16m", "(C) 18m", "(D) 21m", "(E) 13m"], correct: 0 },
+  { id: 32, sec: "Reasoning Ability", text_en: "Point P is 6m South of Point O. Point Q is 15m East of Point P. In which direction is Point Q with respect to Point N?", text_hi: "बिंदु P, बिंदु O के 6m दक्षिण में है। बिंदु Q, बिंदु P के 15m पूर्व में है। बिंदु N के संदर्भ में बिंदु Q किस दिशा में है?", options: ["(A) South-East", "(B) North-East", "(C) South-West", "(D) North-West", "(E) East"], correct: 0 },
+  { id: 33, sec: "Reasoning Ability", text_en: "What is the shortest distance between Point N and Point Q?", text_hi: "बिंदु N और बिंदु Q के मध्य न्यूनतम दूरी क्या है?", options: ["(A) 6√2 m", "(B) 8m", "(C) 10m", "(D) 7√2 m", "(E) 12m"], correct: 0 },
+  { id: 34, sec: "Reasoning Ability", text_en: "K is father of L. L is brother of M. M is mother of N. P is sister of N. How is P related to L?", text_hi: "K, L का पिता है। L, M का भाई है। M, N की माता है। P, N की बहन है। P का L से क्या संबंध है?", options: ["(A) Daughter", "(B) Sister", "(C) Niece", "(D) Mother", "(E) Aunt"], correct: 2 },
+  { id: 35, sec: "Reasoning Ability", text_en: "R is husband of M. How is R related to K?", text_hi: "R, M का पति है। R का K से क्या संबंध है?", options: ["(A) Son", "(B) Son-in-law", "(C) Brother", "(D) Nephew", "(E) Father"], correct: 1 },
+  { id: 36, sec: "Reasoning Ability", text_en: "Q is father-in-law of M. How is Q related to R?", text_hi: "Q, M का ससुर है। Q का R से क्या संबंध है?", options: ["(A) Father", "(B) Uncle", "(C) Brother", "(D) Grandfather", "(E) Son"], correct: 0 },
+  { id: 37, sec: "Reasoning Ability", text_en: "Numbers: 835, 472, 619, 394, 751. If 1 subtracted from 1st digit and 1 added to 3rd digit of each, which is 2nd highest?", text_hi: "संख्याएं: 835, 472, 619, 394, 751. यदि पहले अंक से 1 घटाएं और तीसरे में 1 जोड़ें, तो दूसरी सबसे बड़ी संख्या कौन सी होगी?", options: ["(A) 835", "(B) 472", "(C) 619", "(D) 394", "(E) 751"], correct: 4 },
+  { id: 38, sec: "Reasoning Ability", text_en: "If digits in each number arranged descending within number, difference between highest and lowest new numbers?", text_hi: "यदि प्रत्येक संख्या के अंकों को अवरोही क्रम में रखें, तो सबसे बड़ी और सबसे छोटी नई संख्या का अंतर क्या होगा?", options: ["(A) 111", "(B) 211", "(C) 219", "(D) 201", "(E) 189"], correct: 2 },
+  { id: 39, sec: "Reasoning Ability", text_en: "Product of 2nd digit of lowest number (394) and 3rd digit of highest number (835)?", text_hi: "सबसे छोटी संख्या (394) के दूसरे अंक और सबसे बड़ी संख्या (835) के तीसरे अंक का गुणनफल क्या है?", options: ["(A) 45", "(B) 36", "(C) 27", "(D) 35", "(E) 40"], correct: 0 },
+  { id: 40, sec: "Reasoning Ability", text_en: "How many pairs of letters in 'CLEARANCE' have as many letters between them as in English alphabet?", text_hi: "शब्द 'CLEARANCE' में ऐसे कितने अक्षर युग्म हैं जिनके बीच उतने ही अक्षर हैं जितने वर्णमाला में होते हैं?", options: ["(A) None", "(B) One", "(C) Two", "(D) Three", "(E) More than three"], correct: 3 },
+
+  // QUANTITATIVE APTITUDE (Q. 41 to 80)
+  { id: 41, sec: "Quantitative Aptitude", text_en: "18.5% of 600 + 45% of 420 - 15 × 8 = ?", text_hi: "600 का 18.5% + 420 का 45% - 15 × 8 = ?", options: ["(A) 180", "(B) 195", "(C) 175", "(D) 185", "(E) 190"], correct: 0 },
+  { id: 42, sec: "Quantitative Aptitude", text_en: "(24)² + (16)² - (18)² = ? × 13", text_hi: "(24)² + (16)² - (18)² = ? × 13", options: ["(A) 36", "(B) 39", "(C) 42", "(D) 45", "(E) 48"], correct: 1 },
+  { id: 43, sec: "Quantitative Aptitude", text_en: "√1296 + √2401 - 25 = (?)²", text_hi: "√1296 + √2401 - 25 = (?)²", options: ["(A) 8", "(B) 6", "(C) 7", "(D) 9", "(E) 5"], correct: 1 },
+  { id: 44, sec: "Quantitative Aptitude", text_en: "(3/8 of 512) + (5/7 of 343) - 180 = ?", text_hi: "(512 का 3/8) + (343 का 5/7) - 180 = ?", options: ["(A) 257", "(B) 267", "(C) 247", "(D) 237", "(E) 277"], correct: 0 },
+  { id: 45, sec: "Quantitative Aptitude", text_en: "480 ÷ 12 × 15 + 240 = ?% of 1400", text_hi: "480 ÷ 12 × 15 + 240 = 1400 का ?%", options: ["(A) 55", "(B) 60", "(C) 65", "(D) 50", "(E) 70"], correct: 1 },
+  { id: 46, sec: "Quantitative Aptitude", text_en: "125% of 640 - 75% of 480 = ? + 140", text_hi: "640 का 125% - 480 का 75% = ? + 140", options: ["(A) 300", "(B) 320", "(C) 280", "(D) 340", "(E) 360"], correct: 0 },
+  { id: 47, sec: "Quantitative Aptitude", text_en: "(15 × 28) ÷ 14 + 160 = ? × 19", text_hi: "(15 × 28) ÷ 14 + 160 = ? × 19", options: ["(A) 8", "(B) 10", "(C) 12", "(D) 14", "(E) 15"], correct: 1 },
+  { id: 48, sec: "Quantitative Aptitude", text_en: "(14)² - √784 + (12)² = ? × 13", text_hi: "(14)² - √784 + (12)² = ? × 13", options: ["(A) 22", "(B) 24", "(C) 26", "(D) 28", "(E) 20"], correct: 1 },
+  { id: 49, sec: "Quantitative Aptitude", text_en: "35% of 800 + 42% of 500 - 190 = ?", text_hi: "800 का 35% + 500 का 42% - 190 = ?", options: ["(A) 300", "(B) 310", "(C) 290", "(D) 320", "(E) 280"], correct: 0 },
+  { id: 50, sec: "Quantitative Aptitude", text_en: "540 ÷ 9 + 18 × 16 - 120 = ?", text_hi: "540 ÷ 9 + 18 × 16 - 120 = ?", options: ["(A) 228", "(B) 238", "(C) 248", "(D) 218", "(E) 258"], correct: 0 },
+  { id: 51, sec: "Quantitative Aptitude", text_en: "14, 21, 35, 56, 84, ?", text_hi: "14, 21, 35, 56, 84, ?", options: ["(A) 119", "(B) 121", "(C) 126", "(D) 112", "(E) 133"], correct: 0 },
+  { id: 52, sec: "Quantitative Aptitude", text_en: "12, 13, 28, 87, 352, ?", text_hi: "12, 13, 28, 87, 352, ?", options: ["(A) 1765", "(B) 1755", "(C) 1745", "(D) 1775", "(E) 1785"], correct: 0 },
+  { id: 53, sec: "Quantitative Aptitude", text_en: "400, 396, 380, 344, 280, ?", text_hi: "400, 396, 380, 344, 280, ?", options: ["(A) 180", "(B) 176", "(C) 184", "(D) 170", "(E) 160"], correct: 0 },
+  { id: 54, sec: "Quantitative Aptitude", text_en: "18, 36, 18, 54, 13.5, ?", text_hi: "18, 36, 18, 54, 13.5, ?", options: ["(A) 67.5", "(B) 54", "(C) 81", "(D) 40.5", "(E) 72"], correct: 0 },
+  { id: 55, sec: "Quantitative Aptitude", text_en: "25, 34, 52, 79, 115, ?", text_hi: "25, 34, 52, 79, 115, ?", options: ["(A) 160", "(B) 155", "(C) 165", "(D) 170", "(E) 150"], correct: 0 },
+  { id: 56, sec: "Quantitative Aptitude", text_en: "I. 2x² - 11x + 15 = 0, II. 2y² - 17y + 36 = 0", text_hi: "I. 2x² - 11x + 15 = 0, II. 2y² - 17y + 36 = 0", options: ["(A) x > y", "(B) x ≥ y", "(C) x < y", "(D) x ≤ y", "(E) x = y or no relation"], correct: 3 },
+  { id: 57, sec: "Quantitative Aptitude", text_en: "I. x² - 14x + 48 = 0, II. y² - 9y + 20 = 0", text_hi: "I. x² - 14x + 48 = 0, II. y² - 9y + 20 = 0", options: ["(A) x > y", "(B) x ≥ y", "(C) x < y", "(D) x ≤ y", "(E) x = y or no relation"], correct: 0 },
+  { id: 58, sec: "Quantitative Aptitude", text_en: "I. 3x² + 13x + 14 = 0, II. 2y² + 15y + 28 = 0", text_hi: "I. 3x² + 13x + 14 = 0, II. 2y² + 15y + 28 = 0", options: ["(A) x > y", "(B) x ≥ y", "(C) x < y", "(D) x ≤ y", "(E) x = y or no relation"], correct: 0 },
+  { id: 59, sec: "Quantitative Aptitude", text_en: "I. x² = 196, II. y² - 28y + 196 = 0", text_hi: "I. x² = 196, II. y² - 28y + 196 = 0", options: ["(A) x > y", "(B) x ≥ y", "(C) x < y", "(D) x ≤ y", "(E) x = y or no relation"], correct: 3 },
+  { id: 60, sec: "Quantitative Aptitude", text_en: "I. 2x² - 9x + 10 = 0, II. 3y² - 7y + 4 = 0", text_hi: "I. 2x² - 9x + 10 = 0, II. 3y² - 7y + 4 = 0", options: ["(A) x > y", "(B) x ≥ y", "(C) x < y", "(D) x ≤ y", "(E) x = y or no relation"], correct: 0 },
+  { id: 61, sec: "Quantitative Aptitude", text_en: "Enrolled students (Boys:Girls): College A(800, 5:3), B(1200, 7:5), C(900, 4:5), D(1000, 3:2). Total girls enrolled in all 4 colleges?", text_hi: "नामांकित छात्र (लड़के:लड़कियां): कॉलेज A(800, 5:3), B(1200, 7:5), C(900, 4:5), D(1000, 3:2). चारों कॉलेजों में कुल लड़कियां कितनी हैं?", options: ["(A) 1650", "(B) 1700", "(C) 1750", "(D) 1600", "(E) 1800"], correct: 1 },
+  { id: 62, sec: "Quantitative Aptitude", text_en: "What is the ratio of boys in College B to girls in College A?", text_hi: "कॉलेज B के लड़कों का कॉलेज A की लड़कियों से अनुपात क्या है?", options: ["(A) 7 : 3", "(B) 5 : 2", "(C) 4 : 3", "(D) 7 : 4", "(E) 3 : 2"], correct: 0 },
+  { id: 63, sec: "Quantitative Aptitude", text_en: "Boys in College C are what percentage of total students in College D?", text_hi: "कॉलेज C के लड़के, कॉलेज D के कुल छात्रों का कितना प्रतिशत हैं?", options: ["(A) 36%", "(B) 40%", "(C) 45%", "(D) 50%", "(E) 35%"], correct: 1 },
+  { id: 64, sec: "Quantitative Aptitude", text_en: "What is the average number of boys across all four colleges?", text_hi: "चारों कॉलेजों में लड़कों की औसत संख्या क्या है?", options: ["(A) 550", "(B) 575", "(C) 525", "(D) 600", "(E) 580"], correct: 0 },
+  { id: 65, sec: "Quantitative Aptitude", text_en: "Girls in College D are how much percent less than boys in College B?", text_hi: "कॉलेज D की लड़कियां, कॉलेज B के लड़कों से कितने प्रतिशत कम हैं?", options: ["(A) 42.85%", "(B) 45%", "(C) 38.5%", "(D) 50%", "(E) 40%"], correct: 0 },
+  { id: 66, sec: "Quantitative Aptitude", text_en: "Production (thousands): 2021(X:45, Y:60), 2022(X:75, Y:50), 2023(X:90, Y:80), 2024(X:60, Y:90). Difference between total production of X and Y?", text_hi: "उत्पादन (हजार): 2021(X:45, Y:60), 2022(X:75, Y:50), 2023(X:90, Y:80), 2024(X:60, Y:90). X और Y के कुल उत्पादन का अंतर क्या है?", options: ["(A) 10 thousand", "(B) 15 thousand", "(C) 20 thousand", "(D) 25 thousand", "(E) 5 thousand"], correct: 0 },
+  { id: 67, sec: "Quantitative Aptitude", text_en: "Percentage increase in production of Company X from 2021 to 2023?", text_hi: "2021 से 2023 तक कंपनी X के उत्पादन में कितने प्रतिशत वृद्धि हुई?", options: ["(A) 100%", "(B) 80%", "(C) 120%", "(D) 75%", "(E) 90%"], correct: 0 },
+  { id: 68, sec: "Quantitative Aptitude", text_en: "Ratio of total production in 2022 to total production in 2024?", text_hi: "वर्ष 2022 में कुल उत्पादन का 2024 में कुल उत्पादन से अनुपात?", options: ["(A) 5 : 6", "(B) 4 : 5", "(C) 6 : 7", "(D) 3 : 4", "(E) 5 : 7"], correct: 0 },
+  { id: 69, sec: "Quantitative Aptitude", text_en: "Average production of Company Y over the given 4 years?", text_hi: "दिए गए 4 वर्षों में कंपनी Y का औसत उत्पादन क्या है?", options: ["(A) 70 thousand", "(B) 65 thousand", "(C) 75 thousand", "(D) 80 thousand", "(E) 68 thousand"], correct: 0 },
+  { id: 70, sec: "Quantitative Aptitude", text_en: "Production of Company Y in 2023 is what percent of production of Company X in 2022?", text_hi: "2023 में कंपनी Y का उत्पादन, 2022 में कंपनी X के उत्पादन का कितना प्रतिशत है?", options: ["(A) 106.67%", "(B) 110%", "(C) 105%", "(D) 112.5%", "(E) 108%"], correct: 0 },
+  { id: 71, sec: "Quantitative Aptitude", text_en: "6 years ago, ratio of ages of A and B was 3:4. 4 years hence, ratio will be 4:5. Present age of B?", text_hi: "6 वर्ष पहले A और B की आयु का अनुपात 3:4 था। 4 वर्ष बाद 4:5 होगा। B की वर्तमान आयु?", options: ["(A) 46 years", "(B) 42 years", "(C) 38 years", "(D) 40 years", "(E) 44 years"], correct: 0 },
+  { id: 72, sec: "Quantitative Aptitude", text_en: "Article marked 40% above CP and discount of 20% is allowed. If profit is ₹180, find CP.", text_hi: "वस्तु पर CP से 40% अधिक अंकित कर 20% छूट दी जाती है। यदि लाभ ₹180 है, तो CP ज्ञात कीजिए।", options: ["(A) ₹1500", "(B) ₹1400", "(C) ₹1600", "(D) ₹1200", "(E) ₹1800"], correct: 0 },
+  { id: 73, sec: "Quantitative Aptitude", text_en: "A completes work in 16 days, B in 24 days. A left 4 days before completion. Total days to finish?", text_hi: "A कार्य को 16 दिन और B 24 दिन में करता है। कार्य समाप्त होने से 4 दिन पहले A छोड़ देता है। कुल दिन?", options: ["(A) 12 days", "(B) 10 days", "(C) 14 days", "(D) 15 days", "(E) 16 days"], correct: 0 },
+  { id: 74, sec: "Quantitative Aptitude", text_en: "Train 240m long crosses platform of double its length in 36 seconds. Speed in km/hr?", text_hi: "240m लंबी ट्रेन अपनी लंबाई से दोगुने प्लेटफॉर्म को 36 सेकंड में पार करती है। गति km/hr में?", options: ["(A) 72 km/hr", "(B) 64 km/hr", "(C) 80 km/hr", "(D) 54 km/hr", "(E) 90 km/hr"], correct: 0 },
+  { id: 75, sec: "Quantitative Aptitude", text_en: "Difference between CI and SI on sum for 2 years at 12% per annum is ₹216. Find principal.", text_hi: "किसी राशि पर 12% की दर से 2 वर्ष के CI और SI का अंतर ₹216 है। मूलधन ज्ञात कीजिए।", options: ["(A) ₹15,000", "(B) ₹16,000", "(C) ₹14,000", "(D) ₹18,000", "(E) ₹12,500"], correct: 0 },
+  { id: 76, sec: "Quantitative Aptitude", text_en: "P, Q, R invest ₹20k, ₹25k, ₹30k. After 4 months, P withdraws ₹5k, R adds ₹5k. Annual profit ₹37,200. P's share?", text_hi: "P, Q, R ने ₹20k, ₹25k, ₹30k लगाए। 4 माह बाद P ने ₹5k निकाले, R ने ₹5k जोड़े। वार्षिक लाभ ₹37,200 में P का हिस्सा?", options: ["(A) ₹8,800", "(B) ₹9,200", "(C) ₹8,400", "(D) ₹9,600", "(E) ₹10,200"], correct: 0 },
+  { id: 77, sec: "Quantitative Aptitude", text_en: "Rectangle length to breadth is 5:3, perimeter is 128 cm. Area of circle having radius equal to breadth?", text_hi: "आयत की लंबाई:चौड़ाई = 5:3, परिमाप 128 सेमी। उस वृत्त का क्षेत्रफल क्या होगा जिसकी त्रिज्या चौड़ाई के बराबर है?", options: ["(A) 1810.28 cm²", "(B) 1750.5 cm²", "(C) 1900 cm²", "(D) 1680 cm²", "(E) 1840 cm²"], correct: 0 },
+  { id: 78, sec: "Quantitative Aptitude", text_en: "90L mixture has milk:water = 7:2. If 18L mixture replaced with 18L water, new ratio?", text_hi: "90L मिश्रण में दूध:पानी = 7:2 है। 18L मिश्रण को 18L पानी से बदलें तो नया अनुपात क्या होगा?", options: ["(A) 7 : 5", "(B) 14 : 11", "(C) 8 : 5", "(D) 7 : 4", "(E) 9 : 5"], correct: 1 },
+  { id: 79, sec: "Quantitative Aptitude", text_en: "Boat takes 4 hrs for 48 km downstream and 6 hrs for 36 km upstream. Speed of current?", text_hi: "नाव को अनुकूल 48 km में 4 घंटे और प्रतिकूल 36 km में 6 घंटे लगते हैं। धारा की गति क्या है?", options: ["(A) 3 km/hr", "(B) 2.5 km/hr", "(C) 4 km/hr", "(D) 2 km/hr", "(E) 3.5 km/hr"], correct: 0 },
+  { id: 80, sec: "Quantitative Aptitude", text_en: "Bag has 5 red, 4 green, 3 blue balls. 2 balls drawn without replacement. Probability both same color?", text_hi: "थैले में 5 लाल, 4 हरी, 3 नीली गेंदें हैं। 2 गेंदें बिना प्रतिस्थापन के निकाली जाती हैं। दोनों समान रंग की होने की प्रायिकता?", options: ["(A) 19/66", "(B) 17/66", "(C) 7/22", "(D) 5/18", "(E) 23/66"], correct: 0 }
 ];
 
+/* SHARED SYSTEM & ADMIN CONFIGURATION DEFAULTS */
 const channel = new BroadcastChannel('bwm_exam_bus');
-function getDB(k, fallback) { return JSON.parse(localStorage.getItem('bwm_' + k)) || fallback; }
-function setDB(k, val) { localStorage.setItem('bwm_' + k, JSON.stringify(val)); channel.postMessage({ type: 'SYNC' }); }
+function getDB(k, fb) { return JSON.parse(localStorage.getItem('bwm_' + k)) || fb; }
+function setDB(k, v) { localStorage.setItem('bwm_' + k, JSON.stringify(v)); channel.postMessage({ type: 'SYNC' }); }
 
-let exams = getDB('exams', {
-  "rrb_clerk_01": {
-    id: "rrb_clerk_01",
-    name: "IBPS RRB Clerk / PO High-Level Prelims Full Mock 01 (80 Qs)",
-    duration: 45,
-    posMarks: 1.0,
-    negMarks: 0.25,
-    examShift: "12th September 2026 (Shift 1: 08:30 AM)",
-    examVenue: "Meenu Pathak Assessment Center, Sector-4, City Campus",
-    admitReleased: false,
-    resultDeclared: false,
-    admitScheduledDate: "10 September 2026 at 11:00 AM",
-    resultScheduledDate: "15 September 2026 at 05:00 PM"
-  }
+let adminMegaConfig = getDB('mega_config', {
+  name: "IBPS RRB Clerk Live Mega Test 2026",
+  admitReleased: false,
+  resultDeclared: false,
+  admitDate: "10 September 2026 at 11:00 AM",
+  resultDate: "15 September 2026 at 05:00 PM",
+  examShift: "12th September 2026 (Shift 1: 08:30 AM)",
+  examVenue: "Meenu Pathak Assessment Center, Sector-4, City Campus",
+  cutoff_reasoning: 18.50,
+  cutoff_quant: 16.75,
+  cutoff_total_ur: 71.25,
+  cutoff_total_obc: 69.50,
+  cutoff_total_ews: 68.75,
+  cutoff_total_sc: 63.50,
+  cutoff_total_st: 58.00
 });
 
 let candidates = getDB('candidates', {});
-let questionsDb = getDB('questions', {});
-
-// Ensure full 80 distinct questions are always loaded
-if(!questionsDb["rrb_clerk_01"] || questionsDb["rrb_clerk_01"].length < 80) {
-  questionsDb["rrb_clerk_01"] = full80HighLevelQuestions;
-  setDB('questions', questionsDb);
-}
 
 channel.onmessage = () => {
-  exams = getDB('exams', exams);
+  adminMegaConfig = getDB('mega_config', adminMegaConfig);
   candidates = getDB('candidates', candidates);
-  questionsDb = getDB('questions', questionsDb);
-  populateExamSelect();
-  updateDynamicNotices();
+  updateStatusNotices();
 };
 
-function navigate(view, ev) {
+function showTab(t, ev) {
   document.querySelectorAll('.page-view').forEach(p => p.style.display = 'none');
-  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-  document.getElementById('page-' + view).style.display = 'block';
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + t).style.display = 'block';
   if(ev) ev.target.classList.add('active');
-  updateDynamicNotices();
+  updateStatusNotices();
 }
 
-function populateExamSelect() {
-  const sel = document.getElementById('reg_test_id');
-  sel.innerHTML = '';
-  for(let id in exams) {
-    sel.innerHTML += `<option value="${id}">${exams[id].name}</option>`;
-  }
-}
+function updateStatusNotices() {
+  const isToday = (str) => {
+    if(!str) return false;
+    const now = new Date();
+    const d = now.getDate();
+    const m = ["january","february","march","april","may","june","july","august","september","october","november","december"][now.getMonth()];
+    const s = str.toLowerCase();
+    return s.includes("today") || (s.includes(m) && s.includes(d.toString()));
+  };
 
-function isTodayDate(str) {
-  if(!str) return false;
-  const now = new Date();
-  const d = now.getDate();
-  const months = ["january","february","march","april","may","june","july","august","september","october","november","december"];
-  const m = months[now.getMonth()];
-  const s = str.toLowerCase();
-  return s.includes("today") || (s.includes(m) && s.includes(d.toString()));
-}
-
-function updateDynamicNotices() {
-  const firstId = Object.keys(exams)[0];
-  const ex = exams[firstId] || {};
-
-  const aBox = document.getElementById('admitNoticeArea');
-  if(ex.admitReleased) {
-    aBox.className = "status-notice status-active";
-    aBox.innerHTML = "<strong>Status: Active</strong><br>Online Call Letters for Preliminary Examination 2026 are now available. Please enter your 6-Digit Registration Number below to download.";
-  } else if(isTodayDate(ex.admitScheduledDate)) {
-    aBox.className = "status-notice status-today";
-    aBox.innerHTML = `<strong>Status Update:</strong><br>Online Call Letters for the Preliminary Examination will be released today shortly (${ex.admitScheduledDate}). Keep your Registration Number ready.`;
+  const aBox = document.getElementById('megaAdmitStatusNotice');
+  if(adminMegaConfig.admitReleased) {
+    aBox.className = "status-box status-active";
+    aBox.innerHTML = "<strong>Status: Active (Download Now)</strong><br>Online Call Letters for IBPS RRB Clerk Live Mega Test 2026 are now available. Please enter your 6-Digit Registration Number below to download.";
+  } else if(isToday(adminMegaConfig.admitDate)) {
+    aBox.className = "status-box status-today";
+    aBox.innerHTML = `<strong>Status Update:</strong><br>Online Call Letters for the Live Mega Test will be released today shortly (${adminMegaConfig.admitDate}). Please keep your Registration Number ready.`;
   } else {
-    aBox.className = "status-notice status-future";
-    aBox.innerHTML = `<strong>Status Update:</strong><br>Online Call Letters for the Preliminary Examination are scheduled to be released on <strong>${ex.admitScheduledDate || 'TBA'}</strong>.`;
+    aBox.className = "status-box status-future";
+    aBox.innerHTML = `<strong>Status Update:</strong><br>Online Call Letters for the Live Mega Test are scheduled to be released on <strong>${adminMegaConfig.admitDate}</strong>.`;
   }
 
-  const rBox = document.getElementById('resultNoticeArea');
-  if(ex.resultDeclared) {
-    rBox.className = "status-notice status-active";
-    rBox.innerHTML = "<strong>Status: Declared</strong><br>Preliminary Examination Results &amp; Qualifying Scorecards have been officially declared. Enter your Roll Number below to view your scorecard.";
-  } else if(isTodayDate(ex.resultScheduledDate)) {
-    rBox.className = "status-notice status-today";
-    rBox.innerHTML = `<strong>Status Update:</strong><br>Preliminary Examination 2026 Result will be declared today shortly (${ex.resultScheduledDate}). Keep your Roll Number ready.`;
+  const rBox = document.getElementById('megaResultStatusNotice');
+  if(adminMegaConfig.resultDeclared) {
+    rBox.className = "status-box status-active";
+    rBox.innerHTML = "<strong>Status: Declared</strong><br>IBPS RRB Clerk Live Mega Test 2026 Official Scorecards have been released. Enter your 8-Digit Roll Number below to view your result.";
+  } else if(isToday(adminMegaConfig.resultDate)) {
+    rBox.className = "status-box status-today";
+    rBox.innerHTML = `<strong>Status Update:</strong><br>Preliminary Examination Result will be declared today shortly (${adminMegaConfig.resultDate}). Keep your Roll Number ready.`;
   } else {
-    rBox.className = "status-notice status-future";
-    rBox.innerHTML = `<strong>Status Update:</strong><br>Preliminary Examination Results are scheduled to be declared on <strong>${ex.resultScheduledDate || 'TBA'}</strong>.`;
+    rBox.className = "status-box status-future";
+    rBox.innerHTML = `<strong>Status Update:</strong><br>Preliminary Examination Results are scheduled to be declared on <strong>${adminMegaConfig.resultDate}</strong>.`;
   }
 }
 
-function onCandidateRegister(e) {
+/* 1. MEGA TEST REGISTRATION */
+function handleMegaApply(e) {
   e.preventDefault();
-  const testId = document.getElementById('reg_test_id').value;
   const regNo = Math.floor(100000 + Math.random() * 900000).toString();
   const rollNo = "260" + Math.floor(10000 + Math.random() * 90000).toString();
 
   const cand = {
     regNo: regNo,
     rollNo: rollNo,
-    testId: testId,
-    testName: exams[testId].name,
-    name: document.getElementById('reg_name').value.trim(),
-    father: document.getElementById('reg_father').value.trim(),
-    dob: document.getElementById('reg_dob').value,
-    mobile: document.getElementById('reg_mobile').value.trim(),
-    email: document.getElementById('reg_email').value.trim(),
-    score: null,
+    name: document.getElementById('m_name').value.trim(),
+    father: document.getElementById('m_father').value.trim(),
+    state: document.getElementById('m_state').value,
+    category: document.getElementById('m_category').value,
+    dob: document.getElementById('m_dob').value,
+    mobile: document.getElementById('m_mobile').value.trim(),
+    email: document.getElementById('m_email').value.trim(),
+    score_reasoning: null,
+    score_quant: null,
+    score_total: null,
     isLive: false,
     answers: {}
   };
@@ -882,222 +557,72 @@ function onCandidateRegister(e) {
   candidates[regNo] = cand;
   setDB('candidates', candidates);
 
-  document.getElementById('slip_reg').innerText = regNo;
-  document.getElementById('slip_name').innerText = cand.name;
-  document.getElementById('slip_test').innerText = cand.testName;
-  document.getElementById('slip_father').innerText = cand.father;
-  document.getElementById('slip_dob').innerText = cand.dob;
-  document.getElementById('regSlipCard').style.display = 'block';
+  document.getElementById('slipRegVal').innerText = regNo;
+  document.getElementById('slipNameVal').innerText = cand.name;
+  document.getElementById('slipStateVal').innerText = cand.state;
+  document.getElementById('slipCatVal').innerText = cand.category;
+  document.getElementById('slipDobVal').innerText = cand.dob;
+  document.getElementById('applySlipBox').style.display = 'block';
   e.target.reset();
 }
 
-function fetchAdmitCard() {
+/* 2. MEGA ADMIT CARD */
+function fetchMegaAdmitCard() {
   const reg = document.getElementById('admit_in_reg').value.trim();
   const c = candidates[reg];
-  if(!c) return alert("Invalid Registration Number! No candidate found.");
+  if(!c) return alert("Invalid Registration Number! No Mega Test record found.");
 
-  const ex = exams[c.testId] || {};
-  if(!ex.admitReleased) {
-    if(isTodayDate(ex.admitScheduledDate)) alert(`Call Letters will be released today shortly (${ex.admitScheduledDate}).`);
-    else alert(`Call Letters are scheduled to be released on ${ex.admitScheduledDate || 'TBA'}.`);
+  if(!adminMegaConfig.admitReleased) {
+    alert(`Call Letters will be released on ${adminMegaConfig.admitDate}.`);
     return;
   }
 
   const passDOB = c.dob.replace(/-/g, '');
-  document.getElementById('admitCardOutput').innerHTML = `
-    <div class="box-card" style="border:2px solid #000;">
-      <h3 style="text-align:center; color:#002b49;">BANKING WITH MEENU RECRUITMENT CELL</h3>
-      <h4 style="text-align:center; margin-bottom:15px;">ONLINE PRELIMINARY EXAMINATION CALL LETTER</h4>
-      <table class="admit-card-table">
+  document.getElementById('admitCardPrintBox').innerHTML = `
+    <div class="admit-a4-sheet">
+      <div class="sheet-header">
+        <h2>BANKING WITH MEENU RECRUITMENT CELL</h2>
+        <h3>ONLINE PRELIMINARY EXAMINATION CALL LETTER - 2026</h3>
+        <div>IBPS RRB CLERK LIVE MEGA TEST</div>
+      </div>
+      <table class="sheet-table">
         <tr>
           <td width="65%">
-            <p><strong>Roll Number (User ID):</strong> <span style="font-size:1.15rem; color:#0284c7; font-weight:bold;">${c.rollNo}</span></p>
+            <p><strong>Roll Number (User ID):</strong> <span style="font-size:1.15rem; color:#004d80; font-weight:bold;">${c.rollNo}</span></p>
             <p><strong>Password (DOB):</strong> ${passDOB}</p>
             <p><strong>Registration Number:</strong> ${c.regNo}</p>
-            <p><strong>Candidate Name:</strong> ${c.name}</p>
+            <p><strong>Candidate's Name:</strong> ${c.name}</p>
             <p><strong>Father's Name:</strong> ${c.father}</p>
-            <p><strong>Target Test:</strong> ${c.testName}</p>
+            <p><strong>Applied State:</strong> <strong>${c.state}</strong></p>
+            <p><strong>Category:</strong> ${c.category}</p>
           </td>
-          <td width="35%"><div class="photo-frame">Affix Recent Passport Photo Here</div></td>
+          <td width="35%" style="text-align:center;">
+            <div class="photo-slot">Affix Recent Passport Size Photograph (Self Attested)</div>
+            <div class="sign-slot">Signature of Candidate</div>
+          </td>
         </tr>
-        <tr><th>Exam Date &amp; Shift</th><td><strong>${ex.examShift || 'TBA'}</strong></td></tr>
-        <tr><th>Exam Center / Venue</th><td>${ex.examVenue || 'Online Assessment Center'}</td></tr>
       </table>
-      <div style="text-align:center; margin-top:15px;" class="no-print">
-        <button class="btn-submit" onclick="window.print()">Print Call Letter</button>
+      <table class="sheet-table">
+        <tr><th width="30%">Date &amp; Shift of Exam</th><td><strong>${adminMegaConfig.examShift}</strong></td></tr>
+        <tr><th>Examination Venue</th><td>${adminMegaConfig.examVenue}</td></tr>
+      </table>
+      <div style="font-size:0.75rem; line-height:1.4; border-top:1px dashed #000; padding-top:8px;">
+        <strong>Instructions for Candidate:</strong>
+        <ol style="padding-left:16px;">
+          <li>Bring this Call Letter along with original photo ID proof and a photocopy.</li>
+          <li>Login credentials must be kept confidential until entry into the exam hall.</li>
+        </ol>
+      </div>
+      <div style="text-align:center; margin-top:20px;" class="no-print">
+        <button class="btn-submit" onclick="window.print()">Print Call Letter (A4 Size)</button>
       </div>
     </div>
   `;
-  document.getElementById('admitCardOutput').style.display = 'block';
+  document.getElementById('admitCardPrintBox').style.display = 'block';
 }
 
-/* 3. TCS iON EXAM ENGINE */
-let activeCand = null;
-let activeQuestions = [];
-let curIdx = 0;
-let userAnswers = {};
-let qStatus = {};
-let timerSec = 45 * 60;
-let timerHandle = null;
-
-function startCandidateTest() {
-  const roll = document.getElementById('login_roll').value.trim();
-  const pass = document.getElementById('login_pass').value.trim();
-  const lang = document.getElementById('login_lang').value;
-
-  let cand = null;
-  for(let r in candidates) {
-    if(candidates[r].rollNo === roll) { cand = candidates[r]; break; }
-  }
-  if(!cand) return alert("Roll Number not found! Please check your Admit Card.");
-  if(pass !== cand.dob.replace(/-/g, '')) return alert("Incorrect Password! Enter your Date of Birth in YYYYMMDD format.");
-
-  activeCand = cand;
-  activeQuestions = questionsDb[cand.testId] || questionsDb["rrb_clerk_01"] || full80HighLevelQuestions;
-  if(activeQuestions.length === 0) return alert("No questions uploaded yet for this test!");
-
-  activeCand.isLive = true;
-  setDB('candidates', candidates);
-
-  const ex = exams[cand.testId] || {};
-  timerSec = (ex.duration || 45) * 60;
-  curIdx = 0;
-  userAnswers = cand.answers || {};
-
-  document.getElementById('tcsExamTitle').innerText = cand.testName;
-  document.getElementById('tcsCandName').innerText = cand.name;
-  document.getElementById('tcsCandRoll').innerText = cand.rollNo;
-  document.getElementById('tcsSideName').innerText = cand.name;
-  document.getElementById('tcsSideRoll').innerText = "Roll: " + cand.rollNo;
-  document.getElementById('tcsLangSwitch').value = lang;
-
-  buildSectionTabs();
-  document.getElementById('examConsole').style.display = 'flex';
-  startTimer();
-  renderTcsQuestion();
-}
-
-function buildSectionTabs() {
-  const bar = document.getElementById('tcsSectionBar');
-  const sections = [...new Set(activeQuestions.map(q => q.sec))];
-  bar.innerHTML = '';
-  sections.forEach((s, i) => {
-    bar.innerHTML += `<div class="sec-pill ${i===0?'active':''}" onclick="jumpSection('${s}')">${s}</div>`;
-  });
-}
-
-function jumpSection(sec) {
-  const idx = activeQuestions.findIndex(q => q.sec === sec);
-  if(idx !== -1) jumpQuestion(idx);
-}
-
-function startTimer() {
-  clearInterval(timerHandle);
-  timerHandle = setInterval(() => {
-    if(timerSec <= 0) { clearInterval(timerHandle); submitTestNow(); return; }
-    timerSec--;
-    const m = Math.floor(timerSec / 60).toString().padStart(2, '0');
-    const s = (timerSec % 60).toString().padStart(2, '0');
-    document.getElementById('tcsTimer').innerText = `${m}:${s}`;
-  }, 1000);
-}
-
-function renderTcsQuestion() {
-  const q = activeQuestions[curIdx];
-  const lang = document.getElementById('tcsLangSwitch').value;
-  document.getElementById('tcsQHeading').innerText = `Question No. ${q.id} (${q.sec})`;
-
-  document.querySelectorAll('.sec-pill').forEach(p => {
-    p.classList.toggle('active', p.innerText === q.sec);
-  });
-
-  let text = '';
-  if(lang === 'en') text = `<div>${q.text_en}</div>`;
-  else if(lang === 'hi') text = `<div style="color:#0284c7;">${q.text_hi}</div>`;
-  else text = `<div>${q.text_en}</div><hr style="margin:10px 0; border:0; border-top:1px dashed #ccc;"><div style="color:#0284c7;">${q.text_hi}</div>`;
-
-  let optHtml = '<div class="ion-options">';
-  q.options.forEach((opt, idx) => {
-    const chk = userAnswers[curIdx] === idx ? 'checked' : '';
-    optHtml += `
-      <label class="ion-opt-item">
-        <input type="radio" name="optRadio" value="${idx}" ${chk} onchange="userAnswers[${curIdx}] = ${idx}">
-        <span>${opt}</span>
-      </label>
-    `;
-  });
-  optHtml += '</div>';
-
-  document.getElementById('tcsQBody').innerHTML = text + optHtml;
-  renderPalette();
-}
-
-function renderPalette() {
-  const grid = document.getElementById('tcsPaletteGrid');
-  grid.innerHTML = '';
-  activeQuestions.forEach((q, idx) => {
-    let cls = '';
-    if(qStatus[idx] === 'ans') cls = 'ans';
-    else if(qStatus[idx] === 'not-ans') cls = 'not-ans';
-    else if(qStatus[idx] === 'rev') cls = 'rev';
-    grid.innerHTML += `<div class="p-cell ${cls}" onclick="jumpQuestion(${idx})">${q.id}</div>`;
-  });
-}
-
-function jumpQuestion(i) {
-  if(!qStatus[curIdx]) qStatus[curIdx] = userAnswers[curIdx] !== undefined ? 'ans' : 'not-ans';
-  curIdx = i;
-  renderTcsQuestion();
-}
-
-function tcsSaveNext() {
-  qStatus[curIdx] = userAnswers[curIdx] !== undefined ? 'ans' : 'not-ans';
-  if(curIdx < activeQuestions.length - 1) jumpQuestion(curIdx + 1);
-  else renderPalette();
-}
-
-function tcsReview() {
-  qStatus[curIdx] = 'rev';
-  if(curIdx < activeQuestions.length - 1) jumpQuestion(curIdx + 1);
-  else renderPalette();
-}
-
-function tcsClear() {
-  delete userAnswers[curIdx];
-  qStatus[curIdx] = 'not-ans';
-  renderTcsQuestion();
-}
-
-function confirmTcsSubmit() {
-  if(confirm("Do you want to submit your examination?")) submitTestNow();
-}
-
-function submitTestNow() {
-  clearInterval(timerHandle);
-  document.getElementById('examConsole').style.display = 'none';
-
-  activeCand.isLive = false;
-  const ex = exams[activeCand.testId] || { posMarks: 1.0, negMarks: 0.25 };
-  let correct = 0, wrong = 0;
-  activeQuestions.forEach((q, i) => {
-    if(userAnswers[i] !== undefined) {
-      if(userAnswers[i] === q.correct) correct++;
-      else wrong++;
-    }
-  });
-
-  const netScore = (correct * ex.posMarks) - (wrong * ex.negMarks);
-  activeCand.score = netScore;
-  activeCand.answers = userAnswers;
-  candidates[activeCand.regNo] = activeCand;
-  setDB('candidates', candidates);
-
-  alert(`Test Submitted Successfully!\nTotal Questions: ${activeQuestions.length}\nAttempted: ${correct + wrong}\nScore: ${netScore.toFixed(2)}`);
-  navigate('result');
-}
-
-/* 4. RESULT */
-function fetchScorecard() {
+/* 3. MEGA RESULT SCORECARD */
+function fetchMegaScorecard() {
   const roll = document.getElementById('result_in_roll').value.trim();
   let cand = null;
   for(let r in candidates) {
@@ -1105,31 +630,272 @@ function fetchScorecard() {
   }
   if(!cand) return alert("Roll number not found!");
 
-  const ex = exams[cand.testId] || {};
-  if(!ex.resultDeclared) {
-    if(isTodayDate(ex.resultScheduledDate)) alert(`Result will be declared today shortly (${ex.resultScheduledDate}).`);
-    else alert(`Result is scheduled to be declared on ${ex.resultScheduledDate || 'TBA'}.`);
+  if(!adminMegaConfig.resultDeclared) {
+    alert(`Results will be declared on ${adminMegaConfig.resultDate}.`);
     return;
   }
 
-  const score = cand.score !== null ? cand.score.toFixed(2) : 'Absent';
-  const qual = (cand.score !== null && cand.score >= 50.0) ? '<span style="color:#2e7d32; font-weight:bold;">SHORTLISTED FOR MAINS</span>' : '<span style="color:#c62828; font-weight:bold;">NOT SHORTLISTED</span>';
+  const sReas = cand.score_reasoning !== null ? cand.score_reasoning.toFixed(2) : '0.00';
+  const sQuant = cand.score_quant !== null ? cand.score_quant.toFixed(2) : '0.00';
+  const sTotal = cand.score_total !== null ? cand.score_total.toFixed(2) : '0.00';
 
-  document.getElementById('scorecardOutput').innerHTML = `
-    <div class="box-card" style="border:2px solid #002b49;">
-      <h3 style="text-align:center; color:#002b49; margin-bottom:12px;">PRELIMINARY EXAMINATION SCORECARD - 2026</h3>
-      <table class="admit-card-table">
-        <tr><td><strong>Candidate Name:</strong> ${cand.name}</td><td><strong>Roll Number:</strong> ${cand.rollNo}</td></tr>
-        <tr><td><strong>Test Series:</strong> ${cand.testName}</td><td><strong>Status:</strong> ${qual}</td></tr>
-        <tr><td colspan="2" style="font-size:1.15rem; background:#f5f5f5;"><strong>Marks Obtained:</strong> <span style="color:#002b49; font-weight:bold;">${score}</span> / 80.00</td></tr>
+  let catCutoff = adminMegaConfig.cutoff_total_ur;
+  if(cand.category.includes("OBC")) catCutoff = adminMegaConfig.cutoff_total_obc;
+  else if(cand.category.includes("EWS")) catCutoff = adminMegaConfig.cutoff_total_ews;
+  else if(cand.category.includes("SC")) catCutoff = adminMegaConfig.cutoff_total_sc;
+  else if(cand.category.includes("ST")) catCutoff = adminMegaConfig.cutoff_total_st;
+
+  const isReasoningPass = cand.score_reasoning >= adminMegaConfig.cutoff_reasoning;
+  const isQuantPass = cand.score_quant >= adminMegaConfig.cutoff_quant;
+  const isTotalPass = cand.score_total >= catCutoff;
+  const isShortlisted = isReasoningPass && isQuantPass && isTotalPass;
+
+  const qualMsg = isShortlisted 
+    ? "<span style='color:#16a34a; font-weight:bold;'>PROVISIONALLY SHORTLISTED FOR MAINS EXAMINATION</span>"
+    : "<span style='color:#dc2626; font-weight:bold;'>YOU HAVE NOT BEEN SHORTLISTED FOR MAINS EXAMINATION</span>";
+
+  document.getElementById('scorecardPrintBox').innerHTML = `
+    <div class="scorecard-a4-sheet">
+      <div class="sheet-header">
+        <h2>BANKING WITH MEENU RECRUITMENT CELL</h2>
+        <h3>IBPS RRB CLERK PRELIMINARY EXAMINATION SCORECARD - 2026</h3>
+        <div>RECRUITMENT OF OFFICE ASSISTANTS (MULTIPURPOSE)</div>
+      </div>
+      <table class="sheet-table">
+        <tr><td><strong>Name of Candidate:</strong> ${cand.name}</td><td><strong>Roll Number:</strong> ${cand.rollNo}</td></tr>
+        <tr><td><strong>Registration Number:</strong> ${cand.regNo}</td><td><strong>Date of Exam:</strong> 12-09-2026</td></tr>
+        <tr><td><strong>Category:</strong> ${cand.category}</td><td><strong>Applied State:</strong> <strong>${cand.state}</strong></td></tr>
       </table>
+
+      <h4 style="margin:12px 0 6px 0;">SECTIONAL MARKS OBTAINED &amp; CUTOFF DETAILS:</h4>
+      <table class="sheet-table">
+        <tr>
+          <th>Name of Section</th>
+          <th>Maximum Marks</th>
+          <th>Cut-off Applied (${cand.category})</th>
+          <th>Marks Obtained by You</th>
+        </tr>
+        <tr>
+          <td>Reasoning Ability</td>
+          <td>40.00</td>
+          <td>${adminMegaConfig.cutoff_reasoning.toFixed(2)}</td>
+          <td><strong>${sReas}</strong></td>
+        </tr>
+        <tr>
+          <td>Quantitative Aptitude</td>
+          <td>40.00</td>
+          <td>${adminMegaConfig.cutoff_quant.toFixed(2)}</td>
+          <td><strong>${sQuant}</strong></td>
+        </tr>
+        <tr style="background:#f9f9f9; font-size:0.95rem;">
+          <td><strong>Total Score</strong></td>
+          <td><strong>80.00</strong></td>
+          <td><strong>${catCutoff.toFixed(2)} (${cand.state} State)</strong></td>
+          <td><strong style="color:#004d80;">${sTotal}</strong></td>
+        </tr>
+      </table>
+
+      <div style="border:1px solid #000; padding:12px; text-align:center; font-size:1.05rem; margin:16px 0;">
+        <strong>FINAL RESULT STATUS:</strong><br>${qualMsg}
+      </div>
+
+      <div style="font-size:0.75rem; color:#444; line-height:1.4;">
+        * The marks shown above are standardized marks computed after negative marking deduction of 0.25 marks per wrong answer.
+      </div>
+
+      <div style="text-align:center; margin-top:20px;" class="no-print">
+        <button class="btn-submit" onclick="window.print()">Print Official Score Card (A4 Size)</button>
+      </div>
     </div>
   `;
-  document.getElementById('scorecardOutput').style.display = 'block';
+  document.getElementById('scorecardPrintBox').style.display = 'block';
 }
 
-populateExamSelect();
-updateDynamicNotices();
+/* 4. REAL EXAM CONSOLE */
+let currentActiveExamType = 'mock';
+let activeUserRef = null;
+let testQList = [];
+let curQ = 0;
+let ansMap = {};
+let statMap = {};
+let timerInt = null;
+let secLeft = 45 * 60;
+
+function startDirectMock(mockNo) {
+  currentActiveExamType = 'mock';
+  activeUserRef = { name: "Candidate (Mock " + mockNo + ")", rollNo: "MOCK" + mockNo };
+  testQList = highLevel80Questions;
+  initiateConsole("IBPS RRB Clerk Full Mock Test - 0" + mockNo);
+}
+
+function goToMegaTestLogin() {
+  showTab('mega-login');
+}
+
+function startMegaTestSession() {
+  const roll = document.getElementById('mega_login_roll').value.trim();
+  const pass = document.getElementById('mega_login_pass').value.trim();
+
+  let cand = null;
+  for(let r in candidates) {
+    if(candidates[r].rollNo === roll) { cand = candidates[r]; break; }
+  }
+  if(!cand) return alert("Roll Number not found! Please register first.");
+  if(pass !== cand.dob.replace(/-/g, '')) return alert("Incorrect DOB Password!");
+
+  currentActiveExamType = 'mega';
+  activeUserRef = cand;
+  activeUserRef.isLive = true;
+  setDB('candidates', candidates);
+
+  testQList = highLevel80Questions;
+  initiateConsole("IBPS RRB Clerk Live Mega Test 2026");
+}
+
+function initiateConsole(title) {
+  curQ = 0;
+  ansMap = {};
+  statMap = {};
+  secLeft = 45 * 60;
+
+  document.getElementById('examConsoleTitle').innerText = title;
+  document.getElementById('examCandidateName').innerText = activeUserRef.name;
+  document.getElementById('examCandidateRoll').innerText = activeUserRef.rollNo;
+  document.getElementById('sideCandName').innerText = activeUserRef.name;
+  document.getElementById('sideCandRoll').innerText = activeUserRef.rollNo;
+
+  setupSectionTabs();
+  document.getElementById('examConsole').style.display = 'flex';
+  runTimer();
+  renderQuestionItem();
+}
+
+function setupSectionTabs() {
+  const bar = document.getElementById('sectionTabs');
+  const secs = [...new Set(testQList.map(q => q.sec))];
+  bar.innerHTML = '';
+  secs.forEach((s, idx) => {
+    bar.innerHTML += `<div class="sec-pill ${idx===0?'active':''}" onclick="filterSec('${s}')">${s}</div>`;
+  });
+}
+
+function filterSec(s) {
+  const i = testQList.findIndex(q => q.sec === s);
+  if(i !== -1) jumpQ(i);
+}
+
+function runTimer() {
+  clearInterval(timerInt);
+  timerInt = setInterval(() => {
+    if(secLeft <= 0) { clearInterval(timerInt); submitTest(); return; }
+    secLeft--;
+    const m = Math.floor(secLeft / 60).toString().padStart(2, '0');
+    const s = (secLeft % 60).toString().padStart(2, '0');
+    document.getElementById('examTimerDisplay').innerText = `${m}:${s}`;
+  }, 1000);
+}
+
+function renderQuestionItem() {
+  const q = testQList[curQ];
+  const lang = document.getElementById('langSwitchConsole').value;
+  document.getElementById('qTitleDisplay').innerText = `Question No. ${q.id} (${q.sec})`;
+
+  document.querySelectorAll('.sec-pill').forEach(p => {
+    p.classList.toggle('active', p.innerText === q.sec);
+  });
+
+  let t = '';
+  if(lang === 'en') t = `<div>${q.text_en}</div>`;
+  else if(lang === 'hi') t = `<div style="color:#004d80;">${q.text_hi}</div>`;
+  else t = `<div>${q.text_en}</div><hr style="margin:10px 0; border:0; border-top:1px dashed #ccc;"><div style="color:#004d80;">${q.text_hi}</div>`;
+
+  let o = '<div class="tcs-options">';
+  q.options.forEach((opt, idx) => {
+    const chk = ansMap[curQ] === idx ? 'checked' : '';
+    o += `<label class="tcs-opt-item"><input type="radio" name="ionRadio" value="${idx}" ${chk} onchange="ansMap[${curQ}]=${idx}"> <span>${opt}</span></label>`;
+  });
+  o += '</div>';
+
+  document.getElementById('qBodyDisplay').innerHTML = t + o;
+  renderPaletteGrid();
+}
+
+function renderPaletteGrid() {
+  const g = document.getElementById('questionPaletteGrid');
+  g.innerHTML = '';
+  testQList.forEach((q, idx) => {
+    let c = '';
+    if(statMap[idx] === 'ans') c = 'ans';
+    else if(statMap[idx] === 'not-ans') c = 'not-ans';
+    else if(statMap[idx] === 'rev') c = 'rev';
+    g.innerHTML += `<div class="p-cell ${c}" onclick="jumpQ(${idx})">${q.id}</div>`;
+  });
+}
+
+function jumpQ(idx) {
+  if(!statMap[curQ]) statMap[curQ] = ansMap[curQ] !== undefined ? 'ans' : 'not-ans';
+  curQ = idx;
+  renderQuestionItem();
+}
+
+function actionSaveNext() {
+  statMap[curQ] = ansMap[curQ] !== undefined ? 'ans' : 'not-ans';
+  if(curQ < testQList.length - 1) jumpQ(curQ + 1);
+  else renderPaletteGrid();
+}
+
+function actionReview() {
+  statMap[curQ] = 'rev';
+  if(curQ < testQList.length - 1) jumpQ(curQ + 1);
+  else renderPaletteGrid();
+}
+
+function actionClear() {
+  delete ansMap[curQ];
+  statMap[curQ] = 'not-ans';
+  renderQuestionItem();
+}
+
+function confirmExamSubmit() {
+  if(confirm("Do you want to submit your examination?")) submitTest();
+}
+
+function submitTest() {
+  clearInterval(timerInt);
+  document.getElementById('examConsole').style.display = 'none';
+
+  let reasCorr = 0, reasWrong = 0, quantCorr = 0, quantWrong = 0;
+  testQList.forEach((q, idx) => {
+    if(ansMap[idx] !== undefined) {
+      const isRight = ansMap[idx] === q.correct;
+      if(q.sec === "Reasoning Ability") {
+        if(isRight) reasCorr++; else reasWrong++;
+      } else {
+        if(isRight) quantCorr++; else quantWrong++;
+      }
+    }
+  });
+
+  const reasScore = (reasCorr * 1.0) - (reasWrong * 0.25);
+  const quantScore = (quantCorr * 1.0) - (quantWrong * 0.25);
+  const totalScore = reasScore + quantScore;
+
+  if(currentActiveExamType === 'mega') {
+    activeUserRef.score_reasoning = reasScore;
+    activeUserRef.score_quant = quantScore;
+    activeUserRef.score_total = totalScore;
+    activeUserRef.isLive = false;
+    candidates[activeUserRef.regNo] = activeUserRef;
+    setDB('candidates', candidates);
+    alert(`Mega Test Submitted Successfully!\nReasoning: ${reasScore.toFixed(2)}/40\nQuant: ${quantScore.toFixed(2)}/40\nTotal: ${totalScore.toFixed(2)}/80\n\nYou can view your official Scorecard under 'Mega Test Result'.`);
+    showTab('result');
+  } else {
+    alert(`Direct Mock Test Finished!\nScore Details:\nReasoning: ${reasScore.toFixed(2)} / 40.00\nQuantitative Aptitude: ${quantScore.toFixed(2)} / 40.00\nTotal Marks: ${totalScore.toFixed(2)} / 80.00`);
+    showTab('series');
+  }
+}
+
+updateStatusNotices();
 </script>
 </body>
 </html>
