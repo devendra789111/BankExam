@@ -109,7 +109,7 @@
 
 <main class="content-wrapper">
 
-  <!-- 1. APPLY ONLINE -->
+  <!-- 1. APPLY ONLINE FORM -->
   <section id="page-apply" class="page-view">
     <div class="box-card">
       <div class="box-title">IBPS RRB Mock Test 2026 - Online Application Form</div>
@@ -144,7 +144,7 @@
       </form>
     </div>
 
-    <!-- Registration Slip (Strictly ONLY Registration Number) -->
+    <!-- Registration Slip (ONLY 6-Digit Reg Number) -->
     <div id="regSlipCard" class="box-card" style="display:none; border:2px solid #2e7d32;">
       <h3 style="color:#2e7d32; margin-bottom:12px;">✓ Application Registered Successfully!</h3>
       <table class="admit-card-table" style="margin-top:0;">
@@ -279,9 +279,493 @@
   </div>
 </div>
 
-<!-- DATA LAYER & QUESTION BANK SCRIPT -->
-<script src="questions_data.js"></script>
 <script>
+// --- FULL 80 HIGH-LEVEL QUESTIONS EMBEDDED DIRECTLY ---
+const full80HighLevelQuestions = [
+  // --- REASONING ABILITY (Q. 1 to 40) ---
+  {
+    id: 1, sec: "Reasoning Ability",
+    text_en: "<strong>Directions (Q. 1-5):</strong> Eight persons A, B, C, D, E, F, G, and H sit in a straight row facing North. A sits 4th to the left of G. Neither A nor G sits at any extreme end. Only two persons sit between G and B. C sits immediate left of B. D sits 2nd to the right of E. H does not sit near G.<br><br><strong>Q.1: Who sits at the extreme right end of the row?</strong>",
+    text_hi: "<strong>निर्देश (प्र. 1-5):</strong> आठ व्यक्ति A, B, C, D, E, F, G और H उत्तर की ओर मुख करके एक पंक्ति में बैठे हैं। A, G के बाएं से चौथे स्थान पर है। न तो A और न ही G किसी अंतिम छोर पर बैठे हैं। G और B के बीच केवल दो व्यक्ति हैं। C, B के ठीक बाएं बैठा है। D, E के दाएं से दूसरे स्थान पर है। H, G के पास नहीं बैठा है।<br><br><strong>प्र.1: पंक्ति के अंतिम दाएं छोर पर कौन बैठा है?</strong>",
+    options: ["(A) D", "(B) B", "(C) F", "(D) C", "(E) H"], correct: 0
+  },
+  {
+    id: 2, sec: "Reasoning Ability",
+    text_en: "<strong>Q.2: How many persons sit between A and C?</strong>",
+    text_hi: "<strong>प्र.2: A और C के मध्य कितने व्यक्ति बैठे हैं?</strong>",
+    options: ["(A) None", "(B) One", "(C) Two", "(D) Three", "(E) Four"], correct: 3
+  },
+  {
+    id: 3, sec: "Reasoning Ability",
+    text_en: "<strong>Q.3: What is the position of F with respect to E?</strong>",
+    text_hi: "<strong>प्र.3: E के संदर्भ में F का स्थान क्या है?</strong>",
+    options: ["(A) Immediate Right", "(B) 2nd to the Right", "(C) 3rd to the Left", "(D) Immediate Left", "(E) 2nd to the Left"], correct: 0
+  },
+  {
+    id: 4, sec: "Reasoning Ability",
+    text_en: "<strong>Q.4: Which of the following pairs sits at the extreme ends?</strong>",
+    text_hi: "<strong>प्र.4: निम्नलिखित में से कौन सा युग्म अंतिम छोरों पर बैठा है?</strong>",
+    options: ["(A) H, D", "(B) E, D", "(C) H, B", "(D) F, G", "(E) A, D"], correct: 0
+  },
+  {
+    id: 5, sec: "Reasoning Ability",
+    text_en: "<strong>Q.5: Who sits immediate right of G?</strong>",
+    text_hi: "<strong>प्र.5: G के ठीक दाएं कौन बैठा है?</strong>",
+    options: ["(A) C", "(B) B", "(C) E", "(D) D", "(E) F"], correct: 0
+  },
+  {
+    id: 6, sec: "Reasoning Ability",
+    text_en: "<strong>Statements:</strong> Only a few Circles are Squares. All Squares are Triangles. No Triangle is Rectangle.<br><strong>Conclusions:</strong><br>I. Some Circles are not Rectangles.<br>II. All Squares can never be Rectangles.",
+    text_hi: "<strong>कथन:</strong> केवल कुछ Circle, Square हैं। सभी Square, Triangle हैं। कोई Triangle, Rectangle नहीं है।<br><strong>निष्कर्ष:</strong><br>I. कुछ Circle, Rectangle नहीं हैं।<br>II. सभी Square कभी भी Rectangle नहीं हो सकते।",
+    options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II follows", "(D) Neither I nor II follows", "(E) Both I and II follow"], correct: 4
+  },
+  {
+    id: 7, sec: "Reasoning Ability",
+    text_en: "<strong>Statements:</strong> Only a few Rivers are Lakes. Some Lakes are Oceans. All Oceans are Ponds.<br><strong>Conclusions:</strong><br>I. All Rivers being Lake is a possibility.<br>II. Some Ponds are Lakes.",
+    text_hi: "<strong>कथन:</strong> केवल कुछ River, Lake हैं। कुछ Lake, Ocean हैं। सभी Ocean, Pond हैं।<br><strong>निष्कर्ष:</strong><br>I. सभी River के Lake होने की संभावना है।<br>II. कुछ Pond, Lake हैं।",
+    options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II follows", "(D) Neither I nor II follows", "(E) Both I and II follow"], correct: 1
+  },
+  {
+    id: 8, sec: "Reasoning Ability",
+    text_en: "<strong>Statements:</strong> No Tree is Plant. All Plants are Herbs. Only a few Herbs are Shrubs.<br><strong>Conclusions:</strong><br>I. Some Herbs are not Trees.<br>II. All Trees being Shrubs is a possibility.",
+    text_hi: "<strong>कथन:</strong> कोई Tree, Plant नहीं है। सभी Plant, Herb हैं। केवल कुछ Herb, Shrub हैं।<br><strong>निष्कर्ष:</strong><br>I. कुछ Herb, Tree नहीं हैं।<br>II. सभी Tree के Shrub होने की संभावना है।",
+    options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II follows", "(D) Neither I nor II follows", "(E) Both I and II follow"], correct: 4
+  },
+  {
+    id: 9, sec: "Reasoning Ability",
+    text_en: "<strong>Statements:</strong> Only a few Blue are Green. All Green are Yellow. No Yellow is Black.<br><strong>Conclusions:</strong><br>I. No Green is Black.<br>II. Some Blue are not Yellow.",
+    text_hi: "<strong>कथन:</strong> केवल कुछ Blue, Green हैं। सभी Green, Yellow हैं। कोई Yellow, Black नहीं है।<br><strong>निष्कर्ष:</strong><br>I. कोई Green, Black नहीं है।<br>II. कुछ Blue, Yellow नहीं हैं।",
+    options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II follows", "(D) Neither I nor II follows", "(E) Both I and II follow"], correct: 0
+  },
+  {
+    id: 10, sec: "Reasoning Ability",
+    text_en: "<strong>Statements:</strong> All Mobile are Laptop. Only a few Laptop are Tablet. No Tablet is Watch.<br><strong>Conclusions:</strong><br>I. Some Laptop are not Watch.<br>II. All Mobile being Tablet is a possibility.",
+    text_hi: "<strong>कथन:</strong> सभी Mobile, Laptop हैं। केवल कुछ Laptop, Tablet हैं। कोई Tablet, Watch नहीं है।<br><strong>निष्कर्ष:</strong><br>I. कुछ Laptop, Watch नहीं हैं।<br>II. सभी Mobile के Tablet होने की संभावना है।",
+    options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II follows", "(D) Neither I nor II follows", "(E) Both I and II follow"], correct: 4
+  },
+  {
+    id: 11, sec: "Reasoning Ability",
+    text_en: "<strong>Directions (Q. 11-15):</strong> Eight persons (P, Q, R, S, T, U, V, W) sit around a circular table facing the center. P sits 3rd to the right of W. Only two persons sit between W and R. Q sits 2nd to the left of R. V is not an immediate neighbor of P. T sits 2nd to the right of U. U does not sit adjacent to W.<br><br><strong>Q.11: Who sits opposite to P?</strong>",
+    text_hi: "<strong>निर्देश (प्र. 11-15):</strong> आठ व्यक्ति (P, Q, R, S, T, U, V, W) केंद्र की ओर मुख करके एक वृत्ताकार मेज पर बैठे हैं। P, W के दाएं से तीसरे स्थान पर है। W और R के बीच केवल दो व्यक्ति हैं। Q, R के बाएं से दूसरे स्थान पर है। V, P का निकटतम पड़ोसी नहीं है। T, U के दाएं से दूसरे स्थान पर है। U, W के निकट नहीं बैठा है।<br><br><strong>प्र.11: P के विपरीत कौन बैठा है?</strong>",
+    options: ["(A) Q", "(B) T", "(C) U", "(D) R", "(E) V"], correct: 0
+  },
+  {
+    id: 12, sec: "Reasoning Ability",
+    text_en: "<strong>Q.12: Who sits immediate left of V?</strong>",
+    text_hi: "<strong>प्र.12: V के ठीक बाएं कौन बैठा है?</strong>",
+    options: ["(A) W", "(B) T", "(C) R", "(D) Q", "(E) P"], correct: 0
+  },
+  {
+    id: 13, sec: "Reasoning Ability",
+    text_en: "<strong>Q.13: How many persons sit between T and R when counted from left of T?</strong>",
+    text_hi: "<strong>प्र.13: T के बाएं से गिनने पर T और R के मध्य कितने व्यक्ति हैं?</strong>",
+    options: ["(A) One", "(B) Two", "(C) Three", "(D) Four", "(E) More than four"], correct: 1
+  },
+  {
+    id: 14, sec: "Reasoning Ability",
+    text_en: "<strong>Q.14: Which statement is definitely TRUE?</strong>",
+    text_hi: "<strong>प्र.14: निम्नलिखित में से कौन सा कथन निश्चित रूप से सत्य है?</strong>",
+    options: ["(A) S sits immediate right of P", "(B) W sits opposite to U", "(C) Q is neighbor of P", "(D) T sits 3rd left of W", "(E) None of these"], correct: 0
+  },
+  {
+    id: 15, sec: "Reasoning Ability",
+    text_en: "<strong>Q.15: Who among the following sits 2nd to the left of Q?</strong>",
+    text_hi: "<strong>प्र.15: निम्नलिखित में से कौन Q के बाएं से दूसरे स्थान पर बैठा है?</strong>",
+    options: ["(A) P", "(B) V", "(C) T", "(D) S", "(E) U"], correct: 1
+  },
+  {
+    id: 16, sec: "Reasoning Ability",
+    text_en: "<strong>Statements:</strong> K ≥ L > M = N; N ≥ O > P<br><strong>Conclusions:</strong> I. K > N &nbsp;&nbsp; II. L > P",
+    text_hi: "<strong>कथन:</strong> K ≥ L > M = N; N ≥ O > P<br><strong>निष्कर्ष:</strong> I. K > N &nbsp;&nbsp; II. L > P",
+    options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II", "(D) Neither I nor II", "(E) Both I and II follow"], correct: 4
+  },
+  {
+    id: 17, sec: "Reasoning Ability",
+    text_en: "<strong>Statements:</strong> Z < Y ≤ X = W; W < V ≤ U<br><strong>Conclusions:</strong> I. Z < W &nbsp;&nbsp; II. X < U",
+    text_hi: "<strong>कथन:</strong> Z < Y ≤ X = W; W < V ≤ U<br><strong>निष्कर्ष:</strong> I. Z < W &nbsp;&nbsp; II. X < U",
+    options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II", "(D) Neither I nor II", "(E) Both I and II follow"], correct: 4
+  },
+  {
+    id: 18, sec: "Reasoning Ability",
+    text_en: "<strong>Statements:</strong> G ≤ H = I < J; J ≤ K < L<br><strong>Conclusions:</strong> I. G < J &nbsp;&nbsp; II. I < L",
+    text_hi: "<strong>कथन:</strong> G ≤ H = I < J; J ≤ K < L<br><strong>निष्कर्ष:</strong> I. G < J &nbsp;&nbsp; II. I < L",
+    options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II", "(D) Neither I nor II", "(E) Both I and II follow"], correct: 4
+  },
+  {
+    id: 19, sec: "Reasoning Ability",
+    text_en: "<strong>Statements:</strong> D > E ≥ F = G; G < H ≤ I<br><strong>Conclusions:</strong> I. D > G &nbsp;&nbsp; II. E < I",
+    text_hi: "<strong>कथन:</strong> D > E ≥ F = G; G < H ≤ I<br><strong>निष्कर्ष:</strong> I. D > G &nbsp;&nbsp; II. E < I",
+    options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II", "(D) Neither I nor II", "(E) Both I and II follow"], correct: 0
+  },
+  {
+    id: 20, sec: "Reasoning Ability",
+    text_en: "<strong>Statements:</strong> P ≤ Q < R = S; T > S ≥ U<br><strong>Conclusions:</strong> I. P < T &nbsp;&nbsp; II. R ≥ U",
+    text_hi: "<strong>कथन:</strong> P ≤ Q < R = S; T > S ≥ U<br><strong>निष्कर्ष:</strong> I. P < T &nbsp;&nbsp; II. R ≥ U",
+    options: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II", "(D) Neither I nor II", "(E) Both I and II follow"], correct: 4
+  },
+  {
+    id: 21, sec: "Reasoning Ability",
+    text_en: "<strong>Directions (Q. 21-25):</strong> Seven persons M, N, O, P, Q, R, and S live on 7 different floors (Ground=1, Top=7). P lives on an odd floor above floor 4. Only two persons live between P and R. S lives immediately below R. As many persons live above S as below Q. Only one person lives between Q and M. N lives above O.<br><br><strong>Q.21: Who lives on the topmost floor?</strong>",
+    text_hi: "<strong>निर्देश (प्र. 21-25):</strong> सात व्यक्ति M, N, O, P, Q, R और S एक इमारत की 7 अलग-अलग मंजिलों पर रहते हैं (तल 1, शीर्ष 7)। P मंजिल 4 के ऊपर एक विषम मंजिल पर रहता है। P और R के बीच केवल दो व्यक्ति रहते हैं। S, R के ठीक नीचे रहता है। जितने व्यक्ति S के ऊपर रहते हैं उतने ही Q के नीचे रहते हैं। Q और M के बीच केवल एक व्यक्ति रहता है। N, O के ऊपर रहता है।<br><br><strong>प्र.21: सबसे ऊपरी मंजिल (मंजिल 7) पर कौन रहता है?</strong>",
+    options: ["(A) N", "(B) P", "(C) M", "(D) S", "(E) O"], correct: 0
+  },
+  {
+    id: 22, sec: "Reasoning Ability",
+    text_en: "<strong>Q.22: How many persons live between P and S?</strong>",
+    text_hi: "<strong>प्र.22: P और S के मध्य कितने व्यक्ति रहते हैं?</strong>",
+    options: ["(A) None", "(B) One", "(C) Two", "(D) Three", "(E) Four"], correct: 3
+  },
+  {
+    id: 23, sec: "Reasoning Ability",
+    text_en: "<strong>Q.23: Which floor does Q live on?</strong>",
+    text_hi: "<strong>प्र.23: Q किस मंजिल पर रहता है?</strong>",
+    options: ["(A) Floor 6", "(B) Floor 4", "(C) Floor 5", "(D) Floor 7", "(E) Floor 3"], correct: 0
+  },
+  {
+    id: 24, sec: "Reasoning Ability",
+    text_en: "<strong>Q.24: Who lives immediately above O?</strong>",
+    text_hi: "<strong>प्र.24: O के ठीक ऊपर कौन रहता है?</strong>",
+    options: ["(A) M", "(B) R", "(C) Q", "(D) S", "(E) P"], correct: 3
+  },
+  {
+    id: 25, sec: "Reasoning Ability",
+    text_en: "<strong>Q.25: Who lives on Floor number 3?</strong>",
+    text_hi: "<strong>प्र.25: मंजिल संख्या 3 पर कौन रहता है?</strong>",
+    options: ["(A) R", "(B) M", "(C) S", "(D) O", "(E) P"], correct: 0
+  },
+  {
+    id: 26, sec: "Reasoning Ability",
+    text_en: "<strong>Directions (Q. 26-30):</strong> In a code language:<br>'focus on smart practice' is coded as 'kx tm zo bl'<br>'smart approach gives result' is coded as 'bl jm qv sp'<br>'practice gives deep focus' is coded as 'zo qv ch kx'<br>'approach result leads success' is coded as 'jm sp yt wr'<br><br><strong>Q.26: What is the code for 'focus'?</strong>",
+    text_hi: "<strong>निर्देश (प्र. 26-30):</strong> दी गई कूट भाषा के अनुसार उत्तर दें:<br>'focus on smart practice' को 'kx tm zo bl' लिखा जाता है<br>'smart approach gives result' को 'bl jm qv sp' लिखा जाता है<br>'practice gives deep focus' को 'zo qv ch kx' लिखा जाता है<br>'approach result leads success' को 'jm sp yt wr' लिखा जाता है<br><br><strong>प्र.26: 'focus' के लिए क्या कूट हो सकता है?</strong>",
+    options: ["(A) Either 'kx' or 'zo'", "(B) 'bl'", "(C) 'tm'", "(D) 'qv'", "(E) 'ch'"], correct: 0
+  },
+  {
+    id: 27, sec: "Reasoning Ability",
+    text_en: "<strong>Q.27: What is the code for 'smart'?</strong>",
+    text_hi: "<strong>प्र.27: 'smart' के लिए क्या कूट है?</strong>",
+    options: ["(A) kx", "(B) bl", "(C) zo", "(D) jm", "(E) qv"], correct: 1
+  },
+  {
+    id: 28, sec: "Reasoning Ability",
+    text_en: "<strong>Q.28: What does 'qv' stand for?</strong>",
+    text_hi: "<strong>प्र.28: कूट 'qv' किसके लिए प्रयुक्त हुआ है?</strong>",
+    options: ["(A) approach", "(B) result", "(C) gives", "(D) practice", "(E) focus"], correct: 2
+  },
+  {
+    id: 29, sec: "Reasoning Ability",
+    text_en: "<strong>Q.29: What is the code for 'deep'?</strong>",
+    text_hi: "<strong>प्र.29: 'deep' के लिए क्या कूट है?</strong>",
+    options: ["(A) ch", "(B) kx", "(C) zo", "(D) tm", "(E) sp"], correct: 0
+  },
+  {
+    id: 30, sec: "Reasoning Ability",
+    text_en: "<strong>Q.30: What is the code for 'on'?</strong>",
+    text_hi: "<strong>प्र.30: 'on' के लिए क्या कूट है?</strong>",
+    options: ["(A) tm", "(B) bl", "(C) zo", "(D) kx", "(E) ch"], correct: 0
+  },
+  {
+    id: 31, sec: "Reasoning Ability",
+    text_en: "<strong>Directions (Q. 31-33):</strong> Point M is 12m North of Point N. Point O is 9m West of Point N. Point P is 6m South of Point O. Point Q is 15m East of Point P.<br><br><strong>Q.31: What is the shortest distance between Point M and Point O?</strong>",
+    text_hi: "<strong>निर्देश (प्र. 31-33):</strong> बिंदु M, बिंदु N के 12m उत्तर में है। बिंदु O, बिंदु N के 9m पश्चिम में है। बिंदु P, बिंदु O के 6m दक्षिण में है। बिंदु Q, बिंदु P के 15m पूर्व में है।<br><br><strong>प्र.31: बिंदु M और बिंदु O के मध्य न्यूनतम दूरी क्या है?</strong>",
+    options: ["(A) 15m", "(B) 16m", "(C) 18m", "(D) 21m", "(E) 13m"], correct: 0
+  },
+  {
+    id: 32, sec: "Reasoning Ability",
+    text_en: "<strong>Q.32: In which direction is Point Q with respect to Point N?</strong>",
+    text_hi: "<strong>प्र.32: बिंदु N के संदर्भ में बिंदु Q किस दिशा में है?</strong>",
+    options: ["(A) South-East", "(B) North-East", "(C) South-West", "(D) North-West", "(E) East"], correct: 0
+  },
+  {
+    id: 33, sec: "Reasoning Ability",
+    text_en: "<strong>Q.33: What is the shortest distance between Point N and Point Q?</strong>",
+    text_hi: "<strong>प्र.33: बिंदु N और बिंदु Q के मध्य न्यूनतम दूरी क्या है?</strong>",
+    options: ["(A) 6√2 m", "(B) 8m", "(C) 10m", "(D) 7√2 m", "(E) 12m"], correct: 0
+  },
+  {
+    id: 34, sec: "Reasoning Ability",
+    text_en: "<strong>Directions (Q. 34-36):</strong> In a family of 7 members: K is father of L. L is brother of M. M is mother of N. P is sister of N. Q is father-in-law of M. R is husband of M.<br><br><strong>Q.34: How is R related to K?</strong>",
+    text_hi: "<strong>निर्देश (प्र. 34-36):</strong> 7 सदस्यों के परिवार में: K, L का पिता है। L, M का भाई है। M, N की माता है। P, N की बहन है। Q, M का ससुर है। R, M का पति है।<br><br><strong>प्र.34: R का K से क्या संबंध है?</strong>",
+    options: ["(A) Son", "(B) Son-in-law", "(C) Brother", "(D) Nephew", "(E) Father"], correct: 1
+  },
+  {
+    id: 35, sec: "Reasoning Ability",
+    text_en: "<strong>Q.35: How is P related to L?</strong>",
+    text_hi: "<strong>प्र.35: P का L से क्या संबंध है?</strong>",
+    options: ["(A) Daughter", "(B) Sister", "(C) Niece", "(D) Mother", "(E) Aunt"], correct: 2
+  },
+  {
+    id: 36, sec: "Reasoning Ability",
+    text_en: "<strong>Q.36: How is Q related to R?</strong>",
+    text_hi: "<strong>प्र.36: Q का R से क्या संबंध है?</strong>",
+    options: ["(A) Father", "(B) Uncle", "(C) Brother", "(D) Grandfather", "(E) Son"], correct: 0
+  },
+  {
+    id: 37, sec: "Reasoning Ability",
+    text_en: "<strong>Directions (Q. 37-39):</strong> Study the numbers: <strong>835 &nbsp; 472 &nbsp; 619 &nbsp; 394 &nbsp; 751</strong><br><br><strong>Q.37: If 1 is subtracted from 1st digit and 1 is added to 3rd digit of each number, which will be the 2nd highest?</strong>",
+    text_hi: "<strong>निर्देश (प्र. 37-39):</strong> संख्याओं का अध्ययन करें: <strong>835 &nbsp; 472 &nbsp; 619 &nbsp; 394 &nbsp; 751</strong><br><br><strong>प्र.37: यदि पहले अंक से 1 घटाएं और तीसरे अंक में 1 जोड़ें, तो दूसरी सबसे बड़ी संख्या कौन सी होगी?</strong>",
+    options: ["(A) 835", "(B) 472", "(C) 619", "(D) 394", "(E) 751"], correct: 4
+  },
+  {
+    id: 38, sec: "Reasoning Ability",
+    text_en: "<strong>Q.38: If digits within each number are arranged in descending order, what will be the difference between highest and lowest new numbers?</strong>",
+    text_hi: "<strong>प्र.38: यदि प्रत्येक संख्या के अंकों को अवरोही क्रम में व्यवस्थित किया जाए, तो सबसे बड़ी और सबसे छोटी नई संख्या का अंतर क्या होगा?</strong>",
+    options: ["(A) 111", "(B) 211", "(C) 219", "(D) 201", "(E) 189"], correct: 2
+  },
+  {
+    id: 39, sec: "Reasoning Ability",
+    text_en: "<strong>Q.39: What is the product of 2nd digit of lowest number (394) and 3rd digit of highest number (835)?</strong>",
+    text_hi: "<strong>प्र.39: सबसे छोटी संख्या (394) के दूसरे अंक और सबसे बड़ी संख्या (835) के तीसरे अंक का गुणनफल क्या है?</strong>",
+    options: ["(A) 45", "(B) 36", "(C) 27", "(D) 35", "(E) 40"], correct: 0
+  },
+  {
+    id: 40, sec: "Reasoning Ability",
+    text_en: "<strong>Q.40: How many pairs of letters are there in 'CLEARANCE', having as many letters between them as in the English alphabet (both forward & backward)?</strong>",
+    text_hi: "<strong>प्र.40: शब्द 'CLEARANCE' में ऐसे कितने अक्षर युग्म हैं जिनके बीच उतने ही अक्षर हैं जितने अंग्रेजी वर्णमाला में होते हैं (आगे और पीछे दोनों ओर)?</strong>",
+    options: ["(A) None", "(B) One", "(C) Two", "(D) Three", "(E) More than three"], correct: 3
+  },
+    // --- QUANTITATIVE APTITUDE (Q. 41 to 80) ---
+  {
+    id: 41, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.41:</strong> 18.5% of 600 + 45% of 420 - 15 × 8 = ?",
+    text_hi: "<strong>प्र.41:</strong> 600 का 18.5% + 420 का 45% - 15 × 8 = ?",
+    options: ["(A) 180", "(B) 195", "(C) 175", "(D) 185", "(E) 190"], correct: 0
+  },
+  {
+    id: 42, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.42:</strong> (24)² + (16)² - (18)² = ? × 13",
+    text_hi: "<strong>प्र.42:</strong> (24)² + (16)² - (18)² = ? × 13",
+    options: ["(A) 36", "(B) 39", "(C) 42", "(D) 45", "(E) 48"], correct: 1
+  },
+  {
+    id: 43, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.43:</strong> √1296 + √2401 - 25 = (?)²",
+    text_hi: "<strong>प्र.43:</strong> √1296 + √2401 - 25 = (?)²",
+    options: ["(A) 8", "(B) 6", "(C) 7", "(D) 9", "(E) 5"], correct: 1
+  },
+  {
+    id: 44, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.44:</strong> (3/8 of 512) + (5/7 of 343) - 180 = ?",
+    text_hi: "<strong>प्र.44:</strong> (512 का 3/8) + (343 का 5/7) - 180 = ?",
+    options: ["(A) 257", "(B) 267", "(C) 247", "(D) 237", "(E) 277"], correct: 0
+  },
+  {
+    id: 45, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.45:</strong> 480 ÷ 12 × 15 + 240 = ?% of 1400",
+    text_hi: "<strong>प्र.45:</strong> 480 ÷ 12 × 15 + 240 = 1400 का ?%",
+    options: ["(A) 55", "(B) 60", "(C) 65", "(D) 50", "(E) 70"], correct: 1
+  },
+  {
+    id: 46, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.46:</strong> 125% of 640 - 75% of 480 = ? + 140",
+    text_hi: "<strong>प्र.46:</strong> 640 का 125% - 480 का 75% = ? + 140",
+    options: ["(A) 300", "(B) 320", "(C) 280", "(D) 340", "(E) 360"], correct: 0
+  },
+  {
+    id: 47, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.47:</strong> (15 × 28) ÷ 14 + 160 = ? × 19",
+    text_hi: "<strong>प्र.47:</strong> (15 × 28) ÷ 14 + 160 = ? × 19",
+    options: ["(A) 8", "(B) 10", "(C) 12", "(D) 14", "(E) 15"], correct: 1
+  },
+  {
+    id: 48, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.48:</strong> (14)² - √784 + (12)² = ? × 13",
+    text_hi: "<strong>प्र.48:</strong> (14)² - √784 + (12)² = ? × 13",
+    options: ["(A) 22", "(B) 24", "(C) 26", "(D) 28", "(E) 20"], correct: 1
+  },
+  {
+    id: 49, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.49:</strong> 35% of 800 + 42% of 500 - 190 = ?",
+    text_hi: "<strong>प्र.49:</strong> 800 का 35% + 500 का 42% - 190 = ?",
+    options: ["(A) 300", "(B) 310", "(C) 290", "(D) 320", "(E) 280"], correct: 0
+  },
+  {
+    id: 50, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.50:</strong> 540 ÷ 9 + 18 × 16 - 120 = ?",
+    text_hi: "<strong>प्र.50:</strong> 540 ÷ 9 + 18 × 16 - 120 = ?",
+    options: ["(A) 228", "(B) 238", "(C) 248", "(D) 218", "(E) 258"], correct: 0
+  },
+  {
+    id: 51, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.51:</strong> 14, 21, 35, 56, 84, ?",
+    text_hi: "<strong>प्र.51:</strong> 14, 21, 35, 56, 84, ?",
+    options: ["(A) 119", "(B) 121", "(C) 126", "(D) 112", "(E) 133"], correct: 0
+  },
+  {
+    id: 52, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.52:</strong> 12, 13, 28, 87, 352, ?",
+    text_hi: "<strong>प्र.52:</strong> 12, 13, 28, 87, 352, ?",
+    options: ["(A) 1765", "(B) 1755", "(C) 1745", "(D) 1775", "(E) 1785"], correct: 0
+  },
+  {
+    id: 53, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.53:</strong> 400, 396, 380, 344, 280, ?",
+    text_hi: "<strong>प्र.53:</strong> 400, 396, 380, 344, 280, ?",
+    options: ["(A) 180", "(B) 176", "(C) 184", "(D) 170", "(E) 160"], correct: 0
+  },
+  {
+    id: 54, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.54:</strong> 18, 36, 18, 54, 13.5, ?",
+    text_hi: "<strong>प्र.54:</strong> 18, 36, 18, 54, 13.5, ?",
+    options: ["(A) 67.5", "(B) 54", "(C) 81", "(D) 40.5", "(E) 72"], correct: 0
+  },
+  {
+    id: 55, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.55:</strong> 25, 34, 52, 79, 115, ?",
+    text_hi: "<strong>प्र.55:</strong> 25, 34, 52, 79, 115, ?",
+    options: ["(A) 160", "(B) 155", "(C) 165", "(D) 170", "(E) 150"], correct: 0
+  },
+  {
+    id: 56, sec: "Quantitative Aptitude",
+    text_en: "<strong>I.</strong> 2x² - 11x + 15 = 0<br><strong>II.</strong> 2y² - 17y + 36 = 0",
+    text_hi: "<strong>I.</strong> 2x² - 11x + 15 = 0<br><strong>II.</strong> 2y² - 17y + 36 = 0",
+    options: ["(A) x > y", "(B) x ≥ y", "(C) x < y", "(D) x ≤ y", "(E) x = y or no relation"], correct: 3
+  },
+  {
+    id: 57, sec: "Quantitative Aptitude",
+    text_en: "<strong>I.</strong> x² - 14x + 48 = 0<br><strong>II.</strong> y² - 9y + 20 = 0",
+    text_hi: "<strong>I.</strong> x² - 14x + 48 = 0<br><strong>II.</strong> y² - 9y + 20 = 0",
+    options: ["(A) x > y", "(B) x ≥ y", "(C) x < y", "(D) x ≤ y", "(E) x = y or no relation"], correct: 0
+  },
+  {
+    id: 58, sec: "Quantitative Aptitude",
+    text_en: "<strong>I.</strong> 3x² + 13x + 14 = 0<br><strong>II.</strong> 2y² + 15y + 28 = 0",
+    text_hi: "<strong>I.</strong> 3x² + 13x + 14 = 0<br><strong>II.</strong> 2y² + 15y + 28 = 0",
+    options: ["(A) x > y", "(B) x ≥ y", "(C) x < y", "(D) x ≤ y", "(E) x = y or no relation"], correct: 0
+  },
+  {
+    id: 59, sec: "Quantitative Aptitude",
+    text_en: "<strong>I.</strong> x² = 196<br><strong>II.</strong> y² - 28y + 196 = 0",
+    text_hi: "<strong>I.</strong> x² = 196<br><strong>II.</strong> y² - 28y + 196 = 0",
+    options: ["(A) x > y", "(B) x ≥ y", "(C) x < y", "(D) x ≤ y", "(E) x = y or no relation"], correct: 3
+  },
+  {
+    id: 60, sec: "Quantitative Aptitude",
+    text_en: "<strong>I.</strong> 2x² - 9x + 10 = 0<br><strong>II.</strong> 3y² - 7y + 4 = 0",
+    text_hi: "<strong>I.</strong> 2x² - 9x + 10 = 0<br><strong>II.</strong> 3y² - 7y + 4 = 0",
+    options: ["(A) x > y", "(B) x ≥ y", "(C) x < y", "(D) x ≤ y", "(E) x = y or no relation"], correct: 0
+  },
+  {
+    id: 61, sec: "Quantitative Aptitude",
+    text_en: "<strong>Directions (Q. 61-65):</strong> Table shows the total number of students enrolled in 4 colleges (A, B, C, D) and the ratio of Boys to Girls:<br>• College A: Total = 800, Boys : Girls = 5 : 3<br>• College B: Total = 1200, Boys : Girls = 7 : 5<br>• College C: Total = 900, Boys : Girls = 4 : 5<br>• College D: Total = 1000, Boys : Girls = 3 : 2<br><br><strong>Q.61: What is the total number of girls enrolled in all four colleges together?</strong>",
+    text_hi: "<strong>निर्देश (प्र. 61-65):</strong> सारणी 4 कॉलेजों (A, B, C, D) में नामांकित कुल छात्रों और लड़कों तथा लड़कियों के अनुपात को दर्शाती है:<br>• कॉलेज A: कुल = 800, लड़के : लड़कियाँ = 5 : 3<br>• कॉलेज B: कुल = 1200, लड़के : लड़कियाँ = 7 : 5<br>• कॉलेज C: कुल = 900, लड़के : लड़कियाँ = 4 : 5<br>• कॉलेज D: कुल = 1000, लड़के : लड़कियाँ = 3 : 2<br><br><strong>प्र.61: चारों कॉलेजों में मिलाकर नामांकित लड़कियों की कुल संख्या कितनी है?</strong>",
+    options: ["(A) 1650", "(B) 1700", "(C) 1750", "(D) 1600", "(E) 1800"], correct: 1
+  },
+  {
+    id: 62, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.62: What is the ratio of boys in College B to girls in College A?</strong>",
+    text_hi: "<strong>प्र.62: कॉलेज B के लड़कों का कॉलेज A की लड़कियों से अनुपात क्या है?</strong>",
+    options: ["(A) 7 : 3", "(B) 5 : 2", "(C) 4 : 3", "(D) 7 : 4", "(E) 3 : 2"], correct: 0
+  },
+  {
+    id: 63, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.63: Boys in College C are what percentage of total students in College D?</strong>",
+    text_hi: "<strong>प्र.63: कॉलेज C के लड़के, कॉलेज D के कुल छात्रों का कितना प्रतिशत हैं?</strong>",
+    options: ["(A) 36%", "(B) 40%", "(C) 45%", "(D) 50%", "(E) 35%"], correct: 1
+  },
+  {
+    id: 64, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.64: What is the average number of boys across all four colleges?</strong>",
+    text_hi: "<strong>प्र.64: चारों कॉलेजों में लड़कों की औसत संख्या क्या है?</strong>",
+    options: ["(A) 550", "(B) 575", "(C) 525", "(D) 600", "(E) 580"], correct: 0
+  },
+  {
+    id: 65, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.65: Girls in College D are how much percent less than boys in College B?</strong>",
+    text_hi: "<strong>प्र.65: कॉलेज D की लड़कियाँ, कॉलेज B के लड़कों से कितने प्रतिशत कम हैं?</strong>",
+    options: ["(A) 42.85%", "(B) 45%", "(C) 38.5%", "(D) 50%", "(E) 40%"], correct: 0
+  },
+  {
+    id: 66, sec: "Quantitative Aptitude",
+    text_en: "<strong>Directions (Q. 66-70):</strong> Production of Cars (in thousands) by Company X and Company Y from 2021 to 2024:<br>• 2021: X = 45, Y = 60<br>• 2022: X = 75, Y = 50<br>• 2023: X = 90, Y = 80<br>• 2024: X = 60, Y = 90<br><br><strong>Q.66: What is the difference between total production of Company X and Company Y in all 4 years?</strong>",
+    text_hi: "<strong>निर्देश (प्र. 66-70):</strong> 2021 से 2024 तक कंपनी X और Y द्वारा कारों का उत्पादन (हजारों में):<br>• 2021: X = 45, Y = 60<br>• 2022: X = 75, Y = 50<br>• 2023: X = 90, Y = 80<br>• 2024: X = 60, Y = 90<br><br><strong>प्र.66: सभी 4 वर्षों में कंपनी X और कंपनी Y के कुल उत्पादन का अंतर क्या है?</strong>",
+    options: ["(A) 10 thousand", "(B) 15 thousand", "(C) 20 thousand", "(D) 25 thousand", "(E) 5 thousand"], correct: 0
+  },
+  {
+    id: 67, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.67: What is the percentage increase in production of Company X from 2021 to 2023?</strong>",
+    text_hi: "<strong>प्र.67: 2021 से 2023 तक कंपनी X के उत्पादन में कितने प्रतिशत की वृद्धि हुई?</strong>",
+    options: ["(A) 100%", "(B) 80%", "(C) 120%", "(D) 75%", "(E) 90%"], correct: 0
+  },
+  {
+    id: 68, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.68: What is the ratio of total production in 2022 to total production in 2024?</strong>",
+    text_hi: "<strong>प्र.68: वर्ष 2022 में कुल उत्पादन का वर्ष 2024 में कुल उत्पादन से अनुपात क्या है?</strong>",
+    options: ["(A) 5 : 6", "(B) 4 : 5", "(C) 6 : 7", "(D) 3 : 4", "(E) 5 : 7"], correct: 0
+  },
+  {
+    id: 69, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.69: What is the average production of Company Y over the given 4 years?</strong>",
+    text_hi: "<strong>प्र.69: दिए गए 4 वर्षों में कंपनी Y का औसत उत्पादन क्या है?</strong>",
+    options: ["(A) 70 thousand", "(B) 65 thousand", "(C) 75 thousand", "(D) 80 thousand", "(E) 68 thousand"], correct: 0
+  },
+  {
+    id: 70, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.70: Production of Company Y in 2023 is what percentage of production of Company X in 2022?</strong>",
+    text_hi: "<strong>प्र.70: वर्ष 2023 में कंपनी Y का उत्पादन, 2022 में कंपनी X के उत्पादन का कितना प्रतिशत है?</strong>",
+    options: ["(A) 106.67%", "(B) 110%", "(C) 105%", "(D) 112.5%", "(E) 108%"], correct: 0
+  },
+  {
+    id: 71, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.71 (Ages):</strong> Six years ago, the ratio of the ages of A and B was 3 : 4. Four years hence, the ratio of their ages will be 4 : 5. What is the present age of B?",
+    text_hi: "<strong>प्र.71 (आयु):</strong> छह वर्ष पहले A और B की आयु का अनुपात 3 : 4 था। चार वर्ष बाद उनकी आयु का अनुपात 4 : 5 होगा। B की वर्तमान आयु क्या है?",
+    options: ["(A) 46 years", "(B) 42 years", "(C) 38 years", "(D) 40 years", "(E) 44 years"], correct: 0
+  },
+  {
+    id: 72, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.72 (Profit & Loss):</strong> A shopkeeper marks an article 40% above the cost price and allows a discount of 20%. If he makes a profit of ₹180, find the cost price.",
+    text_hi: "<strong>प्र.72 (लाभ एवं हानि):</strong> एक दुकानदार किसी वस्तु पर क्रय मूल्य से 40% अधिक अंकित करता है और 20% की छूट देता है। यदि वह ₹180 का लाभ कमाता है, तो क्रय मूल्य ज्ञात कीजिए।",
+    options: ["(A) ₹1500", "(B) ₹1400", "(C) ₹1600", "(D) ₹1200", "(E) ₹1800"], correct: 0
+  },
+  {
+    id: 73, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.73 (Time & Work):</strong> A can complete a work in 16 days and B in 24 days. They started together, but A left 4 days before completion. In how many days was the total work finished?",
+    text_hi: "<strong>प्र.73 (समय एवं कार्य):</strong> A किसी कार्य को 16 दिन में और B 24 दिन में पूरा कर सकता है। वे एक साथ कार्य शुरू करते हैं, लेकिन कार्य पूरा होने से 4 दिन पहले A छोड़ देता है। कुल कार्य कितने दिनों में समाप्त हुआ?",
+    options: ["(A) 12 days", "(B) 10 days", "(C) 14 days", "(D) 15 days", "(E) 16 days"], correct: 0
+  },
+  {
+    id: 74, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.74 (Speed & Train):</strong> A train 240m long crosses a platform of double its length in 36 seconds. What is the speed of the train in km/hr?",
+    text_hi: "<strong>प्र.74 (ट्रेन एवं दूरी):</strong> 240 मीटर लंबी एक ट्रेन अपनी लंबाई से दोगुने लंबे प्लेटफॉर्म को 36 सेकंड में पार करती है। ट्रेन की गति km/hr में क्या है?",
+    options: ["(A) 72 km/hr", "(B) 64 km/hr", "(C) 80 km/hr", "(D) 54 km/hr", "(E) 90 km/hr"], correct: 0
+  },
+  {
+    id: 75, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.75 (SI & CI):</strong> The difference between Compound Interest and Simple Interest on a sum of money for 2 years at 12% per annum is ₹216. Find the principal sum.",
+    text_hi: "<strong>प्र.75 (साधारण एवं चक्रवृद्धि ब्याज):</strong> किसी धनराशि पर 12% वार्षिक दर से 2 वर्ष के चक्रवृद्धि ब्याज और साधारण ब्याज का अंतर ₹216 है। मूलधन ज्ञात कीजिए।",
+    options: ["(A) ₹15,000", "(B) ₹16,000", "(C) ₹14,000", "(D) ₹18,000", "(E) ₹12,500"], correct: 0
+  },
+  {
+    id: 76, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.76 (Partnership):</strong> P, Q, and R started a business investing ₹20,000, ₹25,000, and ₹30,000 respectively. After 4 months, P withdrew ₹5,000 and R invested ₹5,000 more. If total annual profit is ₹37,200, find P's share.",
+    text_hi: "<strong>प्र.76 (साझेदारी):</strong> P, Q और R ने क्रमशः ₹20,000, ₹25,000 और ₹30,000 का निवेश करके व्यापार शुरू किया। 4 महीने बाद P ने ₹5,000 निकाल लिए और R ने ₹5,000 और निवेश किए। यदि वार्षिक लाभ ₹37,200 है, तो P का हिस्सा ज्ञात कीजिए।",
+    options: ["(A) ₹8,800", "(B) ₹9,200", "(C) ₹8,400", "(D) ₹9,600", "(E) ₹10,200"], correct: 0
+  },
+  {
+    id: 77, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.77 (Mensuration):</strong> The ratio of length to breadth of a rectangle is 5 : 3. If its perimeter is 128 cm, find the area of a circle whose radius is equal to the breadth of this rectangle.",
+    text_hi: "<strong>प्र.77 (क्षेत्रमिति):</strong> एक आयत की लंबाई और चौड़ाई का अनुपात 5 : 3 है। यदि इसका परिमाप 128 सेमी है, तो उस वृत्त का क्षेत्रफल ज्ञात कीजिए जिसकी त्रिज्या इस आयत की चौड़ाई के बराबर है।",
+    options: ["(A) 1810.28 cm²", "(B) 1750.5 cm²", "(C) 1900 cm²", "(D) 1680 cm²", "(E) 1840 cm²"], correct: 0
+  },
+  {
+    id: 78, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.78 (Mixture & Alligation):</strong> A vessel contains 90 liters of mixture of milk and water in ratio 7 : 2. If 18 liters of mixture is replaced by 18 liters of pure water, what is the new ratio of milk to water?",
+    text_hi: "<strong>प्र.78 (मिश्रण):</strong> एक बर्तन में दूध और पानी का 90 लीटर मिश्रण 7 : 2 के अनुपात में है। यदि 18 लीटर मिश्रण निकालकर उसके स्थान पर 18 लीटर शुद्ध पानी मिला दिया जाए, तो नया अनुपात क्या होगा?",
+    options: ["(A) 7 : 5", "(B) 14 : 11", "(C) 8 : 5", "(D) 7 : 4", "(E) 9 : 5"], correct: 1
+  },
+  {
+    id: 79, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.79 (Boats & Streams):</strong> A boat takes 4 hours to travel 48 km downstream and 6 hours to travel 36 km upstream. What is the speed of the current?",
+    text_hi: "<strong>प्र.79 (नाव एवं धारा):</strong> एक नाव को धारा के अनुकूल 48 km जाने में 4 घंटे और धारा के प्रतिकूल 36 km जाने में 6 घंटे लगते हैं। धारा की गति ज्ञात कीजिए।",
+    options: ["(A) 3 km/hr", "(B) 2.5 km/hr", "(C) 4 km/hr", "(D) 2 km/hr", "(E) 3.5 km/hr"], correct: 0
+  },
+  {
+    id: 80, sec: "Quantitative Aptitude",
+    text_en: "<strong>Q.80 (Probability):</strong> A bag contains 5 red balls, 4 green balls, and 3 blue balls. If two balls are drawn at random without replacement, find the probability that both balls are of the same color.",
+    text_hi: "<strong>प्र.80 (प्रायिकता):</strong> एक थैले में 5 लाल, 4 हरी और 3 नीली गेंदें हैं। यदि बिना प्रतिस्थापन के यादृच्छिक रूप से दो गेंदें निकाली जाती हैं, तो दोनों गेंदों के एक ही रंग के होने की प्रायिकता क्या है?",
+    options: ["(A) 19/66", "(B) 17/66", "(C) 7/22", "(D) 5/18", "(E) 23/66"], correct: 0
+  }
+];
+
 const channel = new BroadcastChannel('bwm_exam_bus');
 function getDB(k, fallback) { return JSON.parse(localStorage.getItem('bwm_' + k)) || fallback; }
 function setDB(k, val) { localStorage.setItem('bwm_' + k, JSON.stringify(val)); channel.postMessage({ type: 'SYNC' }); }
@@ -472,7 +956,6 @@ function startCandidateTest() {
   activeQuestions = questionsDb[cand.testId] || questionsDb["rrb_clerk_01"] || full80HighLevelQuestions;
   if(activeQuestions.length === 0) return alert("No questions uploaded yet for this test!");
 
-  // Mark student as LIVE for Admin Dashboard Real-Time Monitoring
   activeCand.isLive = true;
   setDB('candidates', candidates);
 
@@ -609,7 +1092,7 @@ function submitTestNow() {
   candidates[activeCand.regNo] = activeCand;
   setDB('candidates', candidates);
 
-  alert(`Test Submitted Successfully!\nTotal Questions: ${activeQuestions.length}\nAttempted: ${correct + wrong}\nCorrect: ${correct}\nScore: ${netScore.toFixed(2)} / 80.00`);
+  alert(`Test Submitted Successfully!\nTotal Questions: ${activeQuestions.length}\nAttempted: ${correct + wrong}\nScore: ${netScore.toFixed(2)}`);
   navigate('result');
 }
 
