@@ -45,7 +45,7 @@
   .btn-enter-mega { background: #dc2626; color: #fff; }
   .btn-enter-mocks { background: var(--navy-blue); color: #fff; }
 
-  /* 10 Mocks Cards */
+  /* 10 Mocks Sub-Portal Cards */
   .mocks-grid-view { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-top: 15px; }
   .mock-card { border: 1px solid #cbd5e1; border-radius: 6px; padding: 16px; background: #f8fafc; display: flex; flex-direction: column; justify-content: space-between; }
   .mock-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
@@ -61,7 +61,7 @@
   .btn-analytics { background: #0284c7; color: #fff; }
   .btn-reattempt { background: #64748b; color: #fff; }
 
-  /* Mega Menu Buttons */
+  /* Mega Test Specific Actions */
   .mega-menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-top: 20px; }
   .mega-box-btn { padding: 18px; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; text-align: center; cursor: pointer; transition: 0.2s; font-weight: bold; }
   .mega-box-btn:hover { background: #f1f5f9; border-color: var(--navy-blue); }
@@ -151,7 +151,7 @@
 
 <main class="layout-container">
 
-  <!-- 1. HOME SCREEN -->
+  <!-- 1. HOME SCREEN: SEPARATE TILES -->
   <section id="screen-home" class="page-view">
     <div class="box-card" style="text-align:center; padding: 35px 20px;">
       <h2 style="color:var(--navy-dark); font-size:1.5rem; margin-bottom:8px;">Welcome to Banking With Meenu Portal</h2>
@@ -160,6 +160,7 @@
       </p>
 
       <div class="category-portal-grid">
+        <!-- TILE 1: LIVE MEGA TEST -->
         <div class="cat-tile tile-mega" onclick="showScreen('mega-hub')">
           <div class="cat-icon-circle icon-mega">🏆</div>
           <div class="cat-title" style="color:#b91c1c;">IBPS RRB Clerk Live Mega Test</div>
@@ -169,6 +170,7 @@
           <button class="btn-enter-cat btn-enter-mega">Open Mega Test Portal →</button>
         </div>
 
+        <!-- TILE 2: 10 MOCKS TEST SERIES -->
         <div class="cat-tile" onclick="showScreen('mocks-hub')">
           <div class="cat-icon-circle icon-mocks">📚</div>
           <div class="cat-title" style="color:var(--navy-dark);">IBPS RRB Clerk Full Mock Series</div>
@@ -191,6 +193,7 @@
       <p style="font-size:0.88rem; color:#64748b; margin-bottom:15px;">
         Each mock contains 80 unique high-level questions (40 Reasoning + 40 Quant). Pause anytime and resume exactly from where you stopped with your answered question palette preserved.
       </p>
+
       <div class="mocks-grid-view" id="mockCardsContainer"></div>
     </div>
   </section>
@@ -206,7 +209,7 @@
       <div style="background:#fff1f2; border:1px solid #fecdd3; border-radius:6px; padding:15px; margin-bottom:20px;">
         <h3 style="color:#b91c1c; font-size:1.05rem; margin-bottom:5px;">Live Mega Test Guidelines:</h3>
         <p style="font-size:0.85rem; color:#475569; line-height:1.4;">
-          Candidates must first register via 'Apply Form'. Download your Admit Card using your 6-Digit Registration Number and attempt the test using your Roll Number. Official A4 Scorecards with State &amp; Category Cut-offs will be generated upon result declaration.
+          This is an official centralized simulation. Candidates must first register via <strong>'Apply Form'</strong>. Once released, download your <strong>Admit Card</strong> using your 6-Digit Registration Number and attempt the test using your Roll Number. Official A4 Scorecards with State &amp; Category Cut-offs will be generated upon result declaration.
         </p>
       </div>
 
@@ -235,7 +238,7 @@
     </div>
   </section>
 
-  <!-- 4. MEGA APPLY FORM (WITH COMPLETE 28 STATES + 8 UTs BILINGUAL LIST) -->
+  <!-- 4. MEGA APPLY FORM (WITH COMPLETE BILINGUAL STATES LIST) -->
   <section id="screen-mega-apply" class="page-view" style="display:none;">
     <div class="box-card">
       <div class="box-heading">
@@ -442,7 +445,7 @@
 
       <div id="mockQualificationStatusBox" style="padding:14px; border-radius:6px; margin-bottom:25px; text-align:center; font-size:1.05rem;"></div>
 
-      <h3 style="color:var(--navy-dark); margin: 20px 0 12px 0;">Detailed Question-by-Question Analysis &amp; Solutions (Bilingual):</h3>
+      <h3 style="color:var(--navy-dark); margin: 20px 0 12px 0;">Detailed Question-by-Question Analysis &amp; Solutions:</h3>
       <div id="solutionsListContainer"></div>
     </div>
   </section>
@@ -526,7 +529,7 @@ const highLevel80Questions = [
     text_en: "<strong>Directions (Q. 1-5):</strong> 8 persons (A, B, C, D, E, F, G, H) sit in a straight row facing North. A sits 4th to the left of G. Neither A nor G sits at extreme ends. Only 2 persons sit between G and B. C sits immediate left of B. D sits 2nd to the right of E. H does not sit near G.<br><br><strong>Q.1: Who sits at the extreme right end of the row?</strong>", 
     text_hi: "<strong>निर्देश (प्र. 1-5):</strong> 8 व्यक्ति (A, B, C, D, E, F, G, H) उत्तर की ओर मुख करके पंक्ति में बैठे हैं। A, G के बाएं से चौथे स्थान पर है। A या G छोर पर नहीं हैं। G और B के बीच 2 व्यक्ति हैं। C, B के ठीक बाएं है। D, E के दाएं से दूसरे स्थान पर है। H, G के पास नहीं है।<br><br><strong>प्र.1: पंक्ति के अंतिम दाएं छोर पर कौन बैठा है?</strong>", 
     options_en: ["(A) D", "(B) B", "(C) F", "(D) C", "(E) H"], 
-    options_hi: ["(A) D (डी)", "(B) B (बी)", "(C) F (एफ)", "(D) C (सी)", "(E) H (एच)"], 
+    options_hi: ["(A) D", "(B) B", "(C) F", "(D) C", "(E) H"], 
     correct: 0, 
     sol: "Arrangement from left to right: H - E - A - F - D - C - B - G. Therefore, D positioning leaves D at the extreme right end.\nव्यवस्था बाएं से दाएं: H - E - A - F - D - C - B - G। अतः D अंतिम दाएं छोर पर है।" 
   },
@@ -535,7 +538,7 @@ const highLevel80Questions = [
     text_en: "<strong>Q.2: How many persons sit between A and C?</strong>", 
     text_hi: "<strong>प्र.2: A और C के मध्य कितने व्यक्ति बैठे हैं?</strong>", 
     options_en: ["(A) None", "(B) One", "(C) Two", "(D) Three", "(E) Four"], 
-    options_hi: ["(A) None (कोई नहीं)", "(B) One (एक)", "(C) Two (दो)", "(D) Three (तीन)", "(E) Four (चार)"], 
+    options_hi: ["(A) कोई नहीं", "(B) एक", "(C) दो", "(D) तीन", "(E) चार"], 
     correct: 3, 
     sol: "Between A and C there are exactly 3 persons (F, D, etc.).\nA और C के बीच ठीक 3 व्यक्ति हैं।" 
   },
@@ -544,7 +547,7 @@ const highLevel80Questions = [
     text_en: "<strong>Q.3: What is the position of F with respect to E?</strong>", 
     text_hi: "<strong>प्र.3: E के संदर्भ में F का स्थान क्या है?</strong>", 
     options_en: ["(A) 2nd to the Right", "(B) Immediate Right", "(C) 3rd to the Left", "(D) Immediate Left", "(E) 2nd to the Left"], 
-    options_hi: ["(A) 2nd to the Right (दाएं से दूसरा)", "(B) Immediate Right (ठीक दाएं)", "(C) 3rd to the Left (बाएं से तीसरा)", "(D) Immediate Left (ठीक बाएं)", "(E) 2nd to the Left (बाएं से दूसरा)"], 
+    options_hi: ["(A) दाएं से दूसरा", "(B) ठीक दाएं", "(C) बाएं से तीसरा", "(D) ठीक बाएं", "(E) बाएं से दूसरा"], 
     correct: 0, 
     sol: "F is positioned two places to the right of E.\nF, E के दाएं से दूसरे स्थान पर है।" 
   },
@@ -562,7 +565,7 @@ const highLevel80Questions = [
     text_en: "<strong>Q.5: Who sits immediate right of G?</strong>", 
     text_hi: "<strong>प्र.5: G के ठीक दाएं कौन बैठा है?</strong>", 
     options_en: ["(A) C", "(B) B", "(C) E", "(D) D", "(E) F"], 
-    options_hi: ["(A) C (सी)", "(B) B (बी)", "(C) E (ई)", "(D) D (डी)", "(E) F (एफ)"], 
+    options_hi: ["(A) C", "(B) B", "(C) E", "(D) D", "(E) F"], 
     correct: 0, 
     sol: "Based on final seating order, C sits immediately right of G.\nअंतिम व्यवस्था के अनुसार G के ठीक दाएं C बैठा है।" 
   },
@@ -571,7 +574,7 @@ const highLevel80Questions = [
     text_en: "<strong>Statements:</strong> Only a few Circles are Squares. All Squares are Triangles. No Triangle is Rectangle.<br><strong>Conclusions:</strong> I. Some Circles are not Rectangles. II. All Squares can never be Rectangles.", 
     text_hi: "<strong>कथन:</strong> केवल कुछ Circle, Square हैं। सभी Square, Triangle हैं। कोई Triangle, Rectangle नहीं है।<br><strong>निष्कर्ष:</strong> I. कुछ Circle, Rectangle नहीं हैं। II. सभी Square कभी Rectangle नहीं हो सकते।", 
     options_en: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II follows", "(D) Neither I nor II follows", "(E) Both I and II follow"], 
-    options_hi: ["(A) केवल निष्कर्ष I अनुसरण करता है / Only I follows", "(B) केवल निष्कर्ष II अनुसरण करता है / Only II follows", "(C) या तो I या II अनुसरण करता है / Either I or II", "(D) न तो I और न ही II / Neither I nor II", "(E) दोनों I और II अनुसरण करते हैं / Both I & II follow"], 
+    options_hi: ["(A) केवल निष्कर्ष I अनुसरण करता है", "(B) केवल निष्कर्ष II अनुसरण करता है", "(C) या तो I या II अनुसरण करता है", "(D) न तो I और न ही II", "(E) दोनों I और II अनुसरण करते हैं"], 
     correct: 4, 
     sol: "Part of circle which is square/triangle cannot be rectangle, so I holds. Squares are inside triangles and no triangle is rectangle, so II holds.\nचूंकि कुछ वृत्त वर्ग/त्रिभुज हैं और कोई त्रिभुज आयत नहीं है, अतः दोनों निष्कर्ष सत्य हैं।" 
   },
@@ -580,7 +583,7 @@ const highLevel80Questions = [
     text_en: "<strong>Statements:</strong> Only a few Rivers are Lakes. Some Lakes are Oceans. All Oceans are Ponds.<br><strong>Conclusions:</strong> I. All Rivers being Lake is a possibility. II. Some Ponds are Lakes.", 
     text_hi: "<strong>कथन:</strong> केवल कुछ River, Lake हैं। कुछ Lake, Ocean हैं। सभी Ocean, Pond हैं।<br><strong>निष्कर्ष:</strong> I. सभी River के Lake होने की संभावना है। II. कुछ Pond, Lake हैं।", 
     options_en: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II follows", "(D) Neither I nor II follows", "(E) Both I and II follow"], 
-    options_hi: ["(A) केवल I / Only I", "(B) केवल II / Only II", "(C) या तो I या II / Either I or II", "(D) न तो I न II / Neither I nor II", "(E) दोनों / Both"], 
+    options_hi: ["(A) केवल I", "(B) केवल II", "(C) या तो I या II", "(D) न तो I न II", "(E) दोनों"], 
     correct: 1, 
     sol: "'Only a few Rivers are Lakes' means All Rivers can never be Lakes. Hence I is false. Since some lakes are oceans and all oceans are ponds, some ponds are lakes is true." 
   },
@@ -589,7 +592,7 @@ const highLevel80Questions = [
     text_en: "<strong>Statements:</strong> No Tree is Plant. All Plants are Herbs. Only a few Herbs are Shrubs.<br><strong>Conclusions:</strong> I. Some Herbs are not Trees. II. All Trees being Shrubs is a possibility.", 
     text_hi: "<strong>कथन:</strong> कोई Tree, Plant नहीं है। सभी Plant, Herb हैं। केवल कुछ Herb, Shrub हैं।<br><strong>निष्कर्ष:</strong> I. कुछ Herb, Tree नहीं हैं। II. सभी Tree के Shrub होने की संभावना है।", 
     options_en: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II follows", "(D) Neither I nor II follows", "(E) Both I and II follow"], 
-    options_hi: ["(A) केवल I / Only I", "(B) केवल II / Only II", "(C) या तो I या II / Either I or II", "(D) न तो I न II / Neither I nor II", "(E) दोनों / Both"], 
+    options_hi: ["(A) केवल I", "(B) केवल II", "(C) या तो I या II", "(D) न तो I न II", "(E) दोनों"], 
     correct: 4, 
     sol: "Part of Herbs that are Plants can never be Trees (I follows). There is no negative restriction between Tree and Shrub, so possibility holds (II follows)." 
   },
@@ -598,7 +601,7 @@ const highLevel80Questions = [
     text_en: "<strong>Statements:</strong> Only a few Blue are Green. All Green are Yellow. No Yellow is Black.<br><strong>Conclusions:</strong> I. No Green is Black. II. Some Blue are not Yellow.", 
     text_hi: "<strong>कथन:</strong> केवल कुछ Blue, Green हैं। सभी Green, Yellow हैं। कोई Yellow, Black नहीं है।<br><strong>निष्कर्ष:</strong> I. कोई Green, Black नहीं है। II. कुछ Blue, Yellow नहीं हैं।", 
     options_en: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II follows", "(D) Neither I nor II follows", "(E) Both I and II follow"], 
-    options_hi: ["(A) केवल I / Only I", "(B) केवल II / Only II", "(C) या तो I या II / Either I or II", "(D) न तो I न II / Neither I nor II", "(E) दोनों / Both"], 
+    options_hi: ["(A) केवल I", "(B) केवल II", "(C) या तो I या II", "(D) न तो I न II", "(E) दोनों"], 
     correct: 0, 
     sol: "Green is fully inside Yellow and no Yellow is Black, so no Green is Black (I holds). All Blue being Yellow is possible, so definite conclusion II fails." 
   },
@@ -607,7 +610,7 @@ const highLevel80Questions = [
     text_en: "<strong>Statements:</strong> All Mobile are Laptop. Only a few Laptop are Tablet. No Tablet is Watch.<br><strong>Conclusions:</strong> I. Some Laptop are not Watch. II. All Mobile being Tablet is a possibility.", 
     text_hi: "<strong>कथन:</strong> सभी Mobile, Laptop हैं। केवल कुछ Laptop, Tablet हैं। कोई Tablet, Watch नहीं है।<br><strong>निष्कर्ष:</strong> I. कुछ Laptop, Watch नहीं हैं। II. सभी मोबाइल के Tablet होने की संभावना है।", 
     options_en: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II follows", "(D) Neither I nor II follows", "(E) Both I and II follow"], 
-    options_hi: ["(A) केवल I / Only I", "(B) केवल II / Only II", "(C) या तो I या II / Either I or II", "(D) न तो I न II / Neither I nor II", "(E) दोनों / Both"], 
+    options_hi: ["(A) केवल I", "(B) केवल II", "(C) या तो I या II", "(D) न तो I न II", "(E) दोनों"], 
     correct: 4, 
     sol: "The part of laptop that is tablet cannot be watch (I follows). Mobiles have no direct negative link with Tablet, so possibility holds (II follows)." 
   },
@@ -616,7 +619,7 @@ const highLevel80Questions = [
     text_en: "8 persons (P, Q, R, S, T, U, V, W) sit around a circular table facing center. P sits 3rd to right of W. 2 persons sit between W and R. Q sits 2nd to left of R. V is not neighbor of P. Who sits opposite to P?", 
     text_hi: "8 व्यक्ति गोल मेज पर केंद्र की ओर मुख करके बैठे हैं। P, W के दाएं से तीसरे स्थान पर है। W और R के बीच 2 व्यक्ति हैं। Q, R के बाएं से दूसरे स्थान पर है। V, P का पड़ोसी नहीं है। P के विपरीत कौन बैठा है?", 
     options_en: ["(A) Q", "(B) T", "(C) U", "(D) R", "(E) V"], 
-    options_hi: ["(A) Q (क्यु)", "(B) T (टी)", "(C) U (यू)", "(D) R (आर)", "(E) V (वी)"], 
+    options_hi: ["(A) Q", "(B) T", "(C) U", "(D) R", "(E) V"], 
     correct: 0, 
     sol: "In 8-person circular symmetry, Q occupies the position directly opposite to P." 
   },
@@ -634,7 +637,7 @@ const highLevel80Questions = [
     text_en: "How many persons sit between T and R counted from left of T?", 
     text_hi: "T के बाएं से गिनने पर T और R के मध्य कितने व्यक्ति हैं?", 
     options_en: ["(A) One", "(B) Two", "(C) Three", "(D) Four", "(E) More than four"], 
-    options_hi: ["(A) One (एक)", "(B) Two (दो)", "(C) Three (तीन)", "(D) Four (चार)", "(E) More than four (चार से अधिक)"], 
+    options_hi: ["(A) एक", "(B) दो", "(C) तीन", "(D) चार", "(E) चार से अधिक"], 
     correct: 1, 
     sol: "Counting clockwise (left of T) yields 2 persons between T and R." 
   },
@@ -661,7 +664,7 @@ const highLevel80Questions = [
     text_en: "<strong>Statements:</strong> K ≥ L > M = N; N ≥ O > P<br><strong>Conclusions:</strong> I. K > N &nbsp;&nbsp; II. L > P", 
     text_hi: "<strong>कथन:</strong> K ≥ L > M = N; N ≥ O > P<br><strong>निष्कर्ष:</strong> I. K > N &nbsp;&nbsp; II. L > P", 
     options_en: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II", "(D) Neither I nor II", "(E) Both I and II follow"], 
-    options_hi: ["(A) केवल I / Only I", "(B) केवल II / Only II", "(C) या तो I या II / Either I or II", "(D) न तो I न II / Neither I nor II", "(E) दोनों / Both"], 
+    options_hi: ["(A) केवल I", "(B) केवल II", "(C) या तो I या II", "(D) न तो I न II", "(E) दोनों"], 
     correct: 4, 
     sol: "K ≥ L > M = N implies K > N (I holds). L > M = N ≥ O > P implies L > P (II holds)." 
   },
@@ -670,7 +673,7 @@ const highLevel80Questions = [
     text_en: "<strong>Statements:</strong> Z < Y ≤ X = W; W < V ≤ U<br><strong>Conclusions:</strong> I. Z < W &nbsp;&nbsp; II. X < U", 
     text_hi: "<strong>कथन:</strong> Z < Y ≤ X = W; W < V ≤ U<br><strong>निष्कर्ष:</strong> I. Z < W &nbsp;&nbsp; II. X < U", 
     options_en: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II", "(D) Neither I nor II", "(E) Both I and II follow"], 
-    options_hi: ["(A) केवल I / Only I", "(B) केवल II / Only II", "(C) या तो I या II / Either I or II", "(D) न तो I न II / Neither I nor II", "(E) दोनों / Both"], 
+    options_hi: ["(A) केवल I", "(B) केवल II", "(C) या तो I या II", "(D) न तो I न II", "(E) दोनों"], 
     correct: 4, 
     sol: "Z < Y ≤ X = W gives Z < W. X = W < V ≤ U gives X < U. Both follow." 
   },
@@ -679,7 +682,7 @@ const highLevel80Questions = [
     text_en: "<strong>Statements:</strong> G ≤ H = I < J; J ≤ K < L<br><strong>Conclusions:</strong> I. G < J &nbsp;&nbsp; II. I < L", 
     text_hi: "<strong>कथन:</strong> G ≤ H = I < J; J ≤ K < L<br><strong>निष्कर्ष:</strong> I. G < J &nbsp;&nbsp; II. I < L", 
     options_en: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II", "(D) Neither I nor II", "(E) Both I and II follow"], 
-    options_hi: ["(A) केवल I / Only I", "(B) केवल II / Only II", "(C) या तो I या II / Either I or II", "(D) न तो I न II / Neither I nor II", "(E) दोनों / Both"], 
+    options_hi: ["(A) केवल I", "(B) केवल II", "(C) या तो I या II", "(D) न तो I न II", "(E) दोनों"], 
     correct: 4, 
     sol: "G ≤ H = I < J implies G < J. I < J ≤ K < L implies I < L. Both follow." 
   },
@@ -688,7 +691,7 @@ const highLevel80Questions = [
     text_en: "<strong>Statements:</strong> D > E ≥ F = G; G < H ≤ I<br><strong>Conclusions:</strong> I. D > G &nbsp;&nbsp; II. E < I", 
     text_hi: "<strong>कथन:</strong> D > E ≥ F = G; G < H ≤ I<br><strong>निष्कर्ष:</strong> I. D > G &nbsp;&nbsp; II. E < I", 
     options_en: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II", "(D) Neither I nor II", "(E) Both I and II follow"], 
-    options_hi: ["(A) केवल I / Only I", "(B) केवल II / Only II", "(C) या तो I या II / Either I or II", "(D) न तो I न II / Neither I nor II", "(E) दोनों / Both"], 
+    options_hi: ["(A) केवल I", "(B) केवल II", "(C) या तो I या II", "(D) न तो I न II", "(E) दोनों"], 
     correct: 0, 
     sol: "D > E ≥ F = G gives D > G (I holds). For E and I, opposite signs (≥ and <) prevent relation (II fails)." 
   },
@@ -697,7 +700,7 @@ const highLevel80Questions = [
     text_en: "<strong>Statements:</strong> P ≤ Q < R = S; T > S ≥ U<br><strong>Conclusions:</strong> I. P < T &nbsp;&nbsp; II. R ≥ U", 
     text_hi: "<strong>कथन:</strong> P ≤ Q < R = S; T > S ≥ U<br><strong>निष्कर्ष:</strong> I. P < T &nbsp;&nbsp; II. R ≥ U", 
     options_en: ["(A) Only I follows", "(B) Only II follows", "(C) Either I or II", "(D) Neither I nor II", "(E) Both I and II follow"], 
-    options_hi: ["(A) केवल I / Only I", "(B) केवल II / Only II", "(C) या तो I या II / Either I or II", "(D) न तो I न II / Neither I nor II", "(E) दोनों / Both"], 
+    options_hi: ["(A) केवल I", "(B) केवल II", "(C) या तो I या II", "(D) न तो I न II", "(E) दोनों"], 
     correct: 4, 
     sol: "P ≤ Q < R = S < T implies P < T. R = S ≥ U implies R ≥ U. Both follow." 
   },
@@ -715,7 +718,7 @@ const highLevel80Questions = [
     text_en: "How many persons live between P and S?", 
     text_hi: "P और S के मध्य कितने व्यक्ति रहते हैं?", 
     options_en: ["(A) None", "(B) One", "(C) Two", "(D) Three", "(E) Four"], 
-    options_hi: ["(A) None", "(B) One", "(C) Two", "(D) Three", "(E) Four"], 
+    options_hi: ["(A) कोई नहीं", "(B) एक", "(C) दो", "(D) तीन", "(E) चार"], 
     correct: 3, 
     sol: "Exactly three persons reside between floors of P and S." 
   },
@@ -724,7 +727,7 @@ const highLevel80Questions = [
     text_en: "Which floor does Q live on?", 
     text_hi: "Q किस मंजिल पर रहता है?", 
     options_en: ["(A) Floor 6", "(B) Floor 4", "(C) Floor 5", "(D) Floor 7", "(E) Floor 3"], 
-    options_hi: ["(A) Floor 6", "(B) Floor 4", "(C) Floor 5", "(D) Floor 7", "(E) Floor 3"], 
+    options_hi: ["(A) मंजिल 6", "(B) मंजिल 4", "(C) मंजिल 5", "(D) मंजिल 7", "(E) मंजिल 3"], 
     correct: 0, 
     sol: "Q resides on Floor 6." 
   },
@@ -805,7 +808,7 @@ const highLevel80Questions = [
     text_en: "Point P is 6m South of Point O. Point Q is 15m East of Point P. In which direction is Point Q with respect to Point N?", 
     text_hi: "बिंदु P, बिंदु O के 6m दक्षिण में है। बिंदु Q, बिंदु P के 15m पूर्व में है। बिंदु N के संदर्भ में बिंदु Q किस दिशा में है?", 
     options_en: ["(A) South-East", "(B) North-East", "(C) South-West", "(D) North-West", "(E) East"], 
-    options_hi: ["(A) South-East (दक्षिण-पूर्व)", "(B) North-East (उत्तर-पूर्व)", "(C) South-West (दक्षिण-पश्चिम)", "(D) North-West (उत्तर-पश्चिम)", "(E) East (पूर्व)"], 
+    options_hi: ["(A) दक्षिण-पूर्व (South-East)", "(B) उत्तर-पूर्व (North-East)", "(C) दक्षिण-पश्चिम (South-West)", "(D) उत्तर-पश्चिम (North-West)", "(E) पूर्व (East)"], 
     correct: 0, 
     sol: "N is (0,0), O is (-9,0), P is (-9,-6). Q is (-9+15, -6) = (6,-6). Hence South-East of N." 
   },
@@ -823,7 +826,7 @@ const highLevel80Questions = [
     text_en: "K is father of L. L is brother of M. M is mother of N. P is sister of N. How is P related to L?", 
     text_hi: "K, L का पिता है। L, M का भाई है। M, N की माता है। P, N की बहन है। P का L से क्या संबंध है?", 
     options_en: ["(A) Daughter", "(B) Sister", "(C) Niece", "(D) Mother", "(E) Aunt"], 
-    options_hi: ["(A) Daughter (पुत्री)", "(B) Sister (बहन)", "(C) Niece (भतीजी/भांजी)", "(D) Mother (माता)", "(E) Aunt (चाची/मामी)"], 
+    options_hi: ["(A) पुत्री", "(B) बहन", "(C) भतीजी/भांजी", "(D) माता", "(E) चाची/मामी"], 
     correct: 2, 
     sol: "P is the daughter of M, and L is M's brother. So P is niece of L." 
   },
@@ -832,7 +835,7 @@ const highLevel80Questions = [
     text_en: "R is husband of M. How is R related to K?", 
     text_hi: "R, M का पति है। R का K से क्या संबंध है?", 
     options_en: ["(A) Son", "(B) Son-in-law", "(C) Brother", "(D) Nephew", "(E) Father"], 
-    options_hi: ["(A) Son (पुत्र)", "(B) Son-in-law (दामाद)", "(C) Brother (भाई)", "(D) Nephew (भतीजा)", "(E) Father (पिता)"], 
+    options_hi: ["(A) पुत्र", "(B) दामाद", "(C) भाई", "(D) भतीजा", "(E) पिता"], 
     correct: 1, 
     sol: "M is K's daughter, and R is M's husband. So R is son-in-law of K." 
   },
@@ -841,7 +844,7 @@ const highLevel80Questions = [
     text_en: "Q is father-in-law of M. How is Q related to R?", 
     text_hi: "Q, M का ससुर है। Q का R से क्या संबंध है?", 
     options_en: ["(A) Father", "(B) Uncle", "(C) Brother", "(D) Grandfather", "(E) Son"], 
-    options_hi: ["(A) Father (पिता)", "(B) Uncle (चाचा)", "(C) Brother (भाई)", "(D) Grandfather (दादा)", "(E) Son (पुत्र)"], 
+    options_hi: ["(A) पिता", "(B) चाचा", "(C) भाई", "(D) दादा", "(E) पुत्र"], 
     correct: 0, 
     sol: "Father-in-law of M is the father of M's husband R." 
   },
@@ -877,7 +880,7 @@ const highLevel80Questions = [
     text_en: "How many pairs of letters in 'CLEARANCE' have as many letters between them as in English alphabet?", 
     text_hi: "शब्द 'CLEARANCE' में ऐसे कितने अक्षर युग्म हैं जिनके बीच उतने ही अक्षर हैं जितने वर्णमाला में होते हैं?", 
     options_en: ["(A) None", "(B) One", "(C) Two", "(D) Three", "(E) More than three"], 
-    options_hi: ["(A) None (कोई नहीं)", "(B) One (एक)", "(C) Two (दो)", "(D) Three (तीन)", "(E) More than three (तीन से अधिक)"], 
+    options_hi: ["(A) कोई नहीं", "(B) एक", "(C) दो", "(D) तीन", "(E) तीन से अधिक"], 
     correct: 3, 
     sol: "Pairs: C-E, E-A (backward), L-N." 
   },
@@ -1329,7 +1332,7 @@ function render10MocksCards() {
   }
 }
 
-/* TCS iON EXAM ENGINE (BILINGUAL OPTIONS SUPPORTED) */
+/* TCS iON EXAM ENGINE (STRICT BILINGUAL OPTIONS FILTERING) */
 let activeMode = 'mock'; 
 let activeMockId = 1;
 let currentExamQuestions = [];
@@ -1449,28 +1452,28 @@ function renderActiveQuestion() {
     b.classList.toggle('active', b.innerText.includes(q.sec));
   });
 
+  // Question Text Rendering based on selected language
   let textHtml = '';
-  if (lang === 'en') textHtml = `<div>${q.text_en}</div>`;
-  else if (lang === 'hi') textHtml = `<div style="color:#004d80;">${q.text_hi}</div>`;
-  else textHtml = `<div>${q.text_en}</div><hr style="margin:10px 0; border:0; border-top:1px dashed #cbd5e1;"><div style="color:#004d80;">${q.text_hi}</div>`;
+  if (lang === 'en') {
+    textHtml = `<div>${q.text_en}</div>`;
+  } else if (lang === 'hi') {
+    textHtml = `<div style="color:#004d80;">${q.text_hi}</div>`;
+  } else {
+    textHtml = `<div>${q.text_en}</div><hr style="margin:10px 0; border:0; border-top:1px dashed #cbd5e1;"><div style="color:#004d80;">${q.text_hi}</div>`;
+  }
 
-  // Render Bilingual Options based on selected exam language mode
+  // Strict Options Filtering according to language selection
   let optHtml = '<div style="margin-top:15px;">';
-  const optsToDisplay = (lang === 'hi') ? q.options_hi : q.options_en;
+  let targetOpts = q.options_en;
+  if (lang === 'hi') targetOpts = q.options_hi;
+  else if (lang === 'both') targetOpts = q.options_en.map((enOpt, i) => `${enOpt} &nbsp;|&nbsp; <span style="color:#004d80;">${q.options_hi[i]}</span>`);
 
-  optsToDisplay.forEach((optText, idx) => {
+  targetOpts.forEach((optText, idx) => {
     const isChecked = sessionAnswers[currentQuestionIndex] === idx ? 'checked' : '';
-    let displayOpt = optText;
-    
-    // If Bilingual, show both English and Hindi options clearly
-    if (lang === 'both') {
-      displayOpt = `${q.options_en[idx]} &nbsp;|&nbsp; <span style="color:#004d80;">${q.options_hi[idx]}</span>`;
-    }
-
     optHtml += `
       <label class="tcs-opt-item">
         <input type="radio" name="activeRadioOpt" value="${idx}" ${isChecked} onchange="sessionAnswers[${currentQuestionIndex}]=${idx}">
-        <span>${displayOpt}</span>
+        <span>${optText}</span>
       </label>
     `;
   });
@@ -1752,7 +1755,6 @@ function onMegaRegister(e) {
   e.target.reset();
 }
 
-/* MEGA ADMIT CARD */
 function updateAdmitNotice() {
   document.getElementById('admitNoticeBox').innerHTML = `
     <strong>Call Letter Notice:</strong><br>Online Call Letters for Live Mega Test are currently available. Please enter your 6-Digit Registration Number to download.
