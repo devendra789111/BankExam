@@ -151,7 +151,7 @@
 
 <main class="layout-container">
 
-  <!-- 1. HOME SCREEN: SEPARATE TILES -->
+  <!-- 1. HOME SCREEN -->
   <section id="screen-home" class="page-view">
     <div class="box-card" style="text-align:center; padding: 35px 20px;">
       <h2 style="color:var(--navy-dark); font-size:1.5rem; margin-bottom:8px;">Welcome to Banking With Meenu Portal</h2>
@@ -160,7 +160,6 @@
       </p>
 
       <div class="category-portal-grid">
-        <!-- TILE 1: LIVE MEGA TEST -->
         <div class="cat-tile tile-mega" onclick="showScreen('mega-hub')">
           <div class="cat-icon-circle icon-mega">🏆</div>
           <div class="cat-title" style="color:#b91c1c;">IBPS RRB Clerk Live Mega Test</div>
@@ -170,7 +169,6 @@
           <button class="btn-enter-cat btn-enter-mega">Open Mega Test Portal →</button>
         </div>
 
-        <!-- TILE 2: 10 MOCKS TEST SERIES -->
         <div class="cat-tile" onclick="showScreen('mocks-hub')">
           <div class="cat-icon-circle icon-mocks">📚</div>
           <div class="cat-title" style="color:var(--navy-dark);">IBPS RRB Clerk Full Mock Series</div>
@@ -193,7 +191,6 @@
       <p style="font-size:0.88rem; color:#64748b; margin-bottom:15px;">
         Each mock contains 80 unique high-level questions (40 Reasoning + 40 Quant). Pause anytime and resume exactly from where you stopped with your answered question palette preserved.
       </p>
-
       <div class="mocks-grid-view" id="mockCardsContainer"></div>
     </div>
   </section>
@@ -209,7 +206,7 @@
       <div style="background:#fff1f2; border:1px solid #fecdd3; border-radius:6px; padding:15px; margin-bottom:20px;">
         <h3 style="color:#b91c1c; font-size:1.05rem; margin-bottom:5px;">Live Mega Test Guidelines:</h3>
         <p style="font-size:0.85rem; color:#475569; line-height:1.4;">
-          This is an official centralized simulation. Candidates must first register via <strong>'Apply Form'</strong>. Once released, download your <strong>Admit Card</strong> using your 6-Digit Registration Number and attempt the test using your Roll Number. Official A4 Scorecards with State &amp; Category Cut-offs will be generated upon result declaration.
+          Candidates must first register via 'Apply Form'. Download your Admit Card using your 6-Digit Registration Number and attempt the test using your Roll Number. Official A4 Scorecards with State &amp; Category Cut-offs will be generated upon result declaration.
         </p>
       </div>
 
@@ -238,7 +235,7 @@
     </div>
   </section>
 
-  <!-- 4. MEGA APPLY FORM (WITH COMPLETE BILINGUAL STATES LIST) -->
+  <!-- 4. MEGA APPLY FORM (WITH COMPLETE 28 STATES + 8 UTs BILINGUAL LIST) -->
   <section id="screen-mega-apply" class="page-view" style="display:none;">
     <div class="box-card">
       <div class="box-heading">
@@ -468,7 +465,7 @@
       <div class="q-meta">
         <strong id="tcsQHeading">Question No. 1</strong>
         <div>
-          Question Language / प्रश्न भाषा: 
+          Question Language / भाषा चयन: 
           <select id="tcsLangSelector" onchange="renderActiveQuestion()">
             <option value="both">Bilingual (English &amp; हिन्दी)</option>
             <option value="hi">हिन्दी Only</option>
@@ -1332,7 +1329,7 @@ function render10MocksCards() {
   }
 }
 
-/* TCS iON EXAM ENGINE (STRICT BILINGUAL OPTIONS FILTERING) */
+/* TCS iON EXAM ENGINE (STRICT BILINGUAL OPTIONS FILTERING & AUTO-SAVE REFRESH PROTECTION) */
 let activeMode = 'mock'; 
 let activeMockId = 1;
 let currentExamQuestions = [];
@@ -1342,21 +1339,54 @@ let sessionStatus = {};
 let sessionTimerSec = 45 * 60;
 let sessionTimerInterval = null;
 
+// Auto-Save active state to localStorage so page refresh doesn't lose progress
+window.addEventListener('beforeunload', () => {
+  if (document.getElementById('examConsole').style.display === 'flex') {
+    sessionStatus[currentQuestionIndex] = sessionAnswers[currentQuestionIndex] !== undefined ? 'ans' : 'not-ans';
+    if (activeMode === 'mock') {
+      mockTestsProgress[activeMockId].status = 'Paused';
+      mockTestsProgress[activeMockId].remainingSec = sessionTimerSec;
+      mockTestsProgress[activeMockId].lastQuestionIndex = currentQuestionIndex;
+      mockTestsProgress[activeMockId].answers = sessionAnswers;
+      mockTestsProgress[activeMockId].sessionStatus = sessionStatus;
+      setStorage('mock_progress', mockTestsProgress);
+    } else {
+      let c = candidateStore[activeMockId];
+      if (c) {
+        c.megaStatus = 'Paused';
+        c.remainingSec = sessionTimerSec;
+        c.lastQuestionIndex = currentQuestionIndex;
+        c.answers = sessionAnswers;
+        c.sessionStatus = sessionStatus;
+        candidateStore[activeMockId] = c;
+        setStorage('candidates', candidateStore);
+      }
+    }
+  }
+});
+
 function launchMockSession(mockId, mode) {
   activeMode = 'mock';
   activeMockId = mockId;
   currentExamQuestions = highLevel80Questions;
 
-  if (mode === 'reattempt' || mode === 'start') {
+  // Check if there's an ongoing active session saved or if user clicks Resume
+  const savedMock = mockTestsProgress[mockId];
+  if (mode === 'resume' || (savedMock && savedMock.status === 'Paused' && mode === 'start')) {
+    sessionTimerSec = savedMock.remainingSec || (45 * 60);
+    currentQuestionIndex = savedMock.lastQuestionIndex || 0; 
+    sessionAnswers = savedMock.answers || {};
+    sessionStatus = savedMock.sessionStatus || {}; 
+  } else if (mode === 'reattempt') {
     sessionTimerSec = 45 * 60;
     currentQuestionIndex = 0;
     sessionAnswers = {};
     sessionStatus = {};
-  } else if (mode === 'resume') {
-    sessionTimerSec = mockTestsProgress[mockId].remainingSec;
-    currentQuestionIndex = mockTestsProgress[mockId].lastQuestionIndex || 0; 
-    sessionAnswers = mockTestsProgress[mockId].answers || {};
-    sessionStatus = mockTestsProgress[mockId].sessionStatus || {}; 
+  } else {
+    sessionTimerSec = 45 * 60;
+    currentQuestionIndex = 0;
+    sessionAnswers = {};
+    sessionStatus = {};
   }
 
   document.getElementById('btnPauseTest').style.display = 'inline-block';
@@ -1452,7 +1482,7 @@ function renderActiveQuestion() {
     b.classList.toggle('active', b.innerText.includes(q.sec));
   });
 
-  // Question Text Rendering based on selected language
+  // Strict Question Text Language Filtering
   let textHtml = '';
   if (lang === 'en') {
     textHtml = `<div>${q.text_en}</div>`;
@@ -1462,7 +1492,7 @@ function renderActiveQuestion() {
     textHtml = `<div>${q.text_en}</div><hr style="margin:10px 0; border:0; border-top:1px dashed #cbd5e1;"><div style="color:#004d80;">${q.text_hi}</div>`;
   }
 
-  // Strict Options Filtering according to language selection
+  // Strict Options Filtering according to language selection (No accidental mixing)
   let optHtml = '<div style="margin-top:15px;">';
   let targetOpts = q.options_en;
   if (lang === 'hi') targetOpts = q.options_hi;
@@ -1755,6 +1785,7 @@ function onMegaRegister(e) {
   e.target.reset();
 }
 
+/* MEGA ADMIT CARD */
 function updateAdmitNotice() {
   document.getElementById('admitNoticeBox').innerHTML = `
     <strong>Call Letter Notice:</strong><br>Online Call Letters for Live Mega Test are currently available. Please enter your 6-Digit Registration Number to download.
